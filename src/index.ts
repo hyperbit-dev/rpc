@@ -5,9 +5,9 @@ import { Config, Options, RpcError } from './types';
  * Create a RPC Client to connect to a blockchain node.
  * @param config
  * @param {string} config.url Url endpoint to connect to node server
- * @param {string=} config.username RPC username
- * @param {string=} config.password RPC password
- * @param {Objct=} config.httpOptions HTTP options object of values to add to request headers
+ * @param {string=} config.username RPC (optional) - username
+ * @param {string=} config.password RPC (optional) - password
+ * @param {Objct=} config.httpOptions HTTP options (optional) - object of values to add to request headers
  * @example
  * import Client from '@hyperbitjs/rpc';
 
@@ -15,6 +15,12 @@ import { Config, Options, RpcError } from './types';
     url: 'http://127.0.0.1:9050',
     username: 'username',
     password: 'password',
+  });
+
+  client.request('rpc_command', []).then(response => {
+    console.log(response);
+  }).catch(error => {
+    console.log(error);
   });
 */
 export class Client {

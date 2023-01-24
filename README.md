@@ -1,3 +1,5 @@
+![Hyperbit Chains Banner](https://github.com/hyperbit-dev/rpc/raw/master/media/repo-banner.png)
+
 # Hyperbit - RPC
 
 Simple Rpc Client for making requests to blockchain nodes.
