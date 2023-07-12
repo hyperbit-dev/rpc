@@ -1,6 +1,8 @@
 import axios, { Axios } from 'axios';
 import { Config, Options, RpcError } from './types';
 
+export * from './types';
+
 /**
  * Create a RPC Client to connect to a blockchain node.
  * @param config
