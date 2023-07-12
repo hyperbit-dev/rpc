@@ -8,6 +8,7 @@ import { Config, Options, RpcError } from './types';
  * @param {string=} config.username RPC (optional) - username
  * @param {string=} config.password RPC (optional) - password
  * @param {Objct=} config.httpOptions HTTP options (optional) - object of values to add to request headers
+ * @param {string=} config.headers (optional) Object of headers required by other services (e.g. API_key)
  * @example
  * import Client from '@hyperbitjs/rpc';
 
@@ -27,6 +28,7 @@ export class Client {
   private _url: string;
   private _options: Options = {};
   private _instance: Axios = axios.create();
+  private _headers?: Record<string, any>;
 
   constructor(config: Config) {
     this._instance.defaults.validateStatus = status => {
@@ -43,6 +45,7 @@ export class Client {
     );
 
     this._url = config.url;
+    this._headers = config.headers;
 
     if (config.username && config.password) {
       this._options.auth = {
@@ -59,17 +62,34 @@ export class Client {
   }
 
   /**
+   *
+   * @returns
+   */
+  toJSON(): {
+    url: string;
+    options: Options;
+  } {
+    return JSON.parse(
+      JSON.stringify({
+        url: this._url,
+        options: this._options,
+      })
+    );
+  }
+
+  /**
    * Make a RPC request with a method command and payload
    * @param {string} method Name of rpc command.
    * @param {(Object|Array)=} params Data required by rpc command. Typically an object or an array.
    * @returns {Promise}
    */
   request(method: string, params: any = []): Promise<any | RpcError> {
-    const data = {
+    const data: Record<string, any> = {
       jsonrpc: '2.0',
       id: Math.random(),
       method,
       params,
+      ...this._headers,
     };
 
     return this._instance
