@@ -3,7 +3,7 @@ export type Config = {
   username?: string; // rpc username
   password?: string; // rpc password
   httpOptions?: any; // object
-  headers: Record<string, any>;
+  headers?: Record<string, any>;
 };
 
 export type Options = {

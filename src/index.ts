@@ -30,7 +30,7 @@ export class Client {
   private _url: string;
   private _options: Options = {};
   private _instance: Axios = axios.create();
-  private _headers?: Record<string, any>;
+  private _headers?: Config['headers'];
 
   constructor(config: Config) {
     this._instance.defaults.validateStatus = status => {
