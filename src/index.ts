@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios';
+import axios, { Axios, RawAxiosRequestConfig } from 'axios';
 import { Config, Options, RpcError } from './types';
 
 export * from './types';
@@ -85,7 +85,11 @@ export class Client {
    * @param {(Object|Array)=} params Data required by rpc command. Typically an object or an array.
    * @returns {Promise}
    */
-  request(method: string, params: any = []): Promise<any | RpcError> {
+  request(
+    method: string,
+    params: any = [],
+    config: RawAxiosRequestConfig = {}
+  ): Promise<any | RpcError> {
     const data: Record<string, any> = {
       jsonrpc: '2.0',
       id: Math.random(),
@@ -95,7 +99,7 @@ export class Client {
     };
 
     return this._instance
-      .post(this._url, data, this._options)
+      .post(this._url, data, { ...this._options, ...config })
       .then(res => (res.data?.result ? res.data.result : res.data))
       .catch(err => {
         return {
