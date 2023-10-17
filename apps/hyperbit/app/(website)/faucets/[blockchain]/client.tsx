@@ -195,7 +195,7 @@ export default function FaucetClient({ blockchain, balance }: FaucetProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-3 py-2 text-sm text-white duration-300 bg-brand-500 rounded-md hover:bg-brand-600 focus:bg-brand-600 active:bg-brand-600 ease disabled:opacity-50"
+              className="px-3 py-2 text-sm text-white duration-300 rounded-md bg-brand-500 hover:bg-brand-600 focus:bg-brand-600 active:bg-brand-600 ease disabled:opacity-50"
             >
               Request Funds
             </button>
@@ -225,7 +225,7 @@ export default function FaucetClient({ blockchain, balance }: FaucetProps) {
               <p className="mb-2">Transaction ID:</p>
               <Link
                 className="block p-2 duration-300 bg-gray-100 border border-gray-300 rounded text-buttercup-500 hover:bg-brand-500 hover:text-white ease"
-                href={`/explorer/transactions/${response}`}
+                href={`/explorers/${blockchain}/transactions/${response}`}
               >
                 {response}
               </Link>

@@ -71,12 +71,16 @@ export function BlocksTable({ blockchain, blocks }: BlocksTableProps) {
               <ClipboardButton value={blockHeader.hash} />
             </Cell>
             <Cell>
-              <NextLink href={`/explorer/blocks/${blockHeader.hash}`}>
+              <NextLink
+                href={`/explorers/${blockchain}/blocks/${blockHeader.hash}`}
+              >
                 {blockHeader.height}
               </NextLink>
             </Cell>
             <Cell>
-              <NextLink href={`/explorer/blocks/${blockHeader.hash}`}>
+              <NextLink
+                href={`/explorers/${blockchain}/blocks/${blockHeader.hash}`}
+              >
                 {hash}
               </NextLink>
             </Cell>
