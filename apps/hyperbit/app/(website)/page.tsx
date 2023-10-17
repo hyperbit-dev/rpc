@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="overflow-auto">
+    <>
       {/* <section className="py-16">
         <Container>
           <div className="flex flex-wrap">
@@ -224,7 +224,7 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      <section className="py-32 bg-gray-200"></section>
+      {/* <section className="py-32 bg-gray-200"></section>
       <section className="py-16 text-white bg-gray-900">
         <Container>
           <div className="text-center">
@@ -233,64 +233,7 @@ export default function Home() {
             </h2>
           </div>
         </Container>
-      </section>
-      <Container>
-        <h2 className="mb-4 text-xl">Blockchains</h2>
-        <div className="flex flex-col gap-4">
-          {Object.keys(config.chains)
-            .filter((key) => config.chains[key].enabled)
-            .map((key) => {
-              const chain = config.chains[key];
-              return (
-                <div key={key}>
-                  <h3 className="mb-4">
-                    {chain.name} <small>({chain.network})</small>
-                  </h3>
-                  <ul>
-                    <li>
-                      <a
-                        className="text-sm text-brand-500"
-                        href={`//${key}.${window.location.host}/explorer`}
-                      >
-                        Explorer
-                      </a>
-                    </li>
-                    {chain.features.assetsEnabled ? (
-                      <li>
-                        <a
-                          className="text-sm text-brand-500"
-                          href={`//${key}.${window.location.host}/explorer/assets`}
-                        >
-                          Asset Explorer
-                        </a>
-                      </li>
-                    ) : undefined}
-                    {chain.features.masternodesEnabled ? (
-                      <li>
-                        <a
-                          className="text-sm text-brand-500"
-                          href={`//${key}.${window.location.host}/explorer/masternodes`}
-                        >
-                          Masternode Explorer
-                        </a>
-                      </li>
-                    ) : undefined}
-                    {chain.features.faucetEnabled ? (
-                      <li>
-                        <a
-                          className="text-sm text-brand-500"
-                          href={`//${key}.${window.location.host}/faucet`}
-                        >
-                          Faucet
-                        </a>
-                      </li>
-                    ) : undefined}
-                  </ul>
-                </div>
-              );
-            })}
-        </div>
-      </Container>
-    </main>
+      </section> */}
+    </>
   );
 }

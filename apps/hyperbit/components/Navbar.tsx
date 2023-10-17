@@ -12,8 +12,6 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
   const { status } = useSession();
   const sub = subdomain ?? getValidSubdomain();
   const chain = sub ? config.chains[sub] : undefined;
-  const host = window.location.host;
-  const domain = host.includes('.') ? host.split('.')[1] : host;
 
   return (
     <nav className="relative z-20 bg-secondary-500">
@@ -59,10 +57,7 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
           </div>
           <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
             <div className="flex items-center flex-shrink-0 gap-2 font-semibold text-white">
-              <a
-                className="flex items-center gap-2"
-                href="/"
-              >
+              <a className="flex items-center gap-2" href="/">
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +131,7 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
                           >
                             <li>
                               <a
-                                href={`//trvn.${domain}/explorer`}
+                                href="explorers/trvn"
                                 className="block px-2 py-1 text-sm rounded whitespace-nowrap bg-gradient-to-r action:from-blue-400 action:to-blue-500 action:text-white"
                               >
                                 Ravencoin (Testnet)
@@ -144,7 +139,7 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
                             </li>
                             <li>
                               <a
-                                href={`//tevr.${domain}/explorer`}
+                                href="explorers/tevr"
                                 className="block px-2 py-1 text-sm rounded whitespace-nowrap bg-gradient-to-r action:from-blue-400 action:to-blue-500 action:text-white"
                               >
                                 Evrmore (Testnet)
@@ -228,7 +223,7 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
                             </li>
                             <li>
                               <Link
-                                href="faucets/tevr"
+                                href="/faucets/tevr"
                                 className="block px-2 py-1 text-sm rounded whitespace-nowrap bg-gradient-to-r action:from-violet-400 action:to-violet-500 action:text-white"
                               >
                                 Evrmore
