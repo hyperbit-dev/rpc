@@ -1,0 +1,17 @@
+{
+  "name": "Hyperbit",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["inject.js"]
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "Hyperbit",
+    "default_popup": "index.html"
+  }
+}
