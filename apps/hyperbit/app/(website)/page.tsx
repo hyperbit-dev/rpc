@@ -1,7 +1,7 @@
 "use client";
 import { Container } from "@/components";
 import { config } from "@/lib/config";
-import { Button } from "@slipstreamui/react";
+import { Button } from "@hyperbitui/react";
 import Image from "next/image";
 import Link from "next/link";
 

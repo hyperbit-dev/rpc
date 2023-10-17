@@ -1,0 +1,76 @@
+{
+  "name": "@hyperbitui/react",
+  "author": "Michael McShinsky",
+  "version": "0.0.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelmcshinsky/slipstream-ui"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --p ./tsconfig-build.json && vite build && npm run copy",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "copy": "npm run copy-postcss && npm run copy-styles && npm run copy-tailwind",
+    "copy-postcss": "cp -r postcss.config.js dist/postcss.config.js",
+    "copy-styles": "cp -r src/tailwind.css dist/tailwind.css",
+    "copy-tailwind": "cp -r tailwind.config.js dist/tailwind.config.js"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.4.5",
+    "@storybook/addon-interactions": "^7.4.5",
+    "@storybook/addon-links": "^7.4.5",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/addon-styling": "^1.3.7",
+    "@storybook/blocks": "^7.4.5",
+    "@storybook/react": "^7.4.5",
+    "@storybook/react-vite": "^7.4.5",
+    "@storybook/testing-library": "^0.2.1",
+    "@types/node": "^20.4.8",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-storybook": "^0.6.14",
+    "glob": "^10.3.3",
+    "lodash.merge": "^4.6.2",
+    "postcss": "^8.4.30",
+    "postcss-import": "^15.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.4.5",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.5.1",
+    "vite-plugin-lib-inject-css": "^1.2.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "@hyperbitui/theme": "*",
+    "@tailwindcss/forms": "^0.5.6",
+    "clsx": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

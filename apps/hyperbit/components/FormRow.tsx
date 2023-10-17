@@ -1,4 +1,4 @@
-import { FormGroup, Label as LabelComponent } from "@slipstreamui/react";
+import { FormGroup, Label as LabelComponent } from "@hyperbitui/react";
 import { ReactNode } from "react";
 import clsx from "clsx";
 

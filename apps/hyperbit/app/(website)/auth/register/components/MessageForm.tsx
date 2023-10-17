@@ -14,7 +14,7 @@ import {
   FormGroup,
   Label,
   Textarea,
-} from "@slipstreamui/react";
+} from "@hyperbitui/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

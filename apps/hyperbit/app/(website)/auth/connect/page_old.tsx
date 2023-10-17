@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { FormRow, Select } from "@/components";
-import { Form, FormGroup, Textarea } from "@slipstreamui/react";
+import { Form, FormGroup, Textarea } from "@hyperbitui/react";
 import { useRouter } from "next/navigation";
 
 const schema = z.object({
