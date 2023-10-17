@@ -26,12 +26,17 @@ export async function middleware(req: NextRequest) {
   if (PUBLIC_FILE.test(url.pathname) || url.pathname.includes("_next")) return;
 
   const subdomain = getValidSubdomain(req);
-
   if (subdomain) {
-    if (url.pathname.includes("account") || url.pathname.includes("auth")) {
-      return NextResponse.redirect(new URL("/", req.url));
+    if (url.pathname.includes('/explorer')) {
+      url.pathname.replace('/explorer', `/explorers/${subdomain}`)
+      return NextResponse.rewrite(url);
+      // return NextResponse.redirect(new URL("/", url));
+    } else if (url.pathname.includes('/faucet')) {
+      const pathname = url.pathname.replace('/faucet', `/faucets/${subdomain}`)
+      url.pathname = pathname;
+      return NextResponse.rewrite(url);
+      // return NextResponse.redirect(new URL("/", url));
     }
-
     if (!req.url.includes("/api/v1") && !req.url.includes("/api/auth")) {
       // Subdomain available, rewriting
       // console.log(

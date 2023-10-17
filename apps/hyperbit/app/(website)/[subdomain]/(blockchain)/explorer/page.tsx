@@ -18,6 +18,7 @@ export default async function Explorer({
   const explorerSummary = await getExplorerSummary(params.subdomain);
   const { miningInfo, blockchainInfo, blockchainTxStats, blocks } =
     explorerSummary;
+    console.log('blocks', blocks)
   const marketChart = await getMarketChart(params.subdomain);
   const network = blockchainInfo.chain === "test" ? "Testnet" : "Mainnet";
   const latestPrice =

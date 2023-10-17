@@ -7,7 +7,6 @@ import { config } from "@/lib/config";
 import { getValidSubdomain } from "@/lib/subdomain";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { CaretDownIcon } from "@radix-ui/react-icons";
-import { Chip } from "@slipstreamui/react";
 
 export function Navbar({ subdomain }: { subdomain?: string }) {
   const { status } = useSession();
@@ -62,7 +61,7 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
             <div className="flex items-center flex-shrink-0 gap-2 font-semibold text-white">
               <a
                 className="flex items-center gap-2"
-                href={process.env.NEXT_PUBLIC_HOST}
+                href="/"
               >
                 <span>
                   <svg
@@ -220,20 +219,20 @@ export function Navbar({ subdomain }: { subdomain?: string }) {
                             style={{ minWidth: "150px" }}
                           >
                             <li>
-                              <a
-                                href={`//trvn.${domain}/faucet`}
+                              <Link
+                                href="/faucets/trvn"
                                 className="block px-2 py-1 text-sm rounded whitespace-nowrap bg-gradient-to-r action:from-violet-400 action:to-violet-500 action:text-white"
                               >
                                 Ravencoin
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href={`//tevr.${domain}/faucet`}
+                              <Link
+                                href="faucets/tevr"
                                 className="block px-2 py-1 text-sm rounded whitespace-nowrap bg-gradient-to-r action:from-violet-400 action:to-violet-500 action:text-white"
                               >
                                 Evrmore
-                              </a>
+                              </Link>
                             </li>
                           </ul>
                           {/* <ListItem

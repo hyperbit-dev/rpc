@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import { slipstream } from "@slipstreamui/theme";
+import { slipstream } from "@hyperbitui/theme";
 
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../node_modules/@slipstreamui/react/**/*.{js,ts,jsx,tsx}",
-    "../../node_modules/@slipstreamui/theme/**/*.{js,ts,jsx,tsx}",
+    "../../node_modules/@hyperbitui/react/**/*.{js,ts,jsx,tsx}",
+    "../../node_modules/@hyperbitui/theme/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

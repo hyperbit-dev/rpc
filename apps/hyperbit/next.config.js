@@ -27,12 +27,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/auth/:slug*",
+        source: "/auth/:path*",
         destination: `${
           process.env.NODE_ENV === "production"
             ? process.env.HOST
             : "http://127.0.0.1:3000"
-        }/auth/:slug*`,
+        }/auth/:path*`,
       },
     ];
   },

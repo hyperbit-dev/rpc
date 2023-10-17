@@ -7,7 +7,7 @@ const globalForRpcClient = global as unknown as {
 
 export function getRpcCredentials(chain: Record<string, string>) {
   return {
-    url: `${chain.rpcHost}:${chain.rpcPort}`,
+    url: chain.rpcUrl,
     username: chain.rpcUser,
     password: chain.rpcPassword,
   };
