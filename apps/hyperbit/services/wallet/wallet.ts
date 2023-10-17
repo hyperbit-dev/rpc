@@ -1,0 +1,82 @@
+import Mnemonic, { Address, Options } from "@hyperbitjs/mnemonic";
+import pouchDb from "@/services/pouchdb";
+import merge from "lodash.merge";
+import { v4 as uuidv4 } from "uuid";
+import { PouchDbWallet, PouchDbWalletAccounts } from "./types";
+
+type WalletOptions = Options & {
+  id?: string;
+  name?: string;
+};
+
+export class Wallet {
+  private _id: string;
+  private _name?: string;
+  private _mnemonic?: Mnemonic;
+  private _options: Omit<WalletOptions, "id" | "name">;
+  private _accounts: PouchDbWalletAccounts = {};
+
+  constructor({ id, name, ...options }: WalletOptions) {
+    this._id = id ?? uuidv4();
+    this._name = name;
+    this._options = options;
+  }
+
+  public init() {
+    if (!this._mnemonic) {
+      this._mnemonic = new Mnemonic(this._options);
+      const external: Address[] = [];
+      const change: Address[] = [];
+      this._mnemonic
+        .generateAddresses({ count: 20, index: 0 })
+        .forEach((addressPair) => {
+          external.push(addressPair.external);
+          change.push(addressPair.change);
+        });
+      this._accounts[0] = {
+        addresses: {
+          external,
+          change,
+        },
+      };
+    }
+    this._setWallet();
+  }
+
+  private _setWallet() {
+    const doc: PouchDbWallet = {
+      _id: `wallet_${this._id}`,
+      name: this._name,
+      words: this._mnemonic?.mnemonic,
+      passphrase: this._options.passphrase,
+      networkId: this._mnemonic?.network.id,
+      language: this._options.language,
+      accounts: this._accounts,
+    };
+
+    pouchDb
+      .get(this._id)
+      .then((res) => {
+        pouchDb.put(merge(doc, res));
+      })
+      .catch((err) => {
+        if (err.name === "not_found") {
+          pouchDb.put(doc);
+        }
+      });
+  }
+
+  public getAccounts() {
+    return JSON.parse(JSON.stringify(this._accounts));
+  }
+
+  //   private _createDbWallet() {
+  //     const mnemonic = this._mnemonic;
+  //     const account = this._accounts;
+  //   }
+
+  /**
+   * Sync local and db data
+   */
+  //   public syncWallet() {}
+}

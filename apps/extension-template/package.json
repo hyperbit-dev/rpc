@@ -1,0 +1,63 @@
+{
+  "name": "extension-template",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3002",
+    "dev:extension": "npm-watch",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "rm -rf out && next build && npm run format",
+    "format": "mv out/_next out/assets && sed -i 's/\\/_next/\\/assets/g' out/**.html",
+    "format:macos": "mv ./out/_next ./out/next && cd ./out && grep -rli '_next' * | xargs -I@ sed -i '' 's|/_next|/next|g' @;",
+    "package": "npm run build:extension && zip -r packages/$(date -u +\"%Y-%m-%dT%H:%M:%SZ\").zip out"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^2.1.13",
+    "eslint-config-next": "^13.4.19",
+    "framer-motion": "^10.16.4",
+    "next": "^13.4.19",
+    "next-transpile-modules": "^10.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ui": "*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.181",
+    "@types/firefox-webext-browser": "^94.0.1",
+    "@types/node": "17.0.24",
+    "@types/react": "18.0.5",
+    "@types/react-dom": "18.0.1",
+    "autoprefixer": "^10.4.15",
+    "eslint": "8.13.0",
+    "eslint-config-custom": "*",
+    "npm-watch": "^0.11.0",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3",
+    "tsconfig": "*",
+    "typescript": "^4.6.3"
+  },
+  "watch": {
+    "prepare": {
+      "patterns": [
+        ".",
+        "styles/**",
+        "pages/**",
+        "public/**"
+      ],
+      "ignore": [
+        "out",
+        "node_modules",
+        ".next"
+      ],
+      "extensions": [
+        "js",
+        "json",
+        "lock",
+        "tsx",
+        "ts"
+      ]
+    }
+  }
+}
