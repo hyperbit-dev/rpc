@@ -1,6 +1,6 @@
-import app from "./app";
 import compression from "compression";
 import helmet from "helmet";
+import app from "./app";
 import { blocksJob } from "./jobs/blocks";
 
 const PORT = process.env.PORT || 3050;
