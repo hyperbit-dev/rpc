@@ -1,4 +1,5 @@
 import { Client } from "@hyperbitjs/rpc";
+import 'dotenv/config'
 
 const globalForRpcClient = global as unknown as {
   rpcClient: Client;
