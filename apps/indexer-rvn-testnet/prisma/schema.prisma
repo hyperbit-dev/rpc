@@ -11,49 +11,82 @@ datasource db {
 }
 
 model Block {
-  id                Int    @id @default(autoincrement())
-  hash              String @unique
-  confirmations     Int
+  id                Int           @id @default(autoincrement())
+  hash              String        @unique
+  confirmations     Int?
   size              Int
   strippedsize      Int
   weight            Int
-  height            Int
+  height            Int           @unique
   version           Int
   versionHex        String
   merkleroot        String
-  // tx TODO
-  time              Int
-  mediantime        Int
-  nonce             Int
+  tx                Transaction[]
+  time              BigInt
+  mediantime        BigInt
+  nonce             BigInt
   bits              String
   difficulty        Int
   chainwork         String
-  previousblockhash String
+  headerhash        String?
+  mixhash           String?
+  previousblockhash String?
   nextblockhash     String
 }
 
-// model Post {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   title     String   @db.VarChar(255)
-//   content   String?
-//   published Boolean  @default(false)
-//   author    User     @relation(fields: [authorId], references: [id])
-//   authorId  Int
-// }
+model Transaction {
+  id            Int    @id @default(autoincrement())
+  hash          String @unique
+  version       Int
+  size          Int
+  vsize         Int
+  locktime      Int
+  vin           Vin[]
+  vout          Vout[]
+  hex           String @db.Text
+  blockhash     String?
+  height        BigInt?
+  confirmations Int?
+  time          BigInt?
+  Block         Block? @relation(fields: [blockId], references: [id])
+  blockId       Int?
+}
 
-// model Profile {
-//   id     Int     @id @default(autoincrement())
-//   bio    String?
-//   user   User    @relation(fields: [userId], references: [id])
-//   userId Int     @unique
-// }
+model Vin {
+  id            Int          @id @default(autoincrement())
+  coinbase      String?
+  sequence      BigInt
+  txid          String?
+  vout          Int?
+  scriptSig     Json?
+  value         Float?
+  valueSat      BigInt?
+  address       String?
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId Int?
+}
 
-// model User {
-//   id      Int      @id @default(autoincrement())
-//   email   String   @unique
-//   name    String?
-//   posts   Post[]
-//   profile Profile?
-// }
+model Vout {
+  id            Int          @id @default(autoincrement())
+  n             Int
+  scriptPubKey  Json
+  valueSat      BigInt?
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId Int?
+}
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  address  String
+  balance  Int?
+  received Int?
+}
+
+model Asset {
+  id         Int     @id @default(autoincrement())
+  name       String
+  amount     Int
+  units      Int
+  reissuable Boolean
+  has_ipfs   Boolean
+}
