@@ -1,7 +1,7 @@
 import { MainNet, TestNet, chains } from "@hyperbitjs/chains";
 import { verify } from "@hyperbitjs/message";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { NextApiHandler, NextApiRequest, Response } from "next";
 import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -14,7 +14,7 @@ const hostName = new URL(process.env.NEXTAUTH_URL!).hostname;
 
 const authHandler: NextApiHandler = (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: Response
 ) =>
   NextAuth(req, res, {
     providers: [
@@ -129,7 +129,6 @@ const authHandler: NextApiHandler = (
           req.query?.nextauth?.includes("credentials") &&
           req.method === "POST"
         ) {
-          console.log("user", user);
           if (user) {
             const adapter = PrismaAdapter(prisma);
             const sessionToken = uuidv4();
@@ -142,7 +141,6 @@ const authHandler: NextApiHandler = (
             });
 
             const cookieStore = cookies();
-            console.log("yo", yo);
             cookieStore.set("next-auth.session-token", sessionToken, {
               expires: sessionExpiry,
             });

@@ -9,7 +9,7 @@ import { getWallets } from "@/lib/api/wallets";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
-import { WalletsTable } from "./components";
+import { WalletsTable } from "./_components";
 
 export default async function Wallets() {
   const wallets: Prisma.WalletCreateInput[] = await getWallets();

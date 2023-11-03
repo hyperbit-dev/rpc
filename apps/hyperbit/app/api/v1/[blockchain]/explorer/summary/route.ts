@@ -1,11 +1,9 @@
-import { NextResponse } from "next/server";
 import { rpcClients } from "@/lib/rpc";
-import { ResponseError } from "@/types/api";
 
 export async function GET(
   _req: Request,
   { params: { blockchain } }: { params: { blockchain: string } }
-): Promise<NextResponse<any | ResponseError>> {
+): Promise<any> {
   try {
     const statPromises = [];
     statPromises.push(rpcClients[blockchain].request("getblockchaininfo"));
@@ -57,18 +55,15 @@ export async function GET(
     // if (blockHeaders.status === 500) {
     //   throw new Error(blockHeaders?.message);
     // }
-    return NextResponse.json(
-      {
-        blocks,
-        blockchainInfo: stats[0],
-        miningInfo: stats[1],
-        blockchainTxStats: stats[2],
-      },
-      { status: 200 }
-    );
+    return Response.json({
+      blocks,
+      blockchainInfo: stats[0],
+      miningInfo: stats[1],
+      blockchainTxStats: stats[2],
+    });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }
 

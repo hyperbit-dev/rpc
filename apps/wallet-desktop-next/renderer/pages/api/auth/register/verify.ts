@@ -1,16 +1,19 @@
 import { verifyRegistrationResponse } from "@simplewebauthn/server";
 import storage from "electron-json-storage";
+import { withIronSessionApiRoute } from "iron-session/next";
 import type { NextApiRequest, NextApiResponse } from "next";
 import os from "os";
-import { webAuthnConfig } from "../../../../config/webauthn";
-import { AuthenticatorModel } from "../../../../models/authenticator";
+import { webAuthnConfig } from "../../../../_config/webauthn";
+import { AuthenticatorModel } from "../../../../_models/authenticator";
+import { sessionOptions } from "../../../../_lib/session";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   let verification;
   try {
+    if (!req.session.userId) {
+      return res.status(401).send({ error: "unauthorized" });
+    }
+
     storage.setDataPath(os.tmpdir());
     const user = storage.getSync("user");
     let authenticators = storage.getSync("authenticators");
@@ -55,9 +58,15 @@ export default async function handler(
       }
     );
 
+    req.session.userId = user.id;
+    await req.session.save();
+
     res.status(200).json({ verified: verification.verified });
   } catch (error) {
     console.error("error", error);
+    req.session.destroy();
     return res.status(400).send({ error: error.message });
   }
 }
+
+export default withIronSessionApiRoute(handler, sessionOptions);

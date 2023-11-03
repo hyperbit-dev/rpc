@@ -1,7 +1,7 @@
 import { SectionCard } from "@/components";
 import { getWallet } from "@/lib/api/wallets";
 import React from "react";
-import { Client } from "./components";
+import { Client } from "./_components";
 
 export default async function WalletId({
   params: { walletId },

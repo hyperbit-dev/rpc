@@ -5,7 +5,7 @@ import {
   getAddressUtxos,
   listAssetBalancesByAddress,
 } from "@/lib/api/addresses";
-import { Content } from "./components/Content";
+import { Content } from "./_components/Content";
 import { config } from "@/lib/config";
 import { getMarketLatest } from "@/lib/api/market";
 

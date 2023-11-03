@@ -1,8 +1,8 @@
 import { Container, PageHeader } from "@/components";
 import { SectionCard } from "@/components/SectionCard";
 import { getAssetData, listAddressesByAsset } from "@/lib/api/assets";
-import { SectionAddresses } from "./components/SectionAddresses";
-import { Content } from "./components/Content";
+import { SectionAddresses } from "./_components/SectionAddresses";
+import { Content } from "./_components/Content";
 
 export default async function Page({
   params,

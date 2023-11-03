@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import * as z from "zod";
 import { rpcClients } from "@/lib/rpc";
 import { Asset, ResponseError } from "@/types/api";
@@ -79,10 +79,10 @@ const schema = z.object({
 export async function GET(
   request: Request,
   { params: { blockchain } }: { params: { blockchain: string } }
-): Promise<NextResponse<Record<string, Asset> | ResponseError>> {
+): Promise<Response<Record<string, Asset> | ResponseError>> {
   const chain = config.chains[blockchain];
   if (!chain.features.assetsEnabled) {
-    return NextResponse.json({ message: "Not Implemented" }, { status: 501 });
+    return Response.json({ message: "Not Implemented" }, { status: 501 });
   }
 
   const { searchParams } = new URL(request.url);
@@ -106,9 +106,9 @@ export async function GET(
     if (data.status === 500) {
       throw new Error(data?.message);
     }
-    return NextResponse.json(data, { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

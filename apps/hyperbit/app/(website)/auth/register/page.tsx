@@ -1,8 +1,8 @@
 "use client";
 import * as Tabs from "@radix-ui/react-tabs";
 import { Container, PageHeader } from "@/components";
-import MessageForm from "./components/MessageForm";
-import { EmailForm } from "./components/EmailForm";
+import MessageForm from "./_components/MessageForm";
+import { EmailForm } from "./_components/EmailForm";
 
 export default function Register() {
   return (

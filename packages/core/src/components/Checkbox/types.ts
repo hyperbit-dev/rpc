@@ -6,5 +6,5 @@ export type CheckboxProps = Omit<InputProps, "size"> & {
   id?: string;
   labelProps?: LabelProps;
   size?: Extract<Size, "md" | "lg">;
-  spanProps: React.HTMLAttributes<HTMLSpanElement>;
+  spanProps?: React.HTMLAttributes<HTMLSpanElement>;
 };

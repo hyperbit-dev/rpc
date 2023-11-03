@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         className={clsx(
           "sui--button",
-          "border duration-300 ease leading-tight",
+          "border duration-300 ease leading-tight cursor-pointer",
           { "w-full": fullWidth },
           flush
             ? [

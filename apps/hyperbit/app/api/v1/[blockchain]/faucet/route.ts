@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { rpcClients } from "@/lib/rpc";
 import { getUser } from "@/services/faucet";
@@ -6,15 +5,34 @@ import { getUser } from "@/services/faucet";
 const MIN = 100;
 const MAX = 10000;
 
-export async function POST(
-  request: Request,
+export async function GET(
+  _: Request,
   { params: { blockchain } }: { params: { blockchain: string } }
 ) {
-  const { address, amount: bodyAmount, captcha } = await request.json();
+  const balance = await rpcClients[blockchain].request("getbalance", {});
+  const assets = await rpcClients[blockchain].request("listmyassets", {});
+  const address = await rpcClients[blockchain].request("getaccountaddress", {account: ""});
+  Object.keys(assets).forEach((key) => {
+    if (key.endsWith("!") || key.startsWith("$")) {
+      delete assets[key];
+    }
+  });
+  return Response.json({
+    address,
+    balance: Number(balance) ? balance : 0,
+    assets,
+  });
+}
+
+export async function POST(
+  req: Request,
+  { params: { blockchain } }: { params: { blockchain: string } }
+) {
+  const { address, amount: bodyAmount, captcha } = await req.json();
   const amount = Number(bodyAmount);
 
   if (!blockchain || !address || !amount || !captcha) {
-    return NextResponse.json(
+    return Response.json(
       {
         message: "Unproccesable request, please provide the required fields",
       },
@@ -23,15 +41,15 @@ export async function POST(
   }
 
   if (amount < MIN || amount > MAX) {
-    return NextResponse.json(
+    return Response.json(
       {
-        message: "Invalid amount value. Please request between 100 and MAX.",
+        message: "Invalid amount value. Please req between 100 and MAX.",
       },
       { status: 400 }
     );
   }
 
-  const ipAddress = request.ip ?? uuidv4();
+  const ipAddress = req.ip ?? uuidv4();
   const redisUser = await getUser({
     ipAddress: ipAddress!,
     blockchain,
@@ -41,7 +59,7 @@ export async function POST(
     const totalMinutes = 24 * 60 * 1000;
     const currentMinutes = totalMinutes - (redisUser.time as number);
     const currentHours = currentMinutes / 60 / 1000;
-    return NextResponse.json(
+    return Response.json(
       {
         message: `Limit reached. Please come back in ${Math.floor(
           currentHours
@@ -66,24 +84,18 @@ export async function POST(
     const captchaValidation = await recaptchaResponse.json();
     if (captchaValidation.success) {
       const redisAmount = redisUser?.amount ? Number(redisUser.amount) : amount;
-      const requestAmount =
+      const reqAmount =
         amount + redisAmount <= MAX ? amount : MAX - redisAmount;
-      const response: any = await rpcClients[blockchain].request(
-        "sendtoaddress",
-        {
-          address,
-          amount: requestAmount,
-        }
-      );
+      const response: any = await rpcClients[blockchain].req("sendtoaddress", {
+        address,
+        amount: reqAmount,
+      });
 
       if (response?.code === 500) {
-        return NextResponse.json(
-          { message: response.message },
-          { status: 500 }
-        );
+        return Response.json({ message: response.message }, { status: 500 });
       }
 
-      return NextResponse.json(
+      return Response.json(
         {
           transactionId: response,
           amount: Number(amount),
@@ -93,14 +105,11 @@ export async function POST(
       );
     }
 
-    return NextResponse.json(
+    return Response.json(
       { message: "Unproccesable request, Invalid captcha code" },
       { status: 422 }
     );
   } catch (e) {
-    return NextResponse.json(
-      { message: (e as Error).message },
-      { status: 500 }
-    );
+    return Response.json({ message: (e as Error).message }, { status: 500 });
   }
 }

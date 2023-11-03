@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, Response } from "next";
 import { ResponseError } from "@/types/api";
 import prisma from "@/lib/prisma";
 import { getToken } from "next-auth/jwt";
@@ -16,7 +16,7 @@ function exclude<Wallet, Key extends keyof Wallet>(
 }
 
 export async function GET(
-  req: NextRequest,
+  req: NextApiRequest,
   {
     params: { id },
   }: {
@@ -37,9 +37,9 @@ export async function GET(
     const walletWithoutPassphrase = wallet
       ? exclude(wallet, ["passphrase"])
       : null;
-    return NextResponse.json(walletWithoutPassphrase, { status: 200 });
+    return Response.json(walletWithoutPassphrase, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }
