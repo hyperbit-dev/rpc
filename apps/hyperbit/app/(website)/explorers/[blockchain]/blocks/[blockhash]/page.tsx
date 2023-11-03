@@ -7,7 +7,7 @@ import {
 } from "@/components";
 import { getBlock, getBlockHeight } from "@/lib/api/blocks";
 import { SectionCard } from "@/components/SectionCard";
-import { Content } from "./components/Content";
+import { Content } from "./_components/Content";
 import clsx from "clsx";
 import { Header } from "@/components/Header";
 

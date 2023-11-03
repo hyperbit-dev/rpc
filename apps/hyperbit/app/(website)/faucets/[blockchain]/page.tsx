@@ -1,7 +1,8 @@
-import { rpcClients } from "@/lib/rpc";
-import FaucetClient from "./client";
 import { config } from "@/lib/config";
 import { redirect } from "next/navigation";
+import FaucetClient from "./_components/FaucetClient";
+import { api } from "@/lib/api";
+import { FaucetBalance } from "@/app/api/v1/[blockchain]/faucet/_types";
 
 export default async function Page({
   params,
@@ -12,8 +13,9 @@ export default async function Page({
   if (!chain.features.faucetEnabled) {
     return redirect("/");
   }
-  const res = await rpcClients[params.blockchain].request("getbalance", {});
-  const balance = Number(res) ? res : 0;
+  const faucet = await api<FaucetBalance>(
+    `/api/v1/${params.blockchain}/faucet`
+  );
 
-  return <FaucetClient blockchain={params.blockchain} balance={balance} />;
+  return <FaucetClient blockchain={params.blockchain} faucet={faucet} />;
 }

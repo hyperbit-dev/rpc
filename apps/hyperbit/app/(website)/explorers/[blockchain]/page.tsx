@@ -5,7 +5,7 @@ import { getExplorerSummary } from "@/lib/api/explorer";
 import { getMarketChart } from "@/lib/api/market";
 import clsx from "clsx";
 import { SectionCard } from "@/components/SectionCard";
-import { Chart } from "./components/Chart";
+import { Chart } from "./_components/Chart";
 
 export default async function Explorer({
   params,

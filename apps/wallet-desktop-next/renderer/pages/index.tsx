@@ -19,9 +19,9 @@ export default function HomePage() {
               <p className="text-sm">Start with a brand new wallet</p>
             </a>
           </Link>
-          <Link href="/auth/login">
+          <Link href="/auth/signin">
             <a className="block p-4 rounded-b-lg action:bg-brand-500 action:text-white">
-              <h2 className="mb-1 font-semibold">Login</h2>
+              <h2 className="mb-1 font-semibold">Sign In</h2>
               <p className="text-sm">Access your existing wallets</p>
             </a>
           </Link>

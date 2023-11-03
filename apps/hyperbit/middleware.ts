@@ -1,6 +1,6 @@
 // middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextApiResponse } from "next";
+import type { NextApiRequest } from "next";
 import { getValidSubdomain } from "./lib/subdomain";
 import { isAuthenticated } from "./lib/api/auth";
 import { cookies } from "next/headers";
@@ -8,43 +8,44 @@ import { cookies } from "next/headers";
 // RegExp for public files
 const PUBLIC_FILE = /\.(.*)$/; // Files
 
-export async function middleware(req: NextRequest) {
+export async function middleware(req: NextApiRequest, res: NextApiResponse) {
   // TODO: Better matching pattern for expanded use
-  if (req.nextUrl.pathname.startsWith("/api/v1/wallets")) {
+  if (req?.url?.startsWith("/api/v1/wallets")) {
     if (!(await isAuthenticated(req))) {
-      return new NextResponse(
-        JSON.stringify({ success: false, message: "authentication failed" }),
-        { status: 401, headers: { "content-type": "application/json" } }
-      );
+      return res
+        .status(401)
+        .json({ success: false, message: "authentication failed" });
     }
   }
 
-  // Clone the URL
-  const url = req.nextUrl.clone();
+  if (req.url) {
+    // Clone the URL
+    let url = req.url;
 
-  // Skip public files
-  if (PUBLIC_FILE.test(url.pathname) || url.pathname.includes("_next")) return;
+    // Skip public files
+    if (url && (PUBLIC_FILE.test(url) || url.includes("_next"))) return;
 
-  const subdomain = getValidSubdomain(req);
-  if (subdomain) {
-    if (url.pathname.includes('/explorer')) {
-      url.pathname.replace('/explorer', `/explorers/${subdomain}`)
-      return NextResponse.rewrite(url);
-      // return NextResponse.redirect(new URL("/", url));
-    } else if (url.pathname.includes('/faucet')) {
-      const pathname = url.pathname.replace('/faucet', `/faucets/${subdomain}`)
-      url.pathname = pathname;
-      return NextResponse.rewrite(url);
-      // return NextResponse.redirect(new URL("/", url));
-    }
-    if (!req.url.includes("/api/v1") && !req.url.includes("/api/auth")) {
-      // Subdomain available, rewriting
-      // console.log(
-      //   `>>> Rewriting: ${url.pathname} to /${subdomain}${url.pathname}`
-      // );
-      url.pathname = `/${subdomain}${url.pathname}`;
+    const subdomain = getValidSubdomain(req.url);
+    if (subdomain) {
+      if (url.includes("/explorer")) {
+        url.replace("/explorer", `/explorers/${subdomain}`);
+        return res.write(url);
+        // return res.direct(new URL("/", url));
+      } else if (url.includes("/faucet")) {
+        const pathname = url.replace("/faucet", `/faucets/${subdomain}`);
+        url = pathname;
+        return res.write(url);
+        // return NextApiResponse.redirect(new URL("/", url));
+      }
+      if (!req.url.includes("/api/v1") && !req.url.includes("/api/auth")) {
+        // Subdomain available, rewriting
+        // console.log(
+        //   `>>> Rewriting: ${url} to /${subdomain}${url}`
+        // );
+        url = `/${subdomain}${url}`;
 
-      return NextResponse.rewrite(url);
+        return res.write(url);
+      }
     }
   }
 }

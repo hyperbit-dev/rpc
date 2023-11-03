@@ -1,12 +1,12 @@
 import crypto from "crypto";
 import { serialize } from "cookie";
-import { NextResponse } from "next/server";
+
 import { ResponseError } from "@/types/api";
 
-export async function GET(): Promise<NextResponse<any | ResponseError>> {
+export async function GET(): Promise<any> {
   try {
     const nonce = crypto.randomBytes(32).toString("base64");
-    return NextResponse.json(
+    return Response.json(
       { nonce },
       {
         status: 200,
@@ -21,6 +21,6 @@ export async function GET(): Promise<NextResponse<any | ResponseError>> {
     );
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

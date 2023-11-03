@@ -8,41 +8,6 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      {/* <section className="py-16">
-        <Container>
-          <div className="flex flex-wrap">
-            <div className="flex flex-col items-start justify-start w-full gap-6 sm:flex-1 sm:pt-16">
-              <h1 className="text-4xl font-medium leading-tight">
-                Mastering the Future:
-                <br />
-                Crypto Management Meets
-                <br />
-                Web 3.0
-              </h1>
-              <p>
-                Explore the future as the synergy between crypto management and
-                the transformative capabilities of Web 3.0 reshapes the
-                landscape of crypto innovation
-              </p>
-              <a href="//app.localhost:3000/auth/connect">Get Started</a>
-            </div>
-            <div className="flex items-center justify-center w-full sm:flex-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="400"
-                height="500"
-                viewBox="0 0 400 500"
-              >
-              fill-white  />
-                <path
-                  fill="#FFFFFF"
-                  d="M87.3 254.72h11.66v-12.54q0-1.77.24-3.92l-11.9 16.46Zm17.36 0h4.82v3.79q0 .53-.35.91-.34.39-.98.39h-3.49v9.35h-5.7v-9.35H82.79q-.66 0-1.16-.42-.51-.41-.64-1.02l-.69-3.31 18.16-24.25h6.2v23.91Zm35.59-4.72q0 5.01-1.08 8.71-1.07 3.69-2.97 6.1-1.89 2.42-4.47 3.59-2.59 1.18-5.58 1.18-3 0-5.55-1.18-2.56-1.17-4.44-3.59-1.88-2.41-2.94-6.1-1.06-3.7-1.06-8.71 0-5.03 1.06-8.72 1.06-3.68 2.94-6.09 1.88-2.41 4.44-3.59 2.55-1.18 5.55-1.18 2.99 0 5.58 1.18 2.58 1.18 4.47 3.59 1.9 2.41 2.97 6.09 1.08 3.69 1.08 8.72Zm-6.76 0q0-4.16-.61-6.89-.61-2.73-1.63-4.35-1.02-1.61-2.35-2.26-1.32-.65-2.75-.65-1.41 0-2.72.65-1.31.65-2.32 2.26-1 1.62-1.6 4.35-.6 2.73-.6 6.89t.6 6.89q.6 2.73 1.6 4.35 1.01 1.61 2.32 2.26 1.31.65 2.72.65 1.43 0 2.75-.65 1.33-.65 2.35-2.26 1.02-1.62 1.63-4.35.61-2.73.61-6.89Zm37.5 0q0 5.01-1.08 8.71-1.07 3.69-2.97 6.1-1.89 2.42-4.47 3.59-2.59 1.18-5.58 1.18-3 0-5.55-1.18-2.56-1.17-4.44-3.59-1.88-2.41-2.94-6.1-1.06-3.7-1.06-8.71 0-5.03 1.06-8.72 1.06-3.68 2.94-6.09 1.88-2.41 4.44-3.59 2.55-1.18 5.55-1.18 2.99 0 5.58 1.18 2.58 1.18 4.47 3.59 1.9 2.41 2.97 6.09 1.08 3.69 1.08 8.72Zm-6.76 0q0-4.16-.61-6.89-.61-2.73-1.63-4.35-1.02-1.61-2.35-2.26-1.32-.65-2.75-.65-1.41 0-2.72.65-1.31.65-2.32 2.26-1 1.62-1.6 4.35-.6 2.73-.6 6.89t.6 6.89q.6 2.73 1.6 4.35 1.01 1.61 2.32 2.26 1.31.65 2.72.65 1.43 0 2.75-.65 1.33-.65 2.35-2.26 1.02-1.62 1.63-4.35.61-2.73.61-6.89Zm48.84 10.39-3.47 3.42-8.99-8.99-9.06 9.04-3.47-3.42 9.06-9.09-8.64-8.64 3.45-3.44 8.64 8.64 8.58-8.59 3.5 3.45-8.61 8.61 9.01 9.01Zm27.85-23.61-1.35 7.97q1.27-.26 2.44-.38 1.16-.12 2.25-.12 3.02 0 5.32.9 2.31.9 3.87 2.49 1.57 1.59 2.36 3.73.8 2.13.8 4.59 0 3.05-1.08 5.57-1.07 2.52-2.98 4.3-1.91 1.79-4.52 2.77-2.61.98-5.68.98-1.8 0-3.42-.37-1.61-.37-3.03-.99-1.42-.62-2.63-1.43-1.2-.81-2.16-1.71l2.02-2.78q.63-.9 1.67-.9.66 0 1.35.42.69.42 1.58.93.88.5 2.09.92 1.21.43 2.9.43 1.8 0 3.18-.58 1.38-.59 2.29-1.63.92-1.05 1.38-2.5.47-1.44.47-3.14 0-3.12-1.82-4.88-1.82-1.77-5.37-1.77-2.73 0-5.59 1.01l-4.08-1.17 3.18-18.6h18.92v2.78q0 1.41-.87 2.28-.88.88-2.97.88h-10.52ZM288.96 250q0 5.01-1.07 8.71-1.07 3.69-2.97 6.1-1.89 2.42-4.48 3.59-2.58 1.18-5.57 1.18-3 0-5.56-1.18-2.55-1.17-4.43-3.59-1.89-2.41-2.95-6.1-1.06-3.7-1.06-8.71 0-5.03 1.06-8.72 1.06-3.68 2.95-6.09 1.88-2.41 4.43-3.59 2.56-1.18 5.56-1.18 2.99 0 5.57 1.18 2.59 1.18 4.48 3.59 1.9 2.41 2.97 6.09 1.07 3.69 1.07 8.72Zm-6.75 0q0-4.16-.61-6.89-.61-2.73-1.63-4.35-1.02-1.61-2.35-2.26-1.32-.65-2.75-.65-1.41 0-2.72.65-1.31.65-2.32 2.26-1.01 1.62-1.6 4.35-.6 2.73-.6 6.89t.6 6.89q.59 2.73 1.6 4.35 1.01 1.61 2.32 2.26 1.31.65 2.72.65 1.43 0 2.75-.65 1.33-.65 2.35-2.26 1.02-1.62 1.63-4.35.61-2.73.61-6.89Zm37.49 0q0 5.01-1.07 8.71-1.07 3.69-2.97 6.1-1.89 2.42-4.48 3.59-2.58 1.18-5.57 1.18-3 0-5.56-1.18-2.55-1.17-4.43-3.59-1.89-2.41-2.95-6.1-1.06-3.7-1.06-8.71 0-5.03 1.06-8.72 1.06-3.68 2.95-6.09 1.88-2.41 4.43-3.59 2.56-1.18 5.56-1.18 2.99 0 5.57 1.18 2.59 1.18 4.48 3.59 1.9 2.41 2.97 6.09 1.07 3.69 1.07 8.72Zm-6.75 0q0-4.16-.61-6.89-.61-2.73-1.63-4.35-1.02-1.61-2.35-2.26-1.32-.65-2.75-.65-1.41 0-2.72.65-1.31.65-2.32 2.26-1.01 1.62-1.6 4.35-.6 2.73-.6 6.89t.6 6.89q.59 2.73 1.6 4.35 1.01 1.61 2.32 2.26 1.31.65 2.72.65 1.43 0 2.75-.65 1.33-.65 2.35-2.26 1.02-1.62 1.63-4.35.61-2.73.61-6.89Z"
-                />
-              </svg>
-            </div>
-          </div>
-        </Container>
-      </section> */}
       <section className="relative z-20 leading-relaxed text-center text-white">
         <div
           className="absolute inset-0 z-10"
@@ -103,14 +68,21 @@ export default function Home() {
                   <path d="M432.024,373.603l-51.676-30.105c-3.579-2.087-8.171-0.875-10.256,2.705c-2.085,3.579-0.874,8.171,2.705,10.256   l51.676,30.105c1.188,0.692,2.486,1.021,3.769,1.021c2.581,0,5.094-1.334,6.487-3.726   C436.814,380.279,435.604,375.688,432.024,373.603z" />
                 </g>
               </svg>
-              <h3 className="mb-4 text-xl font-medium text-gray-100">Blockchain Explorers</h3>
+              <h3 className="mb-4 text-xl font-medium text-gray-100">
+                Blockchain Explorers
+              </h3>
               <p className="mx-auto font-light text-gray-200 sm:max-w-md">
                 Easily explore blockchain networks, transactions, assets,
                 masternodes, and gaining real-time insights with our
                 comprehensive suite of explorers.
               </p>
               <div className="mt-6">
-                <Button asChild outline variant="white" className="action:bg-white action:text-black">
+                <Button
+                  asChild
+                  outline
+                  variant="white"
+                  className="action:bg-white action:text-black"
+                >
                   <Link
                     className="inline-block"
                     href="/explorers"
@@ -140,7 +112,12 @@ export default function Home() {
                 solutions.
               </p>
               <div className="mt-6">
-                <Button asChild outline variant="white" className="action:bg-white action:text-black">
+                <Button
+                  asChild
+                  outline
+                  variant="white"
+                  className="action:bg-white action:text-black"
+                >
                   <Link
                     className="inline-block"
                     href="/auth/register"
@@ -168,13 +145,20 @@ export default function Home() {
                   <path d="M385,427.5h-92.5V375c0-4.143-3.357-7.5-7.5-7.5s-7.5,3.357-7.5,7.5v52.5h-85V375c0-4.143-3.357-7.5-7.5-7.5   s-7.5,3.357-7.5,7.5v52.5H85c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5,7.5,7.5h300c4.143,0,7.5-3.357,7.5-7.5S389.143,427.5,385,427.5   z" />
                 </g>
               </svg>
-              <h3 className="mb-4 text-xl font-medium text-gray-100">Open Source Software</h3>
+              <h3 className="mb-4 text-xl font-medium text-gray-100">
+                Open Source Software
+              </h3>
               <p className="mx-auto font-light text-gray-200 sm:max-w-md">
                 Embrace innovation with our open-source solutions, enabling
                 active contribution to crypto progress and customization.
               </p>
               <div className="mt-6">
-                <Button asChild outline variant="white" className="action:bg-white action:text-black">
+                <Button
+                  asChild
+                  outline
+                  variant="white"
+                  className="action:bg-white action:text-black"
+                >
                   <Link
                     className="inline-block"
                     href="/open-source"
@@ -203,14 +187,21 @@ export default function Home() {
                   <path d="M121.271,305.869H37.5c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h83.771c4.142,0,7.5-3.358,7.5-7.5   S125.413,305.869,121.271,305.869z" />
                 </g>
               </svg>
-              <h3 className="mb-4 text-xl font-medium text-gray-100">Crypto Faucets</h3>
+              <h3 className="mb-4 text-xl font-medium text-gray-100">
+                Crypto Faucets
+              </h3>
               <p className="mx-auto font-light text-gray-200 sm:max-w-md">
                 Begin your crypto journey with our faucet service, receiving a
                 small amount of <b>testnet</b> cryptocurrency to kick-start your
                 exploration into the digital asset landscape.
               </p>
               <div className="mt-6">
-                <Button asChild outline variant="white" className="action:bg-white action:text-black">
+                <Button
+                  asChild
+                  outline
+                  variant="white"
+                  className="action:bg-white action:text-black"
+                >
                   <Link
                     className="inline-block"
                     href="/faucets"
@@ -224,16 +215,28 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      {/* <section className="py-32 bg-gray-200"></section>
-      <section className="py-16 text-white bg-gray-900">
+      <section className="py-32 bg-gray-200">
         <Container>
           <div className="text-center">
             <h2 className="text-3xl font-semibold">
               Get Started with Hyperbit
             </h2>
+            <div className="mt-6">
+              <Button
+                asChild
+              >
+                <Link
+                  className="inline-block"
+                  href="/auth/register"
+                  style={{ minWidth: "125px" }}
+                >
+                  Register Today
+                </Link>
+              </Button>
+            </div>
           </div>
         </Container>
-      </section> */}
+      </section>
     </>
   );
 }

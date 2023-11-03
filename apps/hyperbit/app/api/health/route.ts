@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 
 /**
  * @swagger
@@ -19,5 +19,5 @@ import { NextResponse } from "next/server";
  *                    example: healthy
  */
 export async function GET(_request: Request) {
-  return NextResponse.json({ message: "healthy" }, { status: 200 });
+  return Response.json({ message: "healthy" }, { status: 200 });
 }

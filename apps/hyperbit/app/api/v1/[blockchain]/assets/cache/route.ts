@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import { rpcClients } from "@/lib/rpc";
 
 export async function GET(
@@ -10,9 +10,9 @@ export async function GET(
     if (res.status === 500) {
       throw new Error(res.message);
     }
-    return NextResponse.json(res, { status: 200 });
+    return Response.json(res, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

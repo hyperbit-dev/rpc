@@ -1,7 +1,7 @@
 import { config } from "@/lib/config";
 import { rpcClients } from "@/lib/rpc";
 import { AssetDataResponse, ResponseError } from "@/types/api";
-import { NextResponse } from "next/server";
+
 
 /**
  * @swagger
@@ -48,10 +48,10 @@ export async function GET(
       blockchain: string;
     };
   }
-): Promise<NextResponse<AssetDataResponse | ResponseError>> {
+): Promise<Response<AssetDataResponse | ResponseError>> {
   const chain = config.chains[blockchain];
   if (!chain.features.assetsEnabled) {
-    return NextResponse.json({ message: "Not Implemented" }, { status: 501 });
+    return Response.json({ message: "Not Implemented" }, { status: 501 });
   }
   // const body = [address, onlytotal ?? false, count ?? 50000, start ?? 0];
   const body = [address, false, 50000, 0];
@@ -63,9 +63,9 @@ export async function GET(
     if (data.status === 500) {
       throw new Error(data?.message);
     }
-    return NextResponse.json(data, { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

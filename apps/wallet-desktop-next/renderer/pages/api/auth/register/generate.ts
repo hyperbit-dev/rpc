@@ -1,17 +1,17 @@
 import { generateRegistrationOptions } from "@simplewebauthn/server";
 import storage from "electron-json-storage";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { withIronSessionApiRoute } from "iron-session/next";
+import { NextApiRequest, NextApiResponse } from "next";
 import os from "os";
-import { webAuthnConfig } from "../../../../config/webauthn";
-import { UserModel } from "../../../../models/user";
+import { v4 as uuidv4 } from "uuid";
+import { webAuthnConfig } from "../../../../_config/webauthn";
+import { UserModel } from "../../../../_models/user";
+import { sessionOptions } from "../../../../_lib/session";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const user: UserModel = {
-      id: req.body.id,
+      id: uuidv4(),
       username: req.body.username,
     };
     const options = await generateRegistrationOptions({
@@ -50,6 +50,9 @@ export default async function handler(
     res.status(200).json(options);
   } catch (error) {
     console.error("error", error);
+    req.session.destroy();
     return res.status(400).send({ error: error.message });
   }
 }
+
+export default withIronSessionApiRoute(handler, sessionOptions);

@@ -1,7 +1,7 @@
 import { listAssets } from "@/lib/api/assets";
 import { config } from "@/lib/config";
 import { redirect } from "next/navigation";
-import { Content } from "./components/Content";
+import { Content } from "./_components/Content";
 
 export default async function Page({
   params: { blockchain },

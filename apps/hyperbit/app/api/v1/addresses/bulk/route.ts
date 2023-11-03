@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, Response } from "next";
 import { ResponseError } from "@/types/api";
 import prisma from "@/lib/prisma";
 import { getToken } from "next-auth/jwt";
@@ -16,13 +16,13 @@ function exclude<Address, Key extends keyof Address>(
 }
 
 export async function POST(
-  req: NextRequest
-): Promise<NextResponse<any | ResponseError>> {
+  req: NextApiRequest
+): Promise<any> {
   const token = await getToken({ req });
   const { walletId, addresses } = await req.json();
 
   if (!walletId || !addresses) {
-    return NextResponse.json(
+    return Response.json(
       { messge: "Missing required fields" },
       { status: 400 }
     );
@@ -50,9 +50,9 @@ export async function POST(
     //     blockchainId: true,
     //   },
     // });
-    return NextResponse.json(addresses, { status: 200 });
+    return Response.json(addresses, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

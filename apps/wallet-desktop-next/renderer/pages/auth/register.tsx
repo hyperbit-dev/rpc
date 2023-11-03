@@ -9,11 +9,15 @@ import {
 } from "@hyperbitui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startRegistration } from "@simplewebauthn/browser";
+import { withIronSessionSsr } from "iron-session/next";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { isLoggedIn } from "../../_lib/auth";
+import { sessionOptions } from "../../_lib/session";
 
 const schema = z.object({
   username: z.string().min(4),
@@ -23,6 +27,7 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>;
 
 export default function RegisterPage() {
+  const router = useRouter();
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
   });
@@ -49,6 +54,7 @@ export default function RegisterPage() {
         },
         body: JSON.stringify(attResp),
       });
+      router.push("/admin");
     } catch (error) {
       // // Some basic error handling
       // if (error.name === 'InvalidStateError') {
@@ -122,3 +128,18 @@ export default function RegisterPage() {
     </React.Fragment>
   );
 }
+
+export const getServerSideProps = withIronSessionSsr(async function ({
+  req,
+  res,
+}) {
+  if (isLoggedIn(req)) {
+    return {
+      redirect: {
+        destination: "/admin",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}, sessionOptions);

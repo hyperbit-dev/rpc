@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import { rpcClients } from "@/lib/rpc";
 import { ResponseError } from "@/types/api";
 import { config } from "@/lib/config";
@@ -52,11 +52,11 @@ export async function GET(
   {
     params: { name, blockchain },
   }: { params: { name: string; blockchain: string } }
-): Promise<NextResponse<any | ResponseError>> {
+): Promise<any> {
   const assetName = name.split("-").join("/");
   const chain = config.chains[blockchain];
   if (!chain.features.assetsEnabled) {
-    return NextResponse.json({ message: "Not Implemented" }, { status: 501 });
+    return Response.json({ message: "Not Implemented" }, { status: 501 });
   }
 
   try {
@@ -66,9 +66,9 @@ export async function GET(
     if (data.status === 500) {
       throw new Error(data?.message);
     }
-    return NextResponse.json(data, { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

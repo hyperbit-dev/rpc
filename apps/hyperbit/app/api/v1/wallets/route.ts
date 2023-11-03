@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, Response } from "next";
 import { ResponseError } from "@/types/api";
 import prisma from "@/lib/prisma";
 import { getToken } from "next-auth/jwt";
@@ -16,7 +16,7 @@ function exclude<Wallet, Key extends keyof Wallet>(
   );
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextApiRequest) {
   const token = await getToken({ req });
 
   try {
@@ -32,21 +32,21 @@ export async function GET(req: NextRequest) {
     const walletsWithoutPassphrase = wallets.map((wallets) =>
       exclude(wallets, ["passphrase"])
     );
-    return NextResponse.json(walletsWithoutPassphrase, { status: 200 });
+    return Response.json(walletsWithoutPassphrase, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }
 
 export async function POST(
-  req: NextRequest
-): Promise<NextResponse<DbWallet | any | ResponseError>> {
+  req: NextApiRequest
+): Promise<Response<DbWallet | any | ResponseError>> {
   const token = await getToken({ req });
   const { name, blockchainId, passphrase } = await req.json();
 
   if (!name || !blockchainId || !passphrase) {
-    return NextResponse.json(
+    return Response.json(
       { messge: "Missing required fields" },
       { status: 400 }
     );
@@ -83,9 +83,9 @@ export async function POST(
         updatedAt: true,
       },
     });
-    return NextResponse.json(wallet, { status: 200 });
+    return Response.json(wallet, { status: 200 });
   } catch (err) {
     const { message } = err as Error;
-    return NextResponse.json({ message }, { status: 400 });
+    return Response.json({ message }, { status: 400 });
   }
 }

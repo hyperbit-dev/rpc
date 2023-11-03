@@ -1,8 +1,8 @@
 import { Container, PageHeader, SectionHeader } from "@/components";
 import { getRawTransaction } from "@/lib/api/transactions";
-import { Content } from "./components/Content";
-import { Vin } from "./components/Vin";
-import { Vout } from "./components/Vout";
+import { Content } from "./_components/Content";
+import { Vin } from "./_components/Vin";
+import { Vout } from "./_components/Vout";
 import { getRawMempool } from "@/lib/api/mempool";
 import { config } from "@/lib/config";
 
