@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "name": "my-nextron-app",
+  "description": "My application description",
+  "version": "1.0.0",
+  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "main": "app/background.js",
+  "scripts": {
+    "dev": "nextron",
+    "build": "nextron build",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "@hyperbitui/react": "*",
+    "@simplewebauthn/browser": "^8.3.4",
+    "@simplewebauthn/server": "^8.3.5",
+    "browser-passworder": "^2.0.3",
+    "electron-json-storage": "^4.6.0",
+    "electron-serve": "^1.1.0",
+    "electron-store": "^8.1.0",
+    "next-auth": "^4.24.4",
+    "react-hook-form": "^7.47.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "autoprefixer": "^10.4.16",
+    "electron": "^26.2.2",
+    "electron-builder": "^24.6.4",
+    "next": "^12.3.4",
+    "nextron": "^8.12.0",
+    "postcss": "^8.4.30",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
+  }
+}
