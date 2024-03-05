@@ -15,7 +15,6 @@ const navigation = [
 
 export function Navbar() {
   const { data: session } = useSession();
-  console.log("session", session);
 
   function handleLogin() {
     signIn("google");

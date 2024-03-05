@@ -9,7 +9,6 @@ export const checkEnvironment = () => {
 // @ts-ignore
 export function fetchClient<T>(url: string, ...params): Promise<T> {
   const host = `${checkEnvironment()}${url}`;
-  console.log("params", params);
   return fetch(host, {
     ...params,
     // mode: "cors",
