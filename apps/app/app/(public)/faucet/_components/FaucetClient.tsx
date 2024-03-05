@@ -89,110 +89,105 @@ export function FaucetPageClient() {
   }
 
   return (
-    <div className="flex flex-col justify-between w-full gap-8 px-8 md:flex-row max-w-7xl">
-      <div className="flex-1">
-        <div className="w-full">
-          <h1 className="mb-4 text-3xl font-medium">Testnet Faucet</h1>
-          <p className="mb-4">
-            Enter your testnet address to receive additional funds.
-          </p>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
-            {/* @ts-ignore */}
-            <ReCAPTCHA
-              // @ts-ignore
-              ref={recaptchaRef}
-              size="invisible"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-              onChange={onReCAPTCHAChange}
-            />
-            <FormGroup>
-              <Label htmlFor="blockchain">Blockchain</Label>
-              <Input asChild>
-                <select
-                  {...form.register("blockchain")}
-                  id="blockchain"
-                  name="blockchain"
-                  disabled={form.formState.isSubmitting}
-                  required
-                >
-                  {BLOCKCHAIN_OPTIONS.map(({ label, value }) => {
-                    return (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    );
-                  })}
-                </select>
-              </Input>
-
-              {getFaucetBalanceQuery.data ? (
-                <div className="flex flex-col mt-1">
-                  {typeof getFaucetBalanceQuery.data.address === "string" ? (
-                    <small>
-                      Refill Address: {getFaucetBalanceQuery.data.address}
-                    </small>
-                  ) : undefined}
-
-                  {typeof getFaucetBalanceQuery.data.balance === "number" ? (
-                    <small>
-                      Faucet Balance: {getFaucetBalanceQuery.data.balance}
-                    </small>
-                  ) : undefined}
-                </div>
-              ) : undefined}
-            </FormGroup>
-            <FormGroup>
-              <Label>Send to</Label>
-              <Input
-                {...form.register("address")}
-                placeholder="Wallet address..."
-              />
-              {!!errorResponse && typeof errorResponse === "string" ? (
-                <span className="text-sm text-red-500">{errorResponse}</span>
-              ) : undefined}
-            </FormGroup>
-            <FormGroup className="mt-8 text-center">
-              <Button
-                type="submit"
-                fullWidth
-                disabled={
-                  form.formState.isSubmitting ||
-                  getFaucetBalanceQuery.data?.balance === 0
-                }
+    <>
+      <div className="max-w-3xl mx-auto my-12">
+        <h1 className="mb-2 text-4xl font-bold text-center">Testnet Faucet</h1>
+        <p className="mb-4 text-lg leading-tight text-center">
+          Enter your testnet address to receive additional funds.
+        </p>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
+          {/* @ts-ignore */}
+          <ReCAPTCHA
+            // @ts-ignore
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+            onChange={onReCAPTCHAChange}
+          />
+          <FormGroup>
+            <Label htmlFor="blockchain">Blockchain</Label>
+            <Input asChild>
+              <select
+                {...form.register("blockchain")}
+                id="blockchain"
+                name="blockchain"
+                disabled={form.formState.isSubmitting}
+                required
               >
-                {form.formState.isSubmitting ? (
-                  <svg
-                    className="w-5 h-5 mx-4 text-white animate-spin"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                ) : (
-                  "Submit"
-                )}
-              </Button>
-            </FormGroup>
-          </form>
-        </div>
-      </div>
-      <div className="flex-2">
+                {BLOCKCHAIN_OPTIONS.map(({ label, value }) => {
+                  return (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  );
+                })}
+              </select>
+            </Input>
+
+            {getFaucetBalanceQuery.data ? (
+              <div className="flex flex-col mt-1">
+                {typeof getFaucetBalanceQuery.data.address === "string" ? (
+                  <small>
+                    Refill Address: {getFaucetBalanceQuery.data.address}
+                  </small>
+                ) : undefined}
+
+                {typeof getFaucetBalanceQuery.data.balance === "number" ? (
+                  <small>
+                    Faucet Balance: {getFaucetBalanceQuery.data.balance}
+                  </small>
+                ) : undefined}
+              </div>
+            ) : undefined}
+          </FormGroup>
+          <FormGroup>
+            <Label>Send to</Label>
+            <Input
+              {...form.register("address")}
+              placeholder="Wallet address..."
+            />
+            {!!errorResponse && typeof errorResponse === "string" ? (
+              <span className="text-sm text-red-500">{errorResponse}</span>
+            ) : undefined}
+          </FormGroup>
+          <FormGroup className="mt-8 text-center">
+            <Button
+              type="submit"
+              fullWidth
+              disabled={
+                form.formState.isSubmitting ||
+                getFaucetBalanceQuery.data?.balance === 0
+              }
+            >
+              {form.formState.isSubmitting ? (
+                <svg
+                  className="w-5 h-5 mx-4 text-white animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </FormGroup>
+        </form>
         {successResponse?.length ? (
           <>
-            <h2 className="mb-4 text-3xl font-medium">Transactions</h2>
             <div className="border border-gray-200 divide-y rounded">
               {successResponse.map((tx: any) => (
                 <div
@@ -233,6 +228,6 @@ export function FaucetPageClient() {
           </>
         ) : undefined}
       </div>
-    </div>
+    </>
   );
 }

@@ -8,8 +8,8 @@ export default function Explorers() {
   return (
     <Container className="mb-4">
       <div className="py-12 text-center">
-        <h1 className="mb-1 text-4xl font-medium">Blockchain Explorers</h1>
-        <p className="text-sm">
+        <h1 className="mb-1 text-4xl font-bold">Blockchain Explorers</h1>
+        <p className="text-lg leading-tight">
           Your compass in navigating the blockchain data terrain
         </p>
       </div>
