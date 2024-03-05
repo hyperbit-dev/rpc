@@ -9,4 +9,5 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   rounded?: BorderRadiusSize;
   size?: Extract<Size, "sm" | "md" | "lg">;
   variant?: ColorVariant;
+  inline?: boolean;
 };

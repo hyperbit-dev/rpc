@@ -1,0 +1,19 @@
+{
+  "name": "@hyperbitjs-private/wallet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Michael",
+  "license": "ISC",
+  "dependencies": {
+    "@hyperbitjs/chains": "^1.4.0",
+    "@hyperbitjs/mnemonic": "^2.1.1",
+    "@hyperbitjs/rpc": "^0.3.0",
+    "pouchdb": "^8.0.1",
+    "uuid": "^9.0.1"
+  }
+}

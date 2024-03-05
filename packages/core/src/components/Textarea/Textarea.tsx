@@ -34,6 +34,3 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 
 Textarea.displayName = "SuiTextarea";
-Textarea.defaultProps = {
-  size: "md",
-};

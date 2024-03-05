@@ -21,14 +21,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const Comp = asChild ? Slot : "input";
     return (
-      // @ts-expect-error children
       <Comp
         {...props}
         ref={ref}
         className={clsx(
           "sui--input",
           "border leading-tight outline-none",
-          {'w-full': fullWidth},
+          { "w-full": fullWidth },
           flush
             ? [
                 inset && "border-x-0",
@@ -67,12 +66,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 { "rounded-full": rounded === "full" },
               ],
           size && [
-            { "py-2 text-sm": size === "sm" },
-            { "px-3": size === "sm" && !inset },
-            { "py-2.5 text-md": size === "md" },
-            { "px-4": size === "md" && !inset },
-            { "py-3 text-lg": size === "lg" },
-            { "px-6": size === "lg" && !inset },
+            { "p-2 text-sm": size === "sm" },
+            { "p-2.5 text-md": size === "md" },
+            { "p-3 text-lg": size === "lg" },
           ],
           variant !== "custom" && [
             variant === "primary" && [
