@@ -6,6 +6,30 @@ const nextConfig = {
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  async rewrites() {
+    return [
+      {
+        "source": "/:path*",
+        "has": [
+          {
+            "type": "host",
+            "value": "trvn.hyperbit.app"
+          }
+        ],
+        "destination": "/explorers/trvn/:path*"
+      },
+      {
+        "source": "/:path*",
+        "has": [
+          {
+            "type": "host",
+            "value": "tevr.hyperbit.app"
+          }
+        ],
+        "destination": "/explorers/tevr/:path*"
+      },
+    ];
+  },
   async headers() {
     return [
       {
