@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchClient } from "../../fetchClient";
 import { GetWalletsResponse } from "../types";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 
 function getWalletsQuery(accessToken?: string | unknown) {
   return fetchClient<GetWalletsResponse>(`/api/v1/wallets`, {
@@ -13,7 +13,8 @@ function getWalletsQuery(accessToken?: string | unknown) {
 }
 
 export function useGetWalletsQuery() {
-  const session = useSession();
+  // const session = useSession();
+  const session = {data: {accessToken: ''}}
   return useQuery<any, Error, any>({
     queryKey: ["wallets"],
     // @ts-ignore
