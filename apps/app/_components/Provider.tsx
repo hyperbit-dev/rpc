@@ -10,12 +10,12 @@ function Provider({ children }: any) {
 
   return (
     <>
-    {/* <SessionProvider refetchOnWindowFocus={false}> */}
+      {/* <SessionProvider refetchOnWindowFocus={false}> */}
       <QueryClientProvider client={client}>
         <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    {/* </SessionProvider> */}
+      {/* </SessionProvider> */}
     </>
   );
 }
