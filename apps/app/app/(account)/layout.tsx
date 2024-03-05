@@ -7,18 +7,19 @@ import {
   Squares2X2Icon,
   WalletIcon,
 } from "@heroicons/react/24/outline";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
+  const session = {data: {accessToken: ''}}
 
-  if (status === "loading") {
-    return null;
-  }
+  // if (status === "loading") {
+  //   return null;
+  // }
 
   if (!session) {
     return redirect("/");
