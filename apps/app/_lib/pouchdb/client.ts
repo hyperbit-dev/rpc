@@ -13,7 +13,6 @@ class PouchClient {
     });
   }
   getWallet(id: string) {
-    console.log('id', id)
     return pouchDb.get(id, { attachments: true });
   }
   createWallet(doc: any, res?: any) {

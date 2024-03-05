@@ -37,7 +37,7 @@ const Template: Story = {
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Default = {
+export const Default: Story = {
   ...Template,
   args: {
     flush: true,
