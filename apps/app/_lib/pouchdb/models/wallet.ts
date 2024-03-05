@@ -2,6 +2,7 @@ import { Prisma } from "@hyperbit-private/database";
 import { Address } from "@hyperbitjs/mnemonic";
 
 export type WebWallet = Omit<
+  // @ts-ignore
   Prisma.WalletGetPayload<{}>,
   "id" | "blockchainId" | "createdAt" | "updatedAt" | "deletedAt"
 > & {
