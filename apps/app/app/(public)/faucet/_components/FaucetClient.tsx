@@ -1,0 +1,238 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, FormGroup, Input, Label } from "@hyperbitui/react";
+import { QueryClient } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useForm } from "react-hook-form";
+import { FaucetSchema } from "../_lib";
+import { Spinner } from "~/_components/Spinner";
+import { useGetFaucetBalanceQuery } from "@/_api/client";
+
+const BLOCKCHAIN_OPTIONS = [
+  { label: "Ravencoin", value: "trvn" },
+  {
+    label: "Meowcoin",
+    value: "tmewc",
+  },
+  {
+    label: "Evrmore",
+    value: "tevr",
+  },
+];
+
+export function FaucetPageClient() {
+  const [successResponse, setSuccessResponse] = useState<unknown[]>([]);
+  const [errorResponse, setErrorResponse] = useState<unknown | undefined>();
+  const recaptchaRef = useRef();
+  const form = useForm<FaucetSchema>({
+    resolver: zodResolver(FaucetSchema),
+    defaultValues: {
+      blockchain: "trvn",
+    },
+  });
+
+  const blockchain = form.watch("blockchain");
+  const address = form.watch("address");
+
+  const getFaucetBalanceQuery = useGetFaucetBalanceQuery({
+    blockchain,
+    enabled: !!blockchain,
+  });
+
+  function handleCopy(value: string) {
+    navigator.clipboard.writeText(value);
+    alert("Copied Transaction ID: " + value);
+  }
+
+  const onReCAPTCHAChange = async (captcha: any) => {
+    setErrorResponse(undefined);
+    try {
+      const data = {
+        blockchain,
+        address,
+        captcha,
+      };
+
+      const response = await fetch(`/api/v1/faucet`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const result = await response.json();
+        setSuccessResponse((prev) => [...prev, { ...result, blockchain }]);
+        const queryClient = new QueryClient();
+        queryClient.invalidateQueries({ queryKey: ["faucet"] });
+      } else {
+        const error = await response.json();
+        setErrorResponse((error as Error).message);
+      }
+    } catch (error) {
+      setErrorResponse((error as Error).message);
+    } finally {
+      // Reset the reCAPTCHA when the request has failed or succeeeded
+      // so that it can be executed again if user submits another email.
+      // @ts-ignore
+      window.grecaptcha.reset();
+    }
+  };
+
+  async function handleSubmit() {
+    if (recaptchaRef?.current) {
+      // @ts-ignore
+      await recaptchaRef.current.execute();
+    }
+  }
+
+  return (
+    <div className="flex flex-col justify-between w-full gap-8 px-8 md:flex-row max-w-7xl">
+      <div className="flex-1">
+        <div className="w-full">
+          <h1 className="mb-4 text-3xl font-medium">Testnet Faucet</h1>
+          <p className="mb-4">
+            Enter your testnet address to receive additional funds.
+          </p>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            {/* @ts-ignore */}
+            <ReCAPTCHA
+              // @ts-ignore
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+              onChange={onReCAPTCHAChange}
+            />
+            <FormGroup>
+              <Label htmlFor="blockchain">Blockchain</Label>
+              <Input asChild>
+                <select
+                  {...form.register("blockchain")}
+                  id="blockchain"
+                  name="blockchain"
+                  disabled={form.formState.isSubmitting}
+                  required
+                >
+                  {BLOCKCHAIN_OPTIONS.map(({ label, value }) => {
+                    return (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    );
+                  })}
+                </select>
+              </Input>
+
+              {getFaucetBalanceQuery.data ? (
+                <div className="flex flex-col mt-1">
+                  {typeof getFaucetBalanceQuery.data.address === "string" ? (
+                    <small>
+                      Refill Address: {getFaucetBalanceQuery.data.address}
+                    </small>
+                  ) : undefined}
+
+                  {typeof getFaucetBalanceQuery.data.balance === "number" ? (
+                    <small>
+                      Faucet Balance: {getFaucetBalanceQuery.data.balance}
+                    </small>
+                  ) : undefined}
+                </div>
+              ) : undefined}
+            </FormGroup>
+            <FormGroup>
+              <Label>Send to</Label>
+              <Input
+                {...form.register("address")}
+                placeholder="Wallet address..."
+              />
+              {!!errorResponse && typeof errorResponse === "string" ? (
+                <span className="text-sm text-red-500">{errorResponse}</span>
+              ) : undefined}
+            </FormGroup>
+            <FormGroup className="mt-8 text-center">
+              <Button
+                type="submit"
+                fullWidth
+                disabled={
+                  form.formState.isSubmitting ||
+                  getFaucetBalanceQuery.data?.balance === 0
+                }
+              >
+                {form.formState.isSubmitting ? (
+                  <svg
+                    className="w-5 h-5 mx-4 text-white animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            </FormGroup>
+          </form>
+        </div>
+      </div>
+      <div className="flex-2">
+        {successResponse?.length ? (
+          <>
+            <h2 className="mb-4 text-3xl font-medium">Transactions</h2>
+            <div className="border border-gray-200 divide-y rounded">
+              {successResponse.map((tx: any) => (
+                <div
+                  key={tx.txid}
+                  className="flex items-center justify-between p-2"
+                >
+                  <dl className="grid grid-cols-[100px_auto] gap-y-1">
+                    <dt className="text-xs">ID</dt>
+                    <dd className="flex items-center gap-2 text-xs">
+                      <span>{`${tx.txid.substring(0, 15)}...${tx.txid.substring(
+                        tx.txid.length - 15,
+                        tx.txid.length
+                      )}`}</span>
+                      <button type="button" onClick={() => handleCopy(tx.txid)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15px"
+                          height="15px"
+                          viewBox="0 0 1024 1024"
+                        >
+                          <path
+                            fill="#000000"
+                            d="M768 832a128 128 0 0 1-128 128H192A128 128 0 0 1 64 832V384a128 128 0 0 1 128-128v64a64 64 0 0 0-64 64v448a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64h64z"
+                          />
+                          <path
+                            fill="#000000"
+                            d="M384 128a64 64 0 0 0-64 64v448a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64V192a64 64 0 0 0-64-64H384zm0-64h448a128 128 0 0 1 128 128v448a128 128 0 0 1-128 128H384a128 128 0 0 1-128-128V192A128 128 0 0 1 384 64z"
+                          />
+                        </svg>
+                      </button>
+                    </dd>
+                    <dt className="text-xs">Amount</dt>
+                    <dd className="text-xs">{Math.abs(tx.amount)}</dd>
+                  </dl>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : undefined}
+      </div>
+    </div>
+  );
+}

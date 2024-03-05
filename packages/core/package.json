@@ -27,8 +27,8 @@
     "copy-tailwind": "cp -r tailwind.config.js dist/tailwind.config.js"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.5",
@@ -55,8 +55,8 @@
     "lodash.merge": "^4.6.2",
     "postcss": "^8.4.30",
     "postcss-import": "^15.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "storybook": "^7.4.5",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",

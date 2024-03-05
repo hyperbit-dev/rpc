@@ -1,0 +1,88 @@
+"use client";
+
+import { Container } from "~/_components/Container";
+import { ToastContainer } from "react-toastify";
+import { search } from "./actions";
+
+import "react-toastify/dist/ReactToastify.css";
+import { ReactNode } from "react";
+import { config } from "~/_config";
+import { Button } from "@hyperbitui/react";
+
+const { blockchains: blockchainsConfig } = config;
+
+export default function Layout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { blockchain: string };
+}) {
+  const chain = blockchainsConfig.chains[params.blockchain];
+  const placeholder = chain?.features?.assetsEnabled
+    ? "Search for blocks, transactions, and addresses..."
+    : "Search for blocks, transactions, addresses, and assets...";
+
+  return (
+    <>
+      <div className="mb-4 bg-gray-900 border-b border-gray-200">
+        <Container>
+          <form action={search} className="flex my-3 text-white rounded-md">
+            <select
+              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900 rounded-l-md"
+              name="type"
+            >
+              <option className="bg-gray-900" value="address">
+                Address
+              </option>
+              <option className="bg-gray-900" value="height">
+                Block Height
+              </option>
+              <option className="bg-gray-900" value="hash">
+                Block Hash
+              </option>
+              <option className="bg-gray-900" value="transaction">
+                Transaction Hash
+              </option>
+              {chain?.features?.assetsEnabled && (
+                <option className="bg-gray-900" value="asset">
+                  Asset Name
+                </option>
+              )}
+            </select>
+            <select
+              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900"
+              defaultValue={params.blockchain}
+              name="blockchain"
+            >
+              <option className="bg-gray-900" value="trvn">
+                Ravencoin (Testnet)
+              </option>
+              <option className="bg-gray-900" value="mewc">
+                Meowcoin
+              </option>
+              <option className="bg-gray-900" value="tmewc">
+                Meowcoin (Testnet)
+              </option>
+              <option className="bg-gray-900" value="tevr">
+                Evrmore (Testnet)
+              </option>
+            </select>
+            <input
+              type="text"
+              className="w-full p-3 text-sm text-white bg-transparent border-gray-500 placeholder:text-white"
+              placeholder={placeholder}
+              name="query"
+            />
+            <Button type="submit" className="px-8 rounded-l-none select-none">
+              Search
+            </Button>
+          </form>
+        </Container>
+      </div>
+      {children}
+      {/* @ts-ignore */}
+      <ToastContainer style={{ maxWidth: "200px", textAlign: "center" }} />
+    </>
+  );
+}

@@ -1,0 +1,7 @@
+import type { HttpContext } from '@adonisjs/core/http'
+
+export default class BlockchainsController {
+  
+  async nodes({}: HttpContext) {}
+  
+}

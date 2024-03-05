@@ -12,7 +12,6 @@ export const FormFeedback = forwardRef<HTMLSpanElement, FormFeedbackProps>(
     );
     const Comp = asChild ? Slot : "span";
 
-    // @ts-expect-error children
     return <Comp {...props} ref={ref} className={classes} />;
   }
 );

@@ -1,12 +1,21 @@
 import clsx from "clsx";
-import { forwardRef } from "react";
+import { SyntheticEvent, forwardRef } from "react";
 import { FormProps } from "./types";
 
 export const Form = forwardRef<HTMLFormElement, FormProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, onSubmit, ...props }, ref) => {
     const classes = clsx("sui--form", className);
 
-    return <form {...props} ref={ref} className={classes} />;
+    function _handleSubmit(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) {
+      e.preventDefault();
+      if (onSubmit) {
+        onSubmit(e);
+      }
+    }
+
+    return (
+      <form {...props} ref={ref} className={classes} onSubmit={_handleSubmit} />
+    );
   }
 );
 

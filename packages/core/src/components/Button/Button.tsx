@@ -20,7 +20,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : "button";
     return (
-      // @ts-expect-error children
       <Comp
         {...props}
         className={clsx(
@@ -68,6 +67,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             { "px-4 py-2.5 text-md": size === "md" },
             { "px-6 py-3 text-lg": size === "lg" },
           ],
+          { "opacity-50": props.disabled },
           variant !== "custom" && [
             variant === "primary" && [
               outline
