@@ -14,15 +14,15 @@ const navigation = [
 ];
 
 export function Navbar() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  function handleLogin() {
-    signIn("google");
-  }
+  // function handleLogin() {
+  //   signIn("google");
+  // }
 
-  function handleSignOut() {
-    signOut();
-  }
+  // function handleSignOut() {
+  //   signOut();
+  // }
 
   return (
     <Disclosure as="nav" className="border-b border-gray-200 dark:bg-gray-800">
@@ -69,9 +69,8 @@ export function Navbar() {
                   </div>
                 </div>
               </div>
-              {session ? (
+              {/* {session ? (
                 <div className="flex items-center pr-2">
-                  {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="relative flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -147,14 +146,14 @@ export function Navbar() {
                     </Transition>
                   </Menu>
                 </div>
-              ) : // <button
-              //   type="button"
-              //   className={clsx("rounded-md p-2 text-sm font-medium")}
-              //   onClick={handleLogin}
-              // >
-              //   Login
-              // </button>
-              undefined}
+              ) : <button
+                type="button"
+                className={clsx("rounded-md p-2 text-sm font-medium")}
+                onClick={handleLogin}
+              >
+                Login
+              </button>
+              undefined} */}
             </div>
           </div>
 
