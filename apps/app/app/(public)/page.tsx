@@ -29,7 +29,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="max-w-3xl mx-auto -mb-48 bg-white border border-8 border-gray-300 rounded-md">
+          <div className="max-w-3xl mx-auto -mb-24 bg-white border border-8 border-gray-300 rounded-md sm:-mg-36 md:-mb-48">
             <Image
               src="/marketing/explorer-1.png"
               width={1200}

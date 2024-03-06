@@ -26,7 +26,7 @@ export function Navbar() {
   // }
 
   return (
-    <Disclosure as="nav" className="border-b border-gray-200 dark:bg-gray-800">
+    <Disclosure as="nav" className="border-b border-gray-200">
       {({ open }) => (
         <>
           <div className="w-full px-8 mx-auto max-w-7xl">
@@ -80,9 +80,9 @@ export function Navbar() {
                   >
                     <g
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                       fill="none"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                     >
                       <g
                         transform="translate(-140.000000, -7559.000000)"
