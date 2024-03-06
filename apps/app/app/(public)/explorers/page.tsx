@@ -39,7 +39,7 @@ export default function Explorers() {
         </select>
         <input
           type="text"
-          className="w-full p-3 rounded-md placeholder:text-white"
+          className="w-full p-3 rounded-md"
           placeholder="Search for blocks, transactions, addresses, and assets..."
           name="query"
         />

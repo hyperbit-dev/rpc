@@ -35,7 +35,7 @@ export async function GET(
     redisClient.EXPIRE(redisRef, 60 * 5);
     return handleResponse<any>(data);
   } catch (err) {
-    await disconnect()
+    console.log('err', err)
     return handleError(err as Error);
   }
 }
