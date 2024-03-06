@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { FaucetSchema } from "../_lib";
-import { Spinner } from "~/_components/Spinner";
 import { useGetFaucetBalanceQuery } from "@/_api/client";
+import { Container } from "@/_components/Container";
 
 const BLOCKCHAIN_OPTIONS = [
   { label: "Ravencoin", value: "trvn" },
@@ -89,8 +89,8 @@ export function FaucetPageClient() {
   }
 
   return (
-    <>
-      <div className="max-w-3xl mx-auto my-12">
+    <Container>
+      <div className="max-w-lg mx-auto my-12">
         <h1 className="mb-2 text-4xl font-bold text-center">Testnet Faucet</h1>
         <p className="mb-4 text-lg leading-tight text-center">
           Enter your testnet address to receive additional funds.
@@ -228,6 +228,6 @@ export function FaucetPageClient() {
           </>
         ) : undefined}
       </div>
-    </>
+    </Container>
   );
 }
