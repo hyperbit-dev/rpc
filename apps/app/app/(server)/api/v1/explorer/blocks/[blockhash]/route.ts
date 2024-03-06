@@ -42,10 +42,8 @@ export async function GET(
     }
     redisClient.json.set(redisRef, "$", data);
     redisClient.EXPIRE(redisRef, 60 * 5);
-    await disconnect()
     return handleResponse<ApiBlock>(data);
   } catch (err) {
-    await disconnect()
     return handleError(err as Error);
   }
 }

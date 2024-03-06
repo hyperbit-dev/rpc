@@ -38,7 +38,6 @@ export async function GET(
     redisClient.EXPIRE(redisRef, 60 * 5);
     return handleResponse<ApiAddressBalance>(data);
   } catch (err) {
-    await disconnect();
     return Response.json({ message: "internal server error" }, { status: 500 });
   }
 }

@@ -27,9 +27,9 @@ export default function Layout({
     <>
       <div className="mb-4 bg-gray-900 border-b border-gray-200">
         <Container>
-          <form action={search} className="flex my-3 text-white rounded-md">
+          <form action={search} className="grid md:grid-cols-[175px_175px_auto_150px] my-3 text-white rounded-md">
             <select
-              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900 rounded-l-md"
+              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900 md:rounded-l-md rounded-t-md md:rounded-tr-none"
               name="type"
             >
               <option className="bg-gray-900" value="address">
@@ -74,7 +74,7 @@ export default function Layout({
               placeholder={placeholder}
               name="query"
             />
-            <Button type="submit" className="px-8 rounded-l-none select-none">
+            <Button type="submit" className="px-8 rounded-tl-none rounded-tr-none select-none md:rounded-tr-md rounded-b-md md:rounded-bl-none">
               Search
             </Button>
           </form>
