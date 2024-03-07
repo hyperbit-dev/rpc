@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
+  webpack: function (config, options) {
+    config.externals = [...config.externals, "secp256k1.wasm"];
+    config.experiments = { ...config.experiments, asyncWebAssembly: true };
+    return config;
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
@@ -9,24 +14,24 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        "source": "/:path*",
-        "has": [
+        source: "/:path*",
+        has: [
           {
-            "type": "host",
-            "value": "trvn.hyperbit.app"
-          }
+            type: "host",
+            value: "trvn.hyperbit.app",
+          },
         ],
-        "destination": "/explorers/trvn/:path*"
+        destination: "/explorers/trvn/:path*",
       },
       {
-        "source": "/:path*",
-        "has": [
+        source: "/:path*",
+        has: [
           {
-            "type": "host",
-            "value": "tevr.hyperbit.app"
-          }
+            type: "host",
+            value: "tevr.hyperbit.app",
+          },
         ],
-        "destination": "/explorers/tevr/:path*"
+        destination: "/explorers/tevr/:path*",
       },
     ];
   },
