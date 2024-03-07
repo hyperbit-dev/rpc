@@ -3,12 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, FormGroup, Input, Label } from "@hyperbitui/react";
 import { QueryClient } from "@tanstack/react-query";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { FaucetSchema } from "../_lib";
 import { useGetFaucetBalanceQuery } from "@/_api/client";
 import { Container } from "@/_components/Container";
+import { NextLink } from "@/_components/NextLink";
 
 const BLOCKCHAIN_OPTIONS = [
   { label: "Ravencoin", value: "trvn" },
@@ -90,25 +91,27 @@ export function FaucetPageClient() {
     }
   }
 
-  const assets = getFaucetBalanceQuery?.data?.assets ? Object.keys(getFaucetBalanceQuery.data.assets).reduce(
-    (assets: any[], assetName: any) => {
-      if (
-        assetName.endsWith("!") ||
-        assetName.startsWith("$") ||
-        assetName.startsWith("#")
-      ) {
-        return assets;
-      }
-      return [
-        ...assets,
-        {
-          name: assetName,
-          value: getFaucetBalanceQuery.data.assets[assetName],
+  const assets = getFaucetBalanceQuery?.data?.assets
+    ? Object.keys(getFaucetBalanceQuery.data.assets).reduce(
+        (assets: any[], assetName: any) => {
+          if (
+            assetName.endsWith("!") ||
+            assetName.startsWith("$") ||
+            assetName.startsWith("#")
+          ) {
+            return assets;
+          }
+          return [
+            ...assets,
+            {
+              name: assetName,
+              value: getFaucetBalanceQuery.data.assets[assetName],
+            },
+          ];
         },
-      ];
-    },
-    []
-  ) : [];
+        []
+      )
+    : [];
 
   return (
     <Container>
@@ -201,7 +204,6 @@ export function FaucetPageClient() {
               {form.formState.isSubmitting ? (
                 <svg
                   className="w-5 h-5 mx-4 text-white animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -236,10 +238,16 @@ export function FaucetPageClient() {
                   <dl className="grid grid-cols-[100px_auto] gap-y-1">
                     <dt className="text-xs">ID</dt>
                     <dd className="flex items-center gap-2 text-xs">
-                      <span>{`${tx.txid.substring(0, 15)}...${tx.txid.substring(
-                        tx.txid.length - 15,
-                        tx.txid.length
-                      )}`}</span>
+                      <NextLink
+                        className="text-brand-500 hover:text-brand-600"
+                        href={`/explorers/${tx.blockchain}/transactions/${tx.txid}`}
+                      >
+                        {`${tx.txid.substring(0, 15)}...${tx.txid.substring(
+                          tx.txid.length - 15,
+                          tx.txid.length
+                        )}`}
+                      </NextLink>
+
                       <button type="button" onClick={() => handleCopy(tx.txid)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -260,6 +268,40 @@ export function FaucetPageClient() {
                     </dd>
                     <dt className="text-xs">Amount</dt>
                     <dd className="text-xs">{Math.abs(tx.amount)}</dd>
+                    {tx?.assetTransfers?.length
+                      ? tx.assetTransfers.map((at: string) => (
+                          <Fragment key={at}>
+                            <dt className="text-xs">Asset</dt>
+                            <dd className="flex items-center gap-2 text-xs">
+                              <NextLink
+                                className="text-brand-500 hover:text-brand-600"
+                                href={`/explorers/${tx.blockchain}/transactions/${at}`}
+                              >
+                                {at}
+                              </NextLink>
+                              <button
+                                type="button"
+                                onClick={() => handleCopy(at)}
+                              >
+                                <svg
+                                  width="15px"
+                                  height="15px"
+                                  viewBox="0 0 1024 1024"
+                                >
+                                  <path
+                                    fill="#000000"
+                                    d="M768 832a128 128 0 0 1-128 128H192A128 128 0 0 1 64 832V384a128 128 0 0 1 128-128v64a64 64 0 0 0-64 64v448a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64h64z"
+                                  />
+                                  <path
+                                    fill="#000000"
+                                    d="M384 128a64 64 0 0 0-64 64v448a64 64 0 0 0 64 64h448a64 64 0 0 0 64-64V192a64 64 0 0 0-64-64H384zm0-64h448a128 128 0 0 1 128 128v448a128 128 0 0 1-128 128H384a128 128 0 0 1-128-128V192A128 128 0 0 1 384 64z"
+                                  />
+                                </svg>
+                              </button>
+                            </dd>
+                          </Fragment>
+                        ))
+                      : undefined}
                   </dl>
                 </div>
               ))}

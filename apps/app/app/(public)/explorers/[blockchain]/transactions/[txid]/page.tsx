@@ -60,7 +60,7 @@ export default function Page({
       />
       <section className="my-4">
         <div className="flex flex-wrap gap-4">
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <SectionHeader>Inputs</SectionHeader>
             <Vin
               vin={transaction.vin}
@@ -68,7 +68,7 @@ export default function Page({
               blockchain={blockchain}
             />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <SectionHeader>Outputs</SectionHeader>
             <Vout vout={transaction.vout} blockchain={blockchain} />
           </div>
