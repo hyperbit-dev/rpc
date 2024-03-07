@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     const data = await rpcClients[blockchain].request("getrawmempool", {});
 
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
 
@@ -34,6 +34,6 @@ export async function GET(request: NextRequest) {
     redisClient.EXPIRE(redisRef, 60);
     return handleResponse<any>(data);
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

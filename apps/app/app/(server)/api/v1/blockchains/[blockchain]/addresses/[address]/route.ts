@@ -28,7 +28,7 @@ export async function GET(
     return Response.json(data, { status: 200 });
   } catch (err) {
     return Response.json(
-      { message: "internal server error" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

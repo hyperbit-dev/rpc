@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     const marketCap = data.market_caps[data.market_caps.length - 1][1];
     const totalVolume = data.total_volumes[data.total_volumes.length - 1][1];
 
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
 
@@ -42,6 +42,6 @@ export async function GET(request: NextRequest) {
     redisClient.EXPIRE(redisRef, 60 * 5);
     return handleResponse<ApiMarketLatest>({ price, marketCap, totalVolume });
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

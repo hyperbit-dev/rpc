@@ -6,7 +6,7 @@ const MIN = 100;
 const MAX = 10000;
 
 export async function POST(req: Request) {
-  const { blockchain, address, captcha } = await req.json();
+  const { blockchain, address, asset, captcha } = await req.json();
   const amount = 500;
 
   if (!blockchain || !address || !amount || !captcha) {
@@ -66,6 +66,35 @@ export async function POST(req: Request) {
       const redisAmount = redisUser?.amount ? Number(redisUser.amount) : amount;
       const reqAmount =
         amount + redisAmount <= MAX ? amount : MAX - redisAmount;
+
+      let assetTransfers: string[] = [];
+      if (asset) {
+        const addresses = await rpcClients[blockchain].request(
+          "listaddressesbyasset",
+          {
+            asset_name: asset,
+          }
+        );
+
+        const accountAddress = await rpcClients[blockchain].request(
+          "getaccountaddress",
+          {
+            account: "",
+          }
+        );
+
+        if (
+          !asset.endsWith("!") &&
+          !asset.startsWith("$") &&
+          !asset.startsWith("#")
+        ) {
+          assetTransfers = await rpcClients[blockchain].request(
+            "transferfromaddresses",
+            [asset, Object.keys(addresses), 1, address, '', '', accountAddress, accountAddress]
+          );
+        }
+      }
+
       const response: any = await rpcClients[blockchain].request(
         "sendtoaddress",
         {
@@ -83,6 +112,8 @@ export async function POST(req: Request) {
           txid: response,
           amount: Number(amount),
           total: redisUser?.amount ?? amount,
+          // @ts-ignore
+          assetTransfers: !assetTransfers.code ? assetTransfers : [],
         },
         { status: 200 }
       );
@@ -92,7 +123,7 @@ export async function POST(req: Request) {
       { message: "Unproccesable request, Invalid captcha code" },
       { status: 422 }
     );
-  } catch (e) {
-    return Response.json({ message: (e as Error).message }, { status: 500 });
+  } catch (err) {
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

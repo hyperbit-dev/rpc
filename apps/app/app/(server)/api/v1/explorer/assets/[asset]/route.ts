@@ -35,6 +35,6 @@ export async function GET(
     redisClient.EXPIRE(redisRef, 60 * 5);
     return Response.json(data, { status: 200 });
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

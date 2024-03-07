@@ -24,10 +24,19 @@ export function Vout({
             .map((vout, index) => (
               <Table.Row key={index}>
                 {vout.scriptPubKey?.asset &&
-                vout.scriptPubKey?.addresses?.[index] ? (
+                vout.scriptPubKey?.addresses?.length ? (
                   <>
                     <Table.Cell>
-                      {vout.scriptPubKey.addresses[index]}
+                      {vout.scriptPubKey.addresses.map((addr) => (
+                        <div key={addr}>
+                                                <NextLink
+                        className="text-brand-500 hover:text-brand-600"
+                        href={`/explorers/${blockchain}/addresses/${addr}`}
+                      >
+                        {addr}
+                      </NextLink>
+                        </div>
+                      ))}
                     </Table.Cell>
                     <Table.Cell>
                       <NextLink

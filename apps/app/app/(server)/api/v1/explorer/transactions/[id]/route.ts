@@ -32,13 +32,22 @@ export async function GET(
       verbose: true,
     });
 
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
     redisClient.json.set(redisRef, "$", data);
     redisClient.EXPIRE(redisRef, 60 * 5);
-    return handleResponse<ApiRawTransaction>(data);
+    return handleResponse<any>(data);
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    let message = "Internal server error";
+    if (
+      // @ts-ignore
+      err?.message ===
+      "No such mempool transaction. Use -txindex to enable blockchain transaction queries. Use gettransaction for wallet transactions."
+    ) {
+      // @ts-ignore
+      message = "No such mempool transaction.";
+    }
+    return Response.json({ message }, { status: 500 });
   }
 }

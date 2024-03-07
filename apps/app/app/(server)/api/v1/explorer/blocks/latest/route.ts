@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
     }
     return handleResponse<any>(blocks);<any>(blocks);
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }
 

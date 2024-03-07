@@ -28,7 +28,7 @@ export async function GET(
     const data = await rpcClients[blockchain].request("getblockhash", [
       Number(height),
     ]);
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
     redisClient.json.set(redisRef, "$", data);

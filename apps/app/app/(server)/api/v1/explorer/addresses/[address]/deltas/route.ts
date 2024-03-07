@@ -32,13 +32,19 @@ export async function GET(
       },
     ]);
 
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
     redisClient.json.set(redisRef, "$", data);
     redisClient.EXPIRE(redisRef, 60 * 5);
     return handleResponse<any>(data);
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    let message = "Internal server error";
+    // @ts-ignore
+    if (err?.message === "No information available for address") {
+      // @ts-ignore
+      message = err.message;
+    }
+    return Response.json({ message }, { status: 500 });
   }
 }
