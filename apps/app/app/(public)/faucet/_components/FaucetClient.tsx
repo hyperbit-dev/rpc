@@ -35,6 +35,7 @@ export function FaucetPageClient() {
 
   const blockchain = form.watch("blockchain");
   const address = form.watch("address");
+  const asset = form.watch("asset");
 
   const getFaucetBalanceQuery = useGetFaucetBalanceQuery({
     blockchain,
@@ -52,6 +53,7 @@ export function FaucetPageClient() {
       const data = {
         blockchain,
         address,
+        asset,
         captcha,
       };
 
@@ -87,6 +89,26 @@ export function FaucetPageClient() {
       await recaptchaRef.current.execute();
     }
   }
+
+  const assets = getFaucetBalanceQuery?.data?.assets ? Object.keys(getFaucetBalanceQuery.data.assets).reduce(
+    (assets: any[], assetName: any) => {
+      if (
+        assetName.endsWith("!") ||
+        assetName.startsWith("$") ||
+        assetName.startsWith("#")
+      ) {
+        return assets;
+      }
+      return [
+        ...assets,
+        {
+          name: assetName,
+          value: getFaucetBalanceQuery.data.assets[assetName],
+        },
+      ];
+    },
+    []
+  ) : [];
 
   return (
     <Container>
@@ -125,19 +147,36 @@ export function FaucetPageClient() {
             </Input>
 
             {getFaucetBalanceQuery.data ? (
-              <div className="flex flex-col mt-1">
-                {typeof getFaucetBalanceQuery.data.address === "string" ? (
-                  <small>
-                    Refill Address: {getFaucetBalanceQuery.data.address}
-                  </small>
-                ) : undefined}
+              <>
+                <div className="flex flex-col mt-1">
+                  {typeof getFaucetBalanceQuery.data.address === "string" ? (
+                    <small>
+                      Refill Address: {getFaucetBalanceQuery.data.address}
+                    </small>
+                  ) : undefined}
 
-                {typeof getFaucetBalanceQuery.data.balance === "number" ? (
-                  <small>
-                    Faucet Balance: {getFaucetBalanceQuery.data.balance}
-                  </small>
+                  {typeof getFaucetBalanceQuery.data.balance === "number" ? (
+                    <small>
+                      Faucet Balance: {getFaucetBalanceQuery.data.balance}
+                    </small>
+                  ) : undefined}
+                </div>
+                {assets.length ? (
+                  <FormGroup className="mt-4">
+                    <Label>Asset (Optional)</Label>
+                    <Input asChild>
+                      <select {...form.register("asset")}>
+                        <option value="">Add an asset...</option>
+                        {assets.map((asset: any) => (
+                          <option key={asset} value={asset.name}>
+                            {asset.name}
+                          </option>
+                        ))}
+                      </select>
+                    </Input>
+                  </FormGroup>
                 ) : undefined}
-              </div>
+              </>
             ) : undefined}
           </FormGroup>
           <FormGroup>

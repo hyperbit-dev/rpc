@@ -53,14 +53,19 @@ export async function GET(request: NextRequest) {
       }
     });
 
+    console.log('address', address)
+    console.log('assets', assets)
+
     const response = {
-      address,
+      address: address?.code === 500 ? {} : address,
       balance: Number(balance) ? balance : 0,
-      assets,
+      // @ts-ignore
+      assets: assets?.code === 500 ? {} : assets,
     };
 
     return Response.json(response);
   } catch (err) {
-    return Response.json({ message: "internal server error" }, { status: 500 });
+    console.log('err', err)
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

@@ -37,7 +37,7 @@ export async function GET(
       blockhash,
       verbosity: verbosity ? Number(verbosity) : 0,
     });
-    if (data.message) {
+    if (data.message || data?.code === 500) {
       throw new Error(data.message);
     }
     redisClient.json.set(redisRef, "$", data);
