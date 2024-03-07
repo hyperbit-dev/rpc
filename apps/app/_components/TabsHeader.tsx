@@ -10,8 +10,8 @@ export function TabsHeader({
   className,
 }: {
   tabs: ({ name: string; value: string } | undefined)[];
-  data: any;
-  fileName: string;
+  data?: any;
+  fileName?: string;
   className?: string;
 }) {
   return (
@@ -25,12 +25,14 @@ export function TabsHeader({
             </Tab>
           ))}
       </Tabs.List>
-      <div>
-        <ExportButton
-          fileName={`${fileName}.json`}
-          data={JSON.stringify(data, null, 2)}
-        />
-      </div>
+      {fileName && data ? (
+        <div>
+          <ExportButton
+            fileName={`${fileName}.json`}
+            data={JSON.stringify(data, null, 2)}
+          />
+        </div>
+      ) : undefined}
     </div>
   );
 }
