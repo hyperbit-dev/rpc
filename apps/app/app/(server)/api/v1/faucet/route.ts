@@ -90,7 +90,16 @@ export async function POST(req: Request) {
         ) {
           assetTransfers = await rpcClients[blockchain].request(
             "transferfromaddresses",
-            [asset, Object.keys(addresses), 1, address, '', '', accountAddress, accountAddress]
+            [
+              asset,
+              Object.keys(addresses),
+              1,
+              address,
+              "",
+              "",
+              accountAddress,
+              accountAddress,
+            ]
           );
         }
       }
@@ -109,6 +118,7 @@ export async function POST(req: Request) {
 
       return Response.json(
         {
+          blockchain,
           txid: response,
           amount: Number(amount),
           total: redisUser?.amount ?? amount,
