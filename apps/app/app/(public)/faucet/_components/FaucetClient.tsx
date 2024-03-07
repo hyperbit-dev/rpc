@@ -277,7 +277,10 @@ export function FaucetPageClient() {
                                 className="text-brand-500 hover:text-brand-600"
                                 href={`/explorers/${tx.blockchain}/transactions/${at}`}
                               >
-                                {at}
+                                {`${at.substring(0, 15)}...${at.substring(
+                                  at.length - 15,
+                                  at.length
+                                )}`}
                               </NextLink>
                               <button
                                 type="button"
