@@ -8,7 +8,7 @@ export const checkEnvironment = () => {
 };
 
 // @ts-ignore
-export function fetchClient<T>(url: string, params): Promise<T> {
+export function fetchClient<T>(url: string, params?: any): Promise<T> {
   const host = `${checkEnvironment()}${url}`;
 
   return fetch(host, {
