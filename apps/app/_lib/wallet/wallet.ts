@@ -44,12 +44,13 @@ export class Wallet {
   }
 
   private _setWallet() {
+    const mnemonic = this._mnemonic?.inspect();
     const doc: PouchDbWallet = {
       _id: this._id,
       name: this._name,
-      words: this._mnemonic?.mnemonic,
+      words: mnemonic?.mnemonic,
       passphrase: this._options.passphrase,
-      networkId: this._mnemonic?.network.id,
+      networkId: mnemonic?.network.id,
       language: this._options.language,
       accounts: this._accounts,
     };
