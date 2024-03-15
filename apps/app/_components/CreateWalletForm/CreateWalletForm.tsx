@@ -55,7 +55,7 @@ export function CreateWalletForm() {
       </FormGroup>
       <FormGroup id="wallet-label">
         <Label>Label</Label>
-        <Input type="text" {...form.register("label")} autoComplete='false' />
+        <Input type="text" {...form.register("label")} />
         {form.formState?.errors?.label?.message ? (
           <FormFeedback className="text-sm">
             {form.formState.errors.label.message as string}
