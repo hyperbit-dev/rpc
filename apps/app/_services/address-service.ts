@@ -1,4 +1,5 @@
 import { chains } from "@hyperbitjs/chains";
+import { getMeowcoinAddress } from "./meowcoin";
 import { getRavencoinAddress } from "./ravencoin";
 
 class AddressService {
@@ -11,19 +12,29 @@ class AddressService {
     }
   }
 
-  async getAddresses(
-    wallets: any[]
-  ) {
+  async getAddresses({
+    chainId,
+    addresses,
+  }: {
+    chainId: string;
+    addresses: string[];
+  }) {
     const promises: Promise<any>[] = [];
-    wallets.forEach((wallet) => {
-      wallet.accounts.forEach((account: any) => {
-        account.addresses.forEach((addr: any) => {
-          promises.push(
-            this.getAddress(wallet.blockchain.chainId, addr.address)
-          );
+
+    switch (chainId.toUpperCase()) {
+      case chains.rvn.mainnet.id.toUpperCase():
+        addresses.forEach((address) => {
+          promises.push(getRavencoinAddress(address));
         });
-      });
-    });
+        break;
+      case chains.mewc.mainnet.id.toUpperCase():
+        addresses.forEach((address) => {
+          promises.push(getMeowcoinAddress(address));
+        });
+        break;
+      default:
+        break;
+    }
     const response = (await Promise.all(promises)).filter(Boolean);
     return response;
   }

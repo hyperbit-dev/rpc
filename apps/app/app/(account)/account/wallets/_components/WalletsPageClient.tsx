@@ -1,17 +1,30 @@
 "use client";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { chains } from "@hyperbitjs/chains";
 import { Input } from "@hyperbitui/react";
 import * as Popover from "@radix-ui/react-popover";
-import { Container } from "@/_components/Container";
-import { CreateWalletDialog } from "@/_components/CreateWalletDialog/CreateWalletDialog";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { CryptoIcon } from "@/_components/CryptoIcon";
 import * as icons from "react-cryptoicon";
-import { chains } from "@hyperbitjs/chains";
+import { Container } from "@/_components/Container";
+import { CryptoIcon } from "@/_components/CryptoIcon";
 import { useGetWalletsQuery } from "@/_api/client";
-import { ImportWalletDialog } from "@/_components/ImportWalletDialog";
+import { CreateWalletDrawer } from "@/_components/CreateWalletDrawer/CreateWalletDrawer";
+import { ImportWalletDrawer } from "@/_components/ImportWalletDrawer/ImportWalletDrawer";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function WalletsPageClient() {
-  const walletsQuery = useGetWalletsQuery();
+  const getWalletsQuery = useGetWalletsQuery();
+  const [filter, setFilter] = useState("");
+
+  const filteredWallets =
+    getWalletsQuery?.data?.rows.filter((row: any) => {
+      return (
+        row.doc.label.toLowerCase().includes(filter.toLowerCase()) ||
+        row.doc.wallet._network.name
+          .toLowerCase()
+          .includes(filter.toLowerCase())
+      );
+    }) ?? [];
 
   return (
     <Container>
@@ -28,45 +41,43 @@ export default function WalletsPageClient() {
               </div> */}
             </div>
             <div className="flex gap-4">
-              {/* @ts-ignore */}
-              <Input size="sm" placeholder="Search..." />
-              <ImportWalletDialog />
-              <CreateWalletDialog />
+              <Input
+                type="text"
+                // @ts-ignore
+                size="sm"
+                placeholder="Search..."
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <ImportWalletDrawer OnClose={() => {}} />
+              <CreateWalletDrawer OnClose={() => {}} />
             </div>
           </div>
         </div>
         <div className="border border-gray-300 divide-y divide-gray-300 rounded-t-lg rounded-b-lg border-x">
-          <div className="grid grid-cols-6 gap-4 text-gray-500">
+          <div className="grid grid-cols-[minmax(150px,auto)_auto_150px_125px_125px] gap-4 text-gray-500">
             <div className="px-4 py-2 pl-10">Asset</div>
             <div className="px-4 py-2">Balance</div>
-            <div className="px-4 py-2">Tokens</div>
             <div className="px-4 py-2">Price 24H</div>
             <div className="px-4 py-2">Portfolio %</div>
             <div className="px-4 py-2 text-right">Actions</div>
           </div>
-          {walletsQuery.data?.wallets.map((wallet: any) => {
+          {filteredWallets.map((row: any) => {
+            const wallet = row.doc.wallet;
             let symbol;
             Object.values(chains).forEach((chain) => {
               if (
-                wallet.blockchain.chainId.toLowerCase() ===
+                wallet._network.id.toLowerCase() ===
                 chain.mainnet.id.toLowerCase()
               ) {
                 symbol = chain.mainnet.symbol.toUpperCase();
               }
             });
 
-            const hasTokens = wallet.accounts.some((x: any) =>
-              x.addresses.some(
-                (y: any) =>
-                  Object?.keys(y?.balances ?? []).filter((key) => key !== "RVN")
-                    .length
-              )
-            );
-
             return (
               <div
-                key={wallet.id}
-                className="grid items-center grid-cols-6 gap-4 text-gray-900"
+                key={row.doc.id}
+                className="grid items-center grid-cols-[minmax(150px,auto)_auto_150px_125px_125px] gap-4 text-gray-900"
               >
                 <div className="p-2 tracking-tight">
                   <div className="flex items-center justify-start gap-2">
@@ -76,26 +87,25 @@ export default function WalletsPageClient() {
                       <div className="w-6 h-6 bg-black rounded-full"></div>
                     )}
                     <div>
-                      <div>{wallet.label}</div>
+                      <div>{row.doc.label}</div>
                       <div className="text-xs text-gray-500">
-                        {wallet.blockchain.name} ({wallet.blockchain.network})
+                        {wallet._network.name} ({wallet._network.network})
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="px-4 py-2">{wallet?.balance}</div>
-                <div className="px-4 py-2">{hasTokens ? "Yes" : "No"}</div>
                 <div className="px-4 py-2">
                   ${wallet?.market?.current_price}
                 </div>
-                <div className="px-4 py-2">d</div>
+                <div className="px-4 py-2"></div>
                 <div className="flex justify-end gap-2 px-4 py-2">
-                  <button
-                    type="button"
+                  <Link
+                    href={`/account/wallets/${row.doc._id}`}
                     className="px-2 py-1 text-sm text-right text-brand-500 action:text-brand-700"
                   >
                     Manage
-                  </button>
+                  </Link>
                   <Popover.Root>
                     <Popover.Trigger asChild>
                       <button

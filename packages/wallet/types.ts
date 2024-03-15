@@ -13,12 +13,12 @@ export type Options = {
   type?: "import" | "create";
 };
 
-export type Accounts = Record<string | number, Addresses>;
-
-export type Addresses = {
-  external: Map<string, Address>;
-  change: Map<string, Address>;
+export type Account = {
+  external: Address[];
+  change: Address[];
 };
+
+export type Accounts = Record<string | number, Account>;
 
 export type AddressJSON = Omit<Address, "privateKey" | "wif"> & {
   privateKey?: string;
@@ -27,7 +27,7 @@ export type AddressJSON = Omit<Address, "privateKey" | "wif"> & {
 
 export type AccountsJSON = Record<
   string | number,
-  Omit<Addresses, "external" | "change"> & {
+  Omit<Accounts, "external" | "change"> & {
     external: Record<string, AddressJSON>;
     change: Record<string, AddressJSON>;
   }

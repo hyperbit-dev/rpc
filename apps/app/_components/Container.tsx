@@ -11,7 +11,7 @@ export function Container({
 }) {
   return (
     <div
-      className={clsx("px-8 mx-auto max-w-7xl w-full", className)}
+      className={clsx("px-4 mx-auto max-w-7xl w-full", className)}
       {...props}
     >
       {children}

@@ -13,4 +13,5 @@ export type InputBaseProps = {
   size?: Extract<Size, "sm" | "md" | "lg">;
   variant?: ColorVariant;
   fullWidth?: boolean;
+  autoComplete?: boolean;
 };

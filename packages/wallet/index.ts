@@ -1,142 +1,149 @@
 import Mnemonic from "@hyperbitjs/mnemonic";
+import { encrypt } from "@metamask/browser-passworder";
 import PouchDB from "pouchdb";
 import { v4 as uuidv4 } from "uuid";
-import { Accounts, AccountsJSON, Addresses, Options } from "./types";
-
-// TODO: Tie wallet to user and encryption
+import { Account, Accounts, Options } from "./types";
 
 export class Wallet {
-  private _id: string;
-  private _externalId?: string;
-  private _label: string;
-  private _wallet: Mnemonic;
-  private _accounts: Accounts = {
-    0: { external: new Map(), change: new Map() },
-  };
+  public id: string;
+  public externalId?: string;
+  public label: string;
+  public mnemonic: Mnemonic;
+  public accounts: Accounts = {};
+
+  private _options: Options;
   private _pouchDb: any;
 
   constructor(options: Options) {
-    this._id = options?.id?.includes("wallet_")
+    this.id = options?.id?.includes("wallets_")
       ? options.id
-      : `wallet_${uuidv4()}`;
-    this._externalId = options.externalId;
-    this._label = options.label;
+      : `wallets_${uuidv4()}`;
+    this.externalId = options.externalId;
+    this.label = options.label;
+
+    this._options = options;
     this._pouchDb = new PouchDB(options.database);
 
-    this._wallet = new Mnemonic({
-      mnemonic: options.mnemonic,
-      passphrase: options.passphrase,
-      network: options.network,
-      language: options.language,
+    this.mnemonic = new Mnemonic({
+      mnemonic: this._options.mnemonic,
+      passphrase: this._options.passphrase ?? "",
+      network: this._options.network,
+      language: this._options.language,
     });
-    this.generateAddress(0, 20);
+  }
 
-    if (options.id) {
+  async init() {
+    const addresses = this.mnemonic.generateAddresses({
+      index: 0,
+      count: 20,
+      account: 0,
+    });
+    this.accounts = {
+      "0": {
+        external: [],
+        change: [],
+      },
+    };
+
+    addresses.forEach(async (address) => {
+      const external = {
+        ...address.external,
+        privateKey: await encrypt(
+          this._options.passphrase ?? "",
+          address.external.privateKey
+        ),
+        wif: await encrypt(
+          this._options.passphrase ?? "",
+          address.external.wif
+        ),
+      };
+      this.accounts[0].external.push(external);
+
+      const change = {
+        ...address.change,
+        privateKey: await encrypt(
+          this._options.passphrase ?? "",
+          address.change.privateKey
+        ),
+        wif: await encrypt(this._options.passphrase ?? "", address.change.wif),
+      };
+      this.accounts[0].change.push(change);
+    });
+
+    await this.mnemonic.encrypt(this._options.passphrase ?? "");
+
+    if (this._options.id) {
       // check for pouch db _id. put/update
     } else {
       this._pouchDb.put({
-        _id: this._id,
-        externalId: this._externalId,
-        label: this._label,
-        wallet: this._wallet,
-        accounts: this._accounts,
+        _id: this.id,
+        externalId: this.externalId,
+        label: this.label,
+        wallet: this.mnemonic,
+        accounts: this.accounts,
       });
     }
   }
 
-  toJSON({ scrub = true }: { scrub?: boolean }) {
-    const clone = structuredClone(this._accounts);
-    let accounts: AccountsJSON = {};
-    Object.keys(clone).forEach((key) => {
-      const _key = Number(key);
-      accounts[_key] = {
-        external: Object.fromEntries(clone[_key].external),
-        change: Object.fromEntries(clone[_key].change),
-      };
-      if (scrub) {
-        Object.keys(accounts[_key].external).forEach((k) => {
-          delete accounts[_key].external[k].privateKey;
-          delete accounts[_key].external[k].wif;
-        });
-        Object.keys(accounts[_key].change).forEach((k) => {
-          delete accounts[_key].change[k].privateKey;
-          delete accounts[_key].change[k].wif;
-        });
-      }
-    });
-
+  async toJSON() {
     return structuredClone({
-      id: this._id,
-      externalId: this._externalId,
-      label: this._label,
-      accounts: { ...clone, ...accounts },
+      id: this.id,
+      externalId: this.externalId,
+      label: this.label,
+      wallet: await this.mnemonic.inspect(),
+      accounts: this.accounts,
     });
   }
 
-  setExternalId(externalId: string) {
-    this._externalId = externalId;
-    this._syncToClient({ externalId });
+  // setExternalId(externalId: string) {
+  //   this._externalId = externalId;
+  //   this._syncToClient({ externalId });
+  // }
+
+  getAccounts(): Accounts {
+    return this.accounts;
   }
 
-  wallet() {
-    return this._wallet;
+  getAccount(num: number = 0): Account | undefined {
+    return this.accounts[num];
   }
 
-  accounts(): Accounts {
-    return this._accounts;
-  }
+  // depositAddress({
+  //   generate,
+  //   account = 0,
+  // }: {
+  //   generate?: boolean;
+  //   account?: number;
+  // }) {
+  //   if (generate) {
+  //     this.generateAddress(account, 1);
+  //   }
+  //   return this._getLastAddress({ account, type: "external" });
+  // }
 
-  account(num: number = 0): Addresses | undefined {
-    return this._accounts[num];
-  }
+  // private _getLastAddress({
+  //   account = 0,
+  //   type = "external",
+  // }: {
+  //   account?: number;
+  //   type?: "external" | "change";
+  // }) {
+  //   if (this.accounts[account]) {
+  //     const addresses = Array.from(this.accounts[account][type].values()).sort(
+  //       (a, b) => (a.path < b.path ? 1 : -1)
+  //     );
+  //     return addresses[0];
+  //   } else {
+  //     throw new Error("account does not exist");
+  //   }
+  // }
 
-  generateAddress(account: number = 0, count?: number) {
-    const addressSet = this._wallet.generateAddresses({
-      count: count ?? 1,
-      account,
-    });
-    addressSet.forEach((set) => {
-      this._accounts[account].external.set(set.external.path, set.external);
-      this._accounts[account].change.set(set.change.path, set.change);
-    });
-  }
+  // private _syncToClient(params: any) {
+  //   const wallet = this._pouchDb.get(this._id, { attachments: true });
+  //   this._pouchDb.put({ ...wallet, ...params });
+  // }
 
-  depositAddress({
-    generate,
-    account = 0,
-  }: {
-    generate?: boolean;
-    account?: number;
-  }) {
-    if (generate) {
-      this.generateAddress(account, 1);
-    }
-    return this._getLastAddress({ account, type: "external" });
-  }
-
-  private _getLastAddress({
-    account = 0,
-    type = "external",
-  }: {
-    account?: number;
-    type?: "external" | "change";
-  }) {
-    if (this._accounts[account]) {
-      const addresses = Array.from(this._accounts[account][type].values()).sort(
-        (a, b) => (a.path < b.path ? 1 : -1)
-      );
-      return addresses[0];
-    } else {
-      throw new Error("account does not exist");
-    }
-  }
-
-  private _syncToClient(params: any) {
-    const wallet = this._pouchDb.get(this._id, { attachments: true });
-    this._pouchDb.put({ ...wallet, ...params });
-  }
-
-  private _syncFromClient() {
-    const wallet = this._pouchDb.get(this._id, { attachments: true });
-  }
+  // private _syncFromClient() {
+  //   const wallet = this._pouchDb.get(this._id, { attachments: true });
+  // }
 }

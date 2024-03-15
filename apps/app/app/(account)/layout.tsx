@@ -15,7 +15,8 @@ import { ReactNode } from "react";
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
   // const { data: session, status } = useSession();
-  const session = {data: {accessToken: ''}}
+  // const session = { data: { accessToken: "" } };
+  const session = undefined
 
   // if (status === "loading") {
   //   return null;
@@ -27,17 +28,23 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-1 overflow-hidden">
-      <aside style={{ backgroundColor: "#1C1D22", minWidth: "175px" }}>
+      <aside
+        style={{ minWidth: "200px" }}
+        className="bg-gray-100 border-r border-gray-200"
+      >
+        {/* <aside style={{ backgroundColor: "#1C1D22", minWidth: "175px" }}> */}
         <header
-          className="flex items-center justify-center gap-2 px-4 border-b"
-          style={{ borderColor: "#1C1D22", height: "50px" }}
+          className="flex items-center justify-start gap-2 px-6 border-b border-gray-300"
+          style={{ height: "50px" }}
+          // style={{ borderColor: "#1C1D22", height: "50px" }}
         >
           <Image src="/logo.svg" alt="Logo" width="25" height="25" />
+          <span className="font-medium">Hyperbit</span>
         </header>
-        <nav className="flex flex-col gap-1 p-4 text-sm text-gray-300 list-none">
+        <nav className="flex flex-col gap-1 p-4 text-sm text-gray-800 list-none">
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/account"
             >
               <Squares2X2Icon className="w-5 h-5 group-action:stroke-white" />
@@ -46,7 +53,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
           </li>
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/account/wallets"
             >
               <WalletIcon className="w-5 h-5 group-action:stroke-white" />
@@ -55,7 +62,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
           </li>
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/account/portfolio"
             >
               <ServerStackIcon className="w-5 h-5 group-action:stroke-white" />
@@ -64,7 +71,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
           </li>
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/"
             >
               <GlobeAmericasIcon className="w-5 h-5 group-action:stroke-white" />
@@ -73,7 +80,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
           </li>
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/"
             >
               <EnvelopeIcon className="w-5 h-5 group-action:stroke-white" />
@@ -82,7 +89,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
           </li>
           <li>
             <Link
-              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-gray-600/50"
+              className="flex items-center block gap-2 p-2 border border-transparent rounded group action:text-white action:outline-none action:bg-brand-500"
               href="/"
             >
               <Cog6ToothIcon className="w-5 h-5 group-action:stroke-white" />

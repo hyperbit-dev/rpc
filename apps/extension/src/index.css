@@ -17,15 +17,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  font-size: 14px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body,
+#crx-root {
+  display: flex;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@layer base {
+  label a {
+    @apply text-brand-500 action:text-brand-700;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -39,4 +54,22 @@ h1 {
   button {
     background-color: #f9f9f9;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5fc77e;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #39774c;
 }
