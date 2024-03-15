@@ -1,33 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchClient } from "../../fetchClient";
-import { GetWalletsResponse } from "../types";
-// import { useSession } from "next-auth/react";
+import PouchDB from "pouchdb";
 
-function getWalletsQuery(accessToken?: string | unknown) {
-  return fetchClient<GetWalletsResponse>(`/api/v1/wallets`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
+async function getWalletsQuery() {
+  const db = new PouchDB("hyperbit");
+  return db.allDocs({
+    startkey: "wallets_",
+    endkey: "wallets_\uffff",
+    include_docs: true,
   });
 }
 
 export function useGetWalletsQuery() {
-  // const session = useSession();
-  const session = {data: {accessToken: ''}}
   return useQuery<any, Error, any>({
     queryKey: ["wallets"],
     // @ts-ignore
-    queryFn: () => getWalletsQuery(session.data?.accessToken),
-    staleTime: 0,
+    queryFn: () => getWalletsQuery(),
   });
-}
-
-export function getWallet(walletId: string) {
-  return fetchClient<any>(
-    `${process.env.NEXT_PUBLIC_URL}/api/v1/wallets/${walletId}`,
-    {
-      cache: "no-store",
-    }
-  );
 }
