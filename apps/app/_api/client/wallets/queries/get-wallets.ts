@@ -1,3 +1,5 @@
+'use client'
+
 import { useQuery } from "@tanstack/react-query";
 import PouchDB from "pouchdb";
 
@@ -13,7 +15,6 @@ async function getWalletsQuery() {
 export function useGetWalletsQuery() {
   return useQuery<any, Error, any>({
     queryKey: ["wallets"],
-    // @ts-ignore
     queryFn: () => getWalletsQuery(),
   });
 }

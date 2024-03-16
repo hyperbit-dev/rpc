@@ -1,15 +1,14 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, FormGroup, Input, Label } from "@hyperbitui/react";
 import { QueryClient } from "@tanstack/react-query";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
-import { FaucetSchema } from "../_lib";
-import { useGetFaucetBalanceQuery } from "@/_api/client";
-import { Container } from "@/_components/Container";
-import { NextLink } from "@/_components/NextLink";
+import { z } from "zod";
+import { fetchClient } from "@/_api/client/fetchClient";
+import { Container } from "~/_components/Container";
+import { NextLink } from "~/_components/NextLink";
 
 const BLOCKCHAIN_OPTIONS = [
   { label: "Ravencoin", value: "trvn" },
@@ -23,7 +22,16 @@ const BLOCKCHAIN_OPTIONS = [
   },
 ];
 
-export function FaucetPageClient() {
+const FaucetSchema = z.object({
+  blockchain: z.string(),
+  address: z.string(),
+  asset: z.string().optional(),
+});
+
+type FaucetSchema = z.infer<typeof FaucetSchema>;
+
+export default function FaucetPage() {
+  const [faucetBalance, setFaucetBalance] = useState<any>({});
   const [successResponse, setSuccessResponse] = useState<unknown[]>([]);
   const [errorResponse, setErrorResponse] = useState<unknown | undefined>();
   const recaptchaRef = useRef();
@@ -38,10 +46,22 @@ export function FaucetPageClient() {
   const address = form.watch("address");
   const asset = form.watch("asset");
 
-  const getFaucetBalanceQuery = useGetFaucetBalanceQuery({
-    blockchain,
-    enabled: !!blockchain,
-  });
+  useEffect(() => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("blockchain", blockchain);
+    const url = `/api/v1/faucet/balance?${searchParams.toString()}`;
+    fetch(url, {
+      cache: "no-store",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setFaucetBalance(res);
+      });
+  }, [blockchain]);
 
   function handleCopy(value: string) {
     navigator.clipboard.writeText(value);
@@ -58,22 +78,16 @@ export function FaucetPageClient() {
         captcha,
       };
 
-      const response = await fetch(`/api/v1/faucet`, {
+      const response: any = await fetchClient(`/api/v1/faucet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) {
-        const result = await response.json();
-        setSuccessResponse((prev) => [...prev, { ...result, blockchain }]);
-        const queryClient = new QueryClient();
-        queryClient.invalidateQueries({ queryKey: ["faucet"] });
-      } else {
-        const error = await response.json();
-        setErrorResponse((error as Error).message);
-      }
+      setSuccessResponse((prev) => [...prev, { ...response, blockchain }]);
+      const queryClient = new QueryClient();
+      queryClient.invalidateQueries({ queryKey: ["faucet"] });
     } catch (error) {
       setErrorResponse((error as Error).message);
     } finally {
@@ -91,8 +105,8 @@ export function FaucetPageClient() {
     }
   }
 
-  const assets = getFaucetBalanceQuery?.data?.assets
-    ? Object.keys(getFaucetBalanceQuery.data.assets).reduce(
+  const assets = faucetBalance?.assets
+    ? Object.keys(faucetBalance.assets).reduce(
         (assets: any[], assetName: any) => {
           if (
             assetName.endsWith("!") ||
@@ -105,7 +119,7 @@ export function FaucetPageClient() {
             ...assets,
             {
               name: assetName,
-              value: getFaucetBalanceQuery.data.assets[assetName],
+              value: faucetBalance.assets[assetName],
             },
           ];
         },
@@ -149,19 +163,15 @@ export function FaucetPageClient() {
               </select>
             </Input>
 
-            {getFaucetBalanceQuery.data ? (
+            {faucetBalance ? (
               <>
                 <div className="flex flex-col mt-1">
-                  {typeof getFaucetBalanceQuery.data.address === "string" ? (
-                    <small>
-                      Refill Address: {getFaucetBalanceQuery.data.address}
-                    </small>
+                  {typeof faucetBalance.address === "string" ? (
+                    <small>Refill Address: {faucetBalance.address}</small>
                   ) : undefined}
 
-                  {typeof getFaucetBalanceQuery.data.balance === "number" ? (
-                    <small>
-                      Faucet Balance: {getFaucetBalanceQuery.data.balance}
-                    </small>
+                  {typeof faucetBalance.balance === "number" ? (
+                    <small>Faucet Balance: {faucetBalance.balance}</small>
                   ) : undefined}
                 </div>
                 {assets.length ? (
@@ -197,8 +207,7 @@ export function FaucetPageClient() {
               type="submit"
               fullWidth
               disabled={
-                form.formState.isSubmitting ||
-                getFaucetBalanceQuery.data?.balance === 0
+                form.formState.isSubmitting || faucetBalance?.balance === 0
               }
             >
               {form.formState.isSubmitting ? (

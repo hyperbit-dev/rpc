@@ -1,13 +1,13 @@
 "use client";
 
-import { Container } from "~/_components/Container";
+import { Button } from "@hyperbitui/react";
+import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
+import { Container } from "~/_components/Container";
 import { search } from "./actions";
 
-import "react-toastify/dist/ReactToastify.css";
-import { ReactNode } from "react";
 import { config } from "~/_config";
-import { Button } from "@hyperbitui/react";
+import "react-toastify/dist/ReactToastify.css";
 
 const { blockchains: blockchainsConfig } = config;
 

@@ -53,9 +53,6 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    console.log('address', address)
-    console.log('assets', assets)
-
     const response = {
       address: address?.code === 500 ? {} : address,
       balance: Number(balance) ? balance : 0,
@@ -65,7 +62,7 @@ export async function GET(request: NextRequest) {
 
     return Response.json(response);
   } catch (err) {
-    console.log('err', err)
+    console.log("err", err);
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }

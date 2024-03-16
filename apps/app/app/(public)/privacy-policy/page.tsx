@@ -1,6 +1,8 @@
+import { Container } from "@/_components/Container";
+
 export default function PrivacyPolicyPage() {
   return (
-    <>
+    <Container className="py-12">
       <h1>Privacy Policy</h1>
       <p>
         This Privacy Policy describes Our policies and procedures on the
@@ -565,6 +567,6 @@ export default function PrivacyPolicyPage() {
       <ul>
         <li>By email: support@hyperbit.app</li>
       </ul>
-    </>
+    </Container>
   );
 }

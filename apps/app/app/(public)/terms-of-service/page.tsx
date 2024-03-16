@@ -1,6 +1,8 @@
+import { Container } from "@/_components/Container";
+
 export default function TermsOfServicePage() {
   return (
-    <>
+    <Container className="py-12">
       <h1>Terms and Conditions of Use</h1>
       <h2>1. Terms</h2>
       <p>
@@ -90,7 +92,7 @@ export default function TermsOfServicePage() {
       <p>
         Any claim related to Hyperbit&apos;s Website shall be governed by the
         laws of us without regards to its conflict of law provisions.
-      </p>{" "}
-    </>
+      </p>
+    </Container>
   );
 }

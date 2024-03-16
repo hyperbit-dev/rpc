@@ -8,7 +8,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Navbar Theme="light"/>
+      <Navbar Theme="light" />
       {children}
     </>
   );

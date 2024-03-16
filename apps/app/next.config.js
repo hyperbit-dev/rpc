@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
-  webpack: function (config, options) {
-    config.externals = [...config.externals, "secp256k1.wasm"];
-    config.experiments = { ...config.experiments, asyncWebAssembly: true };
-    return config;
-  },
+  // output: "standalone",
+  // webpack: function (config, options) {
+  //   config.externals = [...config.externals, "secp256k1.wasm"];
+  //   config.experiments = { ...config.experiments, asyncWebAssembly: true };
+  //   return config;
+  // },
+  // experimental: {
+  //   esmExternals: true
+  // },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",

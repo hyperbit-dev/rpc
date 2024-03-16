@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   try {
     // Ping the google recaptcha verify API to verify the captcha code you received
     const recaptchaResponse = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captcha}`,
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY ?? ""}&response=${captcha}`,
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",

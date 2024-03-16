@@ -5,8 +5,7 @@ type GetFaucetBalanceParams = {
   queryKey: [string, string, { address: string; blockchain: string }];
 };
 
-export function getFaucetBalanceQuery(params: GetFaucetBalanceParams) {
-  const [, , { blockchain }] = params.queryKey;
+export function getFaucetBalanceQuery(blockchain: string) {
   const searchParams = new URLSearchParams();
   searchParams.set("blockchain", blockchain);
   const url = `/api/v1/faucet/balance?${searchParams.toString()}`;
@@ -23,7 +22,7 @@ export function useGetFaucetBalanceQuery(params: GetFaucetBalanceQueryProps) {
   return useQuery<any, Error, any>({
     queryKey: ["faucet", "balance", { blockchain }],
     // @ts-ignore
-    queryFn: getFaucetBalanceQuery,
+    queryFn: () => getFaucetBalanceQuery(blockchain),
     staleTime: 5 * 60 * 1000,
     ...options,
   });
