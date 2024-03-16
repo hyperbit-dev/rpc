@@ -1,5 +1,5 @@
-import { Prisma } from "@hyperbit-private/database";
-import { Address } from "@hyperbitjs/mnemonic";
+import type { Prisma } from "@hyperbit-private/database";
+import type { Address } from "@hyperbitjs/mnemonic";
 
 export type WebWallet = Omit<
   // @ts-ignore

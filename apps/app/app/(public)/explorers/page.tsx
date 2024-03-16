@@ -1,6 +1,6 @@
 import { Container } from "@/_components/Container";
-import { Button, Chip } from "@hyperbitui/react";
-import { search } from "./[blockchain]/actions";
+import { Button } from "@hyperbitui/react";
+import { search } from "./actions";
 import Link from "next/link";
 import Image from "next/image";
 

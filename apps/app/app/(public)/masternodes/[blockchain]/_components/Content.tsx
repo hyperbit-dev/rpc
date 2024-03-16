@@ -4,8 +4,8 @@ import { Container } from "~/_components/Container";
 import { NextLink } from "~/_components/NextLink";
 import { PageHeader } from "~/_components/PageHeader";
 import { SectionHeader } from "~/_components/SectionHeader";
-import { Cell } from "@/app/(public)/(other)/explorers/[blockchain]/_components/Cell";
-import { Header } from "@/app/(public)/(other)/explorers/[blockchain]/_components/Header";
+import { Cell } from "@/app/(public)/explorers/[blockchain]/_components/Cell";
+import { Header } from "@/app/(public)/explorers/[blockchain]/_components/Header";
 import { useState } from "react";
 import { getNetwork } from "@/_lib/chains";
 

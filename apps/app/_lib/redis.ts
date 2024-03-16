@@ -6,8 +6,8 @@ declare const global: {
 };
 
 const url =
-  (config.redis?.url ||
-    `redis://${config.redis.user}:${config.redis.password}@${config.redis.host}:${config.redis.port}`) ??
+  config.redis?.url ||
+  // `redis://${config.redis.user}:${config.redis.password}@${config.redis.host}:${config.redis.port}`) ??
   "redis://localhost:6379";
 
 let client = global.redis;

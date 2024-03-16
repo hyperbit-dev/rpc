@@ -1,5 +1,5 @@
-import { MainNet, TestNet } from "@hyperbitjs/chains";
-import { Address } from "@hyperbitjs/mnemonic";
+import type { MainNet, TestNet } from "@hyperbitjs/chains";
+import type { Address } from "@hyperbitjs/mnemonic";
 
 export type Network = MainNet | TestNet;
 

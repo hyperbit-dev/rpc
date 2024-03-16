@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const { slipstream } = require("@hyperbitui/theme");
+import { slipstream } from "@hyperbitui/theme";
 
 module.exports = {
   content: [

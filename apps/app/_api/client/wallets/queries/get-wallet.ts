@@ -1,5 +1,6 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
-import { fetchClient } from "../../fetchClient";
 
 async function getWalletQuery({
   walletId,
@@ -10,13 +11,14 @@ async function getWalletQuery({
   chainId: string;
   addresses: string[];
 }) {
-  return fetchClient(`/api/v1/wallets/${walletId}`, {
-    method: "POST",
+  return fetch(`/api/v1/wallets/${walletId}`, {
+    cache: "no-store",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ chainId, addresses }),
-  });
+  }).then((res) => res.json());
 }
 
 export function useGetWalletQuery(
