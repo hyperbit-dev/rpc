@@ -7,7 +7,7 @@ const nextConfig = {
   //   return config;
   // },
   // experimental: {
-  //   esmExternals: true
+  //   esmExternals: false,
   // },
   images: {
     dangerouslyAllowSVG: true,
