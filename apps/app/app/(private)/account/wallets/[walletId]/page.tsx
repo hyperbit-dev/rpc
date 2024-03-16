@@ -1,6 +1,7 @@
 "use client";
 
-import { useGetWalletPouchDbQuery, useGetWalletQuery } from "@/_api/client";
+import { useGetWalletQuery } from "@/_api/client";
+import { useGetWalletPouchDbQuery } from "@/_api/client/wallets/queries/get-wallet-pouchdb";
 import { Container } from "@/_components/Container";
 import { PageHeader } from "@/_components/PageHeader";
 import { useMemo } from "react";

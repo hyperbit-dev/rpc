@@ -8,8 +8,7 @@ export const checkEnvironment = () => {
 
 export function fetchClient<T>(url: string, params?: any): Promise<T> {
   const host = `${checkEnvironment()}${url}`;
-  const { headers } = params;
-
+  
   return fetch(host, {
     ...params,
     // mode: "cors",
@@ -17,7 +16,6 @@ export function fetchClient<T>(url: string, params?: any): Promise<T> {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...headers,
     },
     // headers: {
     //   Cookie: cookies()

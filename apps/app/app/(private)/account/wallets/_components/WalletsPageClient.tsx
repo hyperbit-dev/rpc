@@ -7,11 +7,11 @@ import * as Popover from "@radix-ui/react-popover";
 import * as icons from "react-cryptoicon";
 import { Container } from "@/_components/Container";
 import { CryptoIcon } from "@/_components/CryptoIcon";
-import { useGetWalletsQuery } from "@/_api/client";
 import { CreateWalletDrawer } from "@/_components/CreateWalletDrawer/CreateWalletDrawer";
 import { ImportWalletDrawer } from "@/_components/ImportWalletDrawer/ImportWalletDrawer";
 import { useState } from "react";
 import Link from "next/link";
+import { useGetWalletsQuery } from "@/_api/client/wallets/queries/get-wallets";
 
 export default function WalletsPageClient() {
   const getWalletsQuery = useGetWalletsQuery();
