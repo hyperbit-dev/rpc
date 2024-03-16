@@ -22,10 +22,10 @@
     "fmt": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'"
   },
   "dependencies": {
+    "@hyperbitjs-private/wallet": "*",
     "@hyperbitjs/chains": "^1.3.3",
     "@hyperbitjs/message": "^1.0.0",
-    "@hyperbitjs/mnemonic": "^2.0.0",
-    "@hyperbitjs-private/wallet": "*",
+    "@hyperbitjs/mnemonic": "^2.1.3",
     "@hyperbitui/react": "*",
     "@hyperbitui/theme": "*",
     "@rollup/plugin-replace": "^5.0.5",

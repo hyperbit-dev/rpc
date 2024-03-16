@@ -19,6 +19,11 @@
   },
   "name": "hyperbit",
   "packageManager": "npm@8.19.3",
+  "overrides": {
+    "follow-redirects": "^1.15.6",
+    "lodash": "^4.17.19",
+    "lodash-es": "^4.17.20"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
