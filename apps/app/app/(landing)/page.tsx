@@ -28,7 +28,7 @@ export default function Home() {
                 <Link href="/explorers">Explorers</Link>
               </Button>
               <Button variant="light" fullWidth asChild>
-                <Link href="/explorers">Faucet</Link>
+                <Link href="/faucet">Faucet</Link>
               </Button>
             </div>
           </div>
