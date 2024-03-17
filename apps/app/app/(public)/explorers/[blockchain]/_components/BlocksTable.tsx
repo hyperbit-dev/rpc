@@ -17,8 +17,8 @@ export function BlocksTable({ blockchain, blocks }: BlocksTableProps) {
       case "pgn":
         return blockStats.subsidy + blockStats.total_out;
       default:
-        return blockStats.tx.reduce((a: any, c: any) => {
-          return (a += c.vout.reduce((a: any, c: any) => (a += c.value), 0));
+        return blockStats?.tx?.reduce?.((a: any, c: any) => {
+          return (a += c.vout?.reduce?.((a: any, c: any) => (a += c.value), 0));
         }, 0);
     }
   }

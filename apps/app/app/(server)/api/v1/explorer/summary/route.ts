@@ -24,31 +24,43 @@ export async function GET(request: NextRequest): Promise<any> {
 
     getblockchaininfo = await redisClient.json.get(redisRef1);
     if (!getblockchaininfo) {
-      getblockchaininfo =
+      const response =
         await rpcClients[blockchain].request("getblockchaininfo");
-      redisClient.json.set(redisRef1, "$", getblockchaininfo);
-      redisClient.EXPIRE(redisRef1, 60);
+      if (!response.error) {
+        getblockchaininfo = response;
+        redisClient.json.set(redisRef1, "$", getblockchaininfo);
+        redisClient.EXPIRE(redisRef1, 60);
+      }
     }
 
     getmininginfo = await redisClient.json.get(redisRef2);
     if (!getmininginfo) {
-      getmininginfo = await rpcClients[blockchain].request("getmininginfo");
-      redisClient.json.set(redisRef2, "$", getmininginfo);
-      redisClient.EXPIRE(redisRef2, 60 * 5);
+      const response = await rpcClients[blockchain].request("getmininginfo");
+      if (!response.error) {
+        getmininginfo = response;
+        redisClient.json.set(redisRef2, "$", getmininginfo);
+        redisClient.EXPIRE(redisRef2, 60 * 5);
+      }
     }
 
     getchaintxstats = await redisClient.json.get(redisRef3);
     if (!getchaintxstats) {
-      getchaintxstats = await rpcClients[blockchain].request("getchaintxstats");
-      redisClient.json.set(redisRef3, "$", getchaintxstats);
-      redisClient.EXPIRE(redisRef3, 60 * 5);
+      const response = await rpcClients[blockchain].request("getchaintxstats");
+      if (!response.error) {
+        getchaintxstats = response;
+        redisClient.json.set(redisRef3, "$", getchaintxstats);
+        redisClient.EXPIRE(redisRef3, 60 * 5);
+      }
     }
 
     getinfo = await redisClient.json.get(redisRef4);
     if (!getinfo) {
-      getinfo = await rpcClients[blockchain].request("getinfo");
-      redisClient.json.set(redisRef4, "$", getinfo);
-      redisClient.EXPIRE(redisRef4, 60 * 5);
+      const response = await rpcClients[blockchain].request("getinfo");
+      if (!response.error) {
+        getinfo = response;
+        redisClient.json.set(redisRef4, "$", getinfo);
+        redisClient.EXPIRE(redisRef4, 60 * 5);
+      }
     }
 
     if (getchaintxstats?.code === 500) {
@@ -70,6 +82,7 @@ export async function GET(request: NextRequest): Promise<any> {
     };
     return Response.json(response);
   } catch (err) {
+    console.log("err", err);
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }
