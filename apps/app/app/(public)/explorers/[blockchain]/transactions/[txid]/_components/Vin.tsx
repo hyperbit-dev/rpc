@@ -12,7 +12,7 @@ export function Vin({
   vin: ApiVin[];
   coinbase: number;
 }) {
-  const vins = vin.reduce((a: (ApiVin & { value: number })[], c: ApiVin) => {
+  const vins = vin?.reduce?.((a: (ApiVin & { value: number })[], c: ApiVin) => {
     const i = a.findIndex((x) => x.address === c.address);
     if (i > -1) {
       a[i].value += c?.value ? c.value : 0;

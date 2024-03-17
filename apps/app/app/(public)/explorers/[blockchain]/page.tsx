@@ -46,7 +46,7 @@ export default function Explorer({
     !marketChart?.error && !!marketChart
       ? marketChart.prices
           // .slice(marketChart.prices.length - 2, marketChart.prices.length - 1)
-          .reduce((a: any, b: any) => {
+          ?.reduce?.((a: any, b: any) => {
             return a + b[1];
           }, 0)
       : 1;

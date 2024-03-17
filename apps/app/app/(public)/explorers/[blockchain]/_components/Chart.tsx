@@ -20,8 +20,8 @@ export function Chart({
   const chartData = useMemo(() => {
     let low = 0;
     let high = 0;
-    const data: { name: string; time: Date; value: number }[] = prices.reduce(
-      (a, c) => {
+    const data: { name: string; time: Date; value: number }[] =
+      prices?.reduce?.((a, c) => {
         if (c[1] > high) {
           high = c[1];
         }
@@ -37,9 +37,7 @@ export function Chart({
             value: c[1],
           },
         ];
-      },
-      []
-    );
+      }, []);
     return {
       data,
       low,
@@ -67,11 +65,7 @@ export function Chart({
             name="Price"
           />
           <Tooltip cursor={{ stroke: "#5fc77e", strokeWidth: 1 }} />
-          <ReferenceLine
-            y={avgPrice}
-            stroke="#cccccc"
-            strokeDasharray="4 4"
-          />
+          <ReferenceLine y={avgPrice} stroke="#cccccc" strokeDasharray="4 4" />
         </LineChart>
       </ResponsiveContainer>
     </div>
