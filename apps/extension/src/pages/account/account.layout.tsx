@@ -5,12 +5,13 @@ import {
   WalletIcon,
 } from "@heroicons/react/24/outline";
 import { Link, Outlet } from "react-router-dom";
+import { ProtectedRoute, Provider } from "~/components";
 
 export function AccountLayout() {
-
   return (
-    <>
-      {/* <header className="flex items-center justify-center p-2 border-b border-gray-300">
+    <Provider>
+      <ProtectedRoute>
+        {/* <header className="flex items-center justify-center p-2 border-b border-gray-300">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="25"
@@ -34,54 +35,55 @@ export function AccountLayout() {
           ></path>
         </svg>
       </header> */}
-      <main className="flex flex-col flex-1 w-full h-full max-w-md mx-auto">
-        <Outlet />
-      </main>
-      <footer className="relative z-30 p-2 bg-white border-t border-gray-300 select-none">
-        <div className="w-full max-w-md mx-auto">
-          <nav className="flex items-center justify-around text-center list-none">
-            <li>
-              <Link
-                to="/account"
-                className="flex flex-col items-center leading-tight outline-none group"
-              >
-                <HomeIcon className="w-5 group-action:stroke-brand-500" />
+        <main className="flex flex-col flex-1 w-full h-full max-w-md mx-auto">
+          <Outlet />
+        </main>
+        <footer className="relative z-30 p-2 bg-white border-t border-gray-300 select-none">
+          <div className="w-full max-w-md mx-auto">
+            <nav className="flex items-center justify-around text-center list-none">
+              <li>
+                <Link
+                  to="/account"
+                  className="flex flex-col items-center leading-tight outline-none group"
+                >
+                  <HomeIcon className="w-5 group-action:stroke-brand-500" />
+                  <span className="text-xs group-action:text-brand-500">
+                    Home
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/account/wallets"
+                  className="flex flex-col items-center leading-tight outline-none group"
+                >
+                  <WalletIcon className="w-5 group-action:stroke-brand-500" />
+                  <span className="text-xs group-action:text-brand-500">
+                    Wallets
+                  </span>
+                </Link>
+              </li>
+              <li className="flex flex-col items-center leading-tight cursor-pointer group">
+                <InboxIcon className="w-5 group-action:stroke-brand-500" />
                 <span className="text-xs group-action:text-brand-500">
-                  Home
+                  Contacts
                 </span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/account/wallets"
-                className="flex flex-col items-center leading-tight outline-none group"
-              >
-                <WalletIcon className="w-5 group-action:stroke-brand-500" />
-                <span className="text-xs group-action:text-brand-500">
-                  Wallets
-                </span>
-              </Link>
-            </li>
-            <li className="flex flex-col items-center leading-tight cursor-pointer group">
-              <InboxIcon className="w-5 group-action:stroke-brand-500" />
-              <span className="text-xs group-action:text-brand-500">
-                Contacts
-              </span>
-            </li>
-            <li>
-              <Link
-                to="/account/more"
-                className="flex flex-col items-center leading-tight outline-none group"
-              >
-                <EllipsisHorizontalIcon className="w-5 group-action:stroke-brand-500" />
-                <span className="text-xs group-action:text-brand-500">
-                  More
-                </span>
-              </Link>
-            </li>
-          </nav>
-        </div>
-      </footer>
-    </>
+              </li>
+              <li>
+                <Link
+                  to="/account/more"
+                  className="flex flex-col items-center leading-tight outline-none group"
+                >
+                  <EllipsisHorizontalIcon className="w-5 group-action:stroke-brand-500" />
+                  <span className="text-xs group-action:text-brand-500">
+                    More
+                  </span>
+                </Link>
+              </li>
+            </nav>
+          </div>
+        </footer>
+      </ProtectedRoute>
+    </Provider>
   );
 }

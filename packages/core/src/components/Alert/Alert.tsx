@@ -47,13 +47,13 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
           { "px-6 py-3 text-lg": size === "lg" },
         ],
         variant !== "custom" && [
-          variant === "primary" && ["text-white bg-brand-500 border-brand-500"],
-          variant === "secondary" && ["text-white bg-gray-500 border-gray-500"],
+          variant === "primary" && ["text-white bg-brand-500/50 border-brand-500"],
+          variant === "secondary" && ["text-white bg-gray-500/50 border-gray-500"],
           variant === "success" && ["text-white bg-sky-500 border-sky-500"],
           variant === "warning" && [
-            "text-white bg-yellow-500 border-yellow-500",
+            "text-white bg-yellow-500/50 border-yellow-500",
           ],
-          variant === "danger" && ["text-white bg-red-500 border-red-500"],
+          variant === "danger" && ["text-white bg-red-500/50 border-red-500"],
           variant === "dark" && ["text-white bg-black border-black"],
           variant === "info" && [
             "text-white bg-cyan-500/80 border-cyan-500/80",

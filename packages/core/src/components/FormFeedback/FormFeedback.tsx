@@ -6,7 +6,7 @@ import { FormFeedbackProps } from "./types";
 export const FormFeedback = forwardRef<HTMLSpanElement, FormFeedbackProps>(
   ({ asChild = false, className, valid = false, ...props }, ref) => {
     const classes = clsx(
-      "sui--form-feedback leading-tight",
+      "sui--form-feedback leading-tight text-sm",
       valid ? "text-green-500" : "text-red-500",
       className
     );

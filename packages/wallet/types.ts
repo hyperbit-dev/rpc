@@ -10,7 +10,6 @@ export type Options = {
   network?: MainNet | TestNet | RegTest | SimNet;
   language?: Language;
   database: string;
-  type?: "import" | "create";
 };
 
 export type Account = {

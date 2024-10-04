@@ -8,30 +8,31 @@ import {
   Label,
 } from "@hyperbitui/react";
 
-import { useAuth } from "~/components";
+// import { useAuth } from "~/components";
 import { PasswordSchema } from "../utils/schemas";
 import { FormProvider, useForm } from "react-hook-form";
 import { Step } from "../types";
 
 export function Password({ setStep }: { setStep: (step: Step) => void }) {
-  const auth = useAuth();
+  // const auth = useAuth();
 
   const form = useForm({
     resolver: zodResolver(PasswordSchema),
   });
 
   function handleSubmit(values: PasswordSchema) {
-    auth.login(values.password);
+    console.log("values", values);
+    // auth.login(values.password);
     setStep("choices");
   }
 
-  if (auth.token) {
-    setStep("choices");
-  }
+  // if (auth.token) {
+  //   setStep("choices");
+  // }
 
-  if (auth.loading) {
-    return null;
-  }
+  // if (auth.loading) {
+  //   return null;
+  // }
 
   return (
     <FormProvider {...form}>

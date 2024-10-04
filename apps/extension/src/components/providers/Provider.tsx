@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import PouchDB from "pouchdb-browser";
 import React, { useState } from "react";
 import { Provider as PouchProvider } from "use-pouchdb";
-import { AuthProvider } from "./AuthProvider";
+import { AuthProvider } from "~/hooks";
 
 const db = new PouchDB("hyperbit_ext");
 
