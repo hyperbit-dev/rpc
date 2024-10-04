@@ -1,16 +1,15 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'wallet_account_addresses'
+  protected tableName = 'blockchain_networks'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').index().primary()
-      table.string('address')
-      table.string('label')
-      table.string('path')
-      table.enu('type', ['EXTERNAL', 'CHANGE']).notNullable()
-      table.uuid('wallet_account_id').notNullable().references('id').inTable('wallet_accounts')
+      table.enu('name', ['mainnet', 'testnet', 'regtest']).notNullable()
+      table.uuid('blockchain_id').notNullable().references('id').inTable('blockchains')
+      table.string('chain_id').notNullable()
+      table.boolean('active').defaultTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

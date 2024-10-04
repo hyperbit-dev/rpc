@@ -4,26 +4,29 @@ export const walletValidator = vine.compile(
   vine.object({
     externalId: vine.string(),
     label: vine.string(),
-    chainId: vine.string(),
+    blockchainId: vine.string(),
+    networkId: vine.string(),
     favorite: vine.boolean().optional(),
-    creationType: vine.enum(['CREATE', 'IMPORT']).optional(),
+    type: vine.enum(['hot', 'cold', 'custodial']).optional(),
     lockedAt: vine.date().optional(),
     archivedAt: vine.date().optional(),
-    accounts: vine.record(
-      vine.object({
-        external: vine.record(
-          vine.object({
-            address: vine.string(),
-            path: vine.string(),
-          })
-        ),
-        change: vine.record(
-          vine.object({
-            address: vine.string(),
-            path: vine.string(),
-          })
-        ),
-      })
-    ),
+    // accounts: vine
+    //   .record(
+    //     vine.object({
+    //       external: vine.record(
+    //         vine.object({
+    //           address: vine.string(),
+    //           path: vine.string(),
+    //         })
+    //       ),
+    //       change: vine.record(
+    //         vine.object({
+    //           address: vine.string(),
+    //           path: vine.string(),
+    //         })
+    //       ),
+    //     })
+    //   )
+    //   .optional(),
   })
 )
