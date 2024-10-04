@@ -2,9 +2,16 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { Button, Toggle } from "@hyperbitui/react";
 import { useNavigate } from "react-router-dom";
 import { LinkCard, ListCard, NavLinkCard } from "~/components";
+import { useAuth } from "~/hooks";
 
 export function MoreSettingsPage() {
+  const auth = useAuth();
   const navigate = useNavigate();
+
+  function logout() {
+    auth.logout();
+    navigate("/");
+  }
 
   return (
     <div className="flex flex-col flex-1 h-full py-2 select-none">
@@ -60,7 +67,7 @@ export function MoreSettingsPage() {
           </ListCard> */}
         </div>
         <div className="mt-4 mb-2 border border-gray-300 divide-y rounded-md">
-          <Button type="button" fullWidth>
+          <Button type="button" fullWidth onClick={logout}>
             Sign out
           </Button>
         </div>

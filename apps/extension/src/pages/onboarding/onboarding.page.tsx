@@ -6,11 +6,11 @@ import {
   SelectWallet,
 } from "./components";
 import { Step } from "./types";
-import { useAuth } from "~/components";
+// import { useAuth } from "~/components";
 
 export function OnboardingPage() {
   const [step, setStep] = useState<Step>("password");
-  const auth = useAuth();
+  // const auth = useAuth();
 
   function render() {
     switch (step) {
@@ -21,16 +21,16 @@ export function OnboardingPage() {
       case "choices":
         return <SelectWallet setStep={setStep} />;
       default:
-        if (auth.token) {
-          return <SelectWallet setStep={setStep} />;
-        }
+        // if (auth.token) {
+        //   return <SelectWallet setStep={setStep} />;
+        // }
         return <Password setStep={setStep} />;
     }
   }
 
-  if (auth.loading) {
-    return null;
-  }
+  // if (auth.loading) {
+  //   return null;
+  // }
 
   return <>{render()}</>;
 }

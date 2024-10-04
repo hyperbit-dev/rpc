@@ -13,23 +13,42 @@ import {
   MoreConnectionsPage,
   WalletLimitsPage,
   AccountSendPage,
-  AccountBackupPage,
+  AccountSwapPage,
   AccountBuyPage,
   AccountReceivePage,
   WalletsAddPage,
   WalletPage,
+  RegisterPage,
+  AddressEditPage,
 } from "./pages";
 import { Provider } from "./components";
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <Provider>
+        <HomePage />
+      </Provider>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/register",
+    element: (
+      <Provider>
+        <RegisterPage />
+      </Provider>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "onboarding",
-    element: <OnboardingPage />,
+    element: (
+      <Provider>
+        <OnboardingPage />
+      </Provider>
+    ),
   },
   {
     path: "account",
@@ -40,8 +59,8 @@ const router = createHashRouter([
         element: <AccountPage />,
       },
       {
-        path: "backup",
-        element: <AccountBackupPage />,
+        path: "swap",
+        element: <AccountSwapPage />,
       },
       {
         path: "buy",
@@ -66,6 +85,10 @@ const router = createHashRouter([
       {
         path: "wallets/:id",
         element: <WalletPage />,
+      },
+      {
+        path: "wallets/:walletId/addresses/:address/edit",
+        element: <AddressEditPage />,
       },
       {
         path: "more",
@@ -96,11 +119,7 @@ const router = createHashRouter([
 ]);
 
 function Router() {
-  return (
-    <Provider>
-      <RouterProvider router={router} />
-    </Provider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default Router;

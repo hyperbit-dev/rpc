@@ -1,18 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import PouchDB from "pouchdb";
+import { fetchClient } from "~/utils";
 
 async function getWalletsQuery() {
-  const db = new PouchDB("hyperbit_ext");
-  return db.allDocs({
-    startkey: "wallets_",
-    endkey: "wallets_\uffff",
-    include_docs: true,
+  return fetchClient(`${import.meta.env.VITE_API_URL}/api/v1/wallets`, {
+    method: "GET",
   });
 }
 
 export function useGetWalletsQuery() {
   return useQuery({
-    queryKey: ["wallets"],
+    queryKey: ["db-wallets"],
 
     queryFn: () => getWalletsQuery(),
   });

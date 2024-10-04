@@ -1,12 +1,11 @@
-/** @type {import('tailwindcss').Config} */
-import { slipstream } from "@hyperbitui/theme";
+import type { Config } from "tailwindcss";
 
-module.exports = {
+const config: Config = {
   content: [
-    "./_components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../node_modules/@hyperbitui/react/**/*.{js,ts,jsx,tsx}",
-    "../../node_modules/@hyperbitui/theme/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/preline/preline.js",
   ],
   theme: {
     extend: {
@@ -42,9 +41,6 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    slipstream,
-    require("@tailwindcss/forms"),
-    require("tailwindcss-radix")(),
-  ],
+  plugins: [require("@tailwindcss/forms"), require("preline/plugin")],
 };
+export default config;
