@@ -12,6 +12,8 @@
 |
 */
 
+import User from '#models/user'
+import Wallet from '#models/wallet'
 import { Bouncer } from '@adonisjs/bouncer'
 
 /**
@@ -20,4 +22,14 @@ import { Bouncer } from '@adonisjs/bouncer'
  */
 export const editUser = Bouncer.ability(() => {
   return true
+})
+
+export const createWallet = Bouncer.ability((_: User, blockchainId: string, wallets: Wallet[]) => {
+  const count = wallets.reduce((acc, w) => {
+    if (w.blockchainId === blockchainId) {
+      acc++
+    }
+    return acc
+  }, 0)
+  return count < 3
 })

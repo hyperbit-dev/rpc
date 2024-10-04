@@ -13,5 +13,5 @@
 */
 
 export const policies = {
-  WalletPolicy: () => import('#policies/wallet_policy')
+  WalletPolicy: () => import('#policies/wallet_policy'),
 }

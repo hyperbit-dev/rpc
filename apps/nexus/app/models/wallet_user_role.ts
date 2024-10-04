@@ -1,16 +1,21 @@
+import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
-import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
 
-export default class UserSetting extends BaseModel {
+export default class WalletUserRole extends BaseModel {
+  static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
   declare id: string
 
   @column()
-  declare settings: Settings | string
-
-  @column({columnName: 'user_id'})
   declare userId: string
+
+  @column()
+  declare walletId: string
+
+  @column()
+  declare roleId: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -19,15 +24,7 @@ export default class UserSetting extends BaseModel {
   declare updatedAt: DateTime
 
   @beforeCreate()
-  static assignUuid(model: UserSetting) {
+  static assignUuid(model: WalletUserRole) {
     model.id = uuidv4()
-  }
-}
-
-type Settings = {
-  blockchains: {
-    [x: string]: {
-      walletLimit: number | string
-    }
   }
 }

@@ -1,17 +1,10 @@
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
-import {
-  BaseModel,
-  beforeCreate,
-  belongsTo,
-  column,
-  hasMany,
-  hasManyThrough,
-} from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
 import Blockchain from './blockchain.js'
-import type { BelongsTo, HasMany, HasManyThrough } from '@adonisjs/lucid/types/relations'
-import WalletAccount from './wallet_account.js'
-import WalletAccountAddress from './wallet_account_address.js'
+import type { BelongsTo, HasMany, HasOne } from '@adonisjs/lucid/types/relations'
+import WalletAddress from './wallet_address.js'
+import BlockchainNetwork from './blockchain_network.js'
 
 export default class Wallet extends BaseModel {
   static selfAssignPrimaryKey = true
@@ -29,13 +22,16 @@ export default class Wallet extends BaseModel {
   declare blockchainId: string
 
   @column()
+  declare networkId: string
+
+  @column()
   declare userId: string
 
   @column()
   declare favorite: boolean
 
   @column()
-  declare creationType: 'CREATE' | 'IMPORT'
+  declare type: 'hot' | 'cold' | 'custodial'
 
   @column()
   declare lockedAt?: DateTime
@@ -59,9 +55,11 @@ export default class Wallet extends BaseModel {
   })
   declare blockchain: BelongsTo<typeof Blockchain>
 
-  @hasMany(() => WalletAccount)
-  declare accounts: HasMany<typeof WalletAccount>
+  @belongsTo(() => BlockchainNetwork, {
+    foreignKey: 'networkId',
+  })
+  declare network: BelongsTo<typeof BlockchainNetwork>
 
-  @hasManyThrough([() => WalletAccountAddress, () => WalletAccount])
-  declare addresses: HasManyThrough<typeof WalletAccountAddress>
+  @hasMany(() => WalletAddress)
+  declare addresses: HasMany<typeof WalletAddress>
 }

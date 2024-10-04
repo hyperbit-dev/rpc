@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('password')
       table.uuid('user_id').notNullable().references('id').inTable('users')
       table.uuid('blockchain_id').notNullable().references('id').inTable('blockchains')
+      table.boolean('active').defaultTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

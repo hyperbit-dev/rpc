@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
-import { v4 as uuidv4 } from 'uuid';
-import { withAuthFinder } from '@adonisjs/auth'
+import { v4 as uuidv4 } from 'uuid'
+import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
 import { AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
-import Wallet from './wallet.js';
-import type { HasMany } from '@adonisjs/lucid/types/relations';
+import Wallet from './wallet.js'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -15,7 +15,7 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 
 export default class User extends compose(BaseModel, AuthFinder) {
   static selfAssignPrimaryKey = true
-  
+
   currentAccessToken?: AccessToken
 
   @column({ isPrimary: true })
