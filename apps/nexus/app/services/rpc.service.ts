@@ -1,4 +1,5 @@
 import { rpcConfig } from '#config/rpc'
+import { RpcCommand } from '#validators/rpc'
 import { Client } from '@hyperbitjs/rpc'
 
 type RpcClient = Client & {
@@ -31,10 +32,11 @@ class RpcService {
     }
   }
 
-  request(chainId: string, command: string, params: any[]) {
+  request(chainId: string, command: RpcCommand, params: any[], _id?: string) {
     const client = this.client(chainId)
     if (client) {
-      return client.request(command, params)
+      // TODO : id
+      return client.request(command, params, {})
     }
   }
 

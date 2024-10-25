@@ -28,9 +28,14 @@ export enum RpcCommands {
   GET_VERIFIER_STRING = 'getverifierstring',
   GET_SNAPSHOT = 'getsnapshot',
   GET_ASSET_DATA = 'getassetdata',
+  GET_BALANCE = 'getbalance',
   GET_BLOCK_TEMPLATE = 'getblocktemplate',
   GET_MINING_INFO = 'getmininginfo',
   GET_NETWORK_HASH_PS = 'getnetworkhashps',
+  ESTIMATE_SMART_FEE = 'estimatesmartfee',
+  SUBMIT_BLOCK = 'submitblock',
 }
+
+export type RpcCommand = `${RpcCommands}`;
 
 export const rpcCommandValidator = vine.enum(RpcCommands)
