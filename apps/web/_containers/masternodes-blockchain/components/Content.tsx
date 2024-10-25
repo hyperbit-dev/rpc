@@ -31,16 +31,16 @@ export default function Content({
 
   const nodes = Object.keys(masternodes)
     .filter((key) =>
-      showBanned ? true : masternodes[key].status !== "POSE_BANNED"
+      showBanned ? true : masternodes[key].status !== "POSE_BANNED",
     )
     .map((key) => ({ ...masternodes[key], id: key }))
     .sort((a, b) => (a.lastpaidblock > b.lastpaidblock ? 1 : -1));
 
   const filteredNodes = nodes.filter((node) =>
-    node.address.toLowerCase().includes(query.toLowerCase())
+    node.address.toLowerCase().includes(query.toLowerCase()),
   );
   const bannedNodes = Object.keys(masternodes).filter(
-    (key) => masternodes[key].status === "POSE_BANNED"
+    (key) => masternodes[key].status === "POSE_BANNED",
   );
 
   const network = getNetwork(blockchain);
@@ -94,7 +94,7 @@ export default function Content({
             </div>
             {filteredNodes.map((node) => {
               const position = Math.abs(
-                blockchainInfo.blocks - (node.lastpaidblock + nodes.length)
+                blockchainInfo.blocks - (node.lastpaidblock + nodes.length),
               );
               const positionDisplay =
                 node.status === "POSE_BANNED" ? "N/A" : position;
@@ -116,7 +116,7 @@ export default function Content({
                       {node.proTxHash.slice(0, 4)}...
                       {node.proTxHash.slice(
                         node.proTxHash.length - 4,
-                        node.proTxHash.length
+                        node.proTxHash.length,
                       )}
                     </NextLink>
                   </Cell>
@@ -128,7 +128,7 @@ export default function Content({
                       {node.collateraladdress.slice(0, 4)}...
                       {node.collateraladdress.slice(
                         node.collateraladdress.length - 4,
-                        node.collateraladdress.length
+                        node.collateraladdress.length,
                       )}
                     </NextLink>
                   </Cell>
@@ -140,7 +140,7 @@ export default function Content({
                       {node.payee.slice(0, 4)}...
                       {node.payee.slice(
                         node.payee.length - 4,
-                        node.payee.length
+                        node.payee.length,
                       )}
                     </NextLink>
                   </Cell>

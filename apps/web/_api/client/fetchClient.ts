@@ -1,7 +1,6 @@
 export async function fetchNexus<T>(url: string, params?: any): Promise<T> {
   const host = `${process.env.NEXT_NEXUS_URL}${url}`;
-  let sessionAuth: any | string | null =
-    sessionStorage.getItem("auth");
+  let sessionAuth: any | string | null = sessionStorage.getItem("auth");
   sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as any) : null;
 
   const response = await fetch(host, {
@@ -28,8 +27,7 @@ export async function fetchNexus<T>(url: string, params?: any): Promise<T> {
 export async function fetchClient<T>(url: string, params?: any): Promise<T> {
   const host = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000";
   const baseUrl = `${host}${url}`;
-  let sessionAuth: any | string | null =
-    sessionStorage.getItem("auth");
+  let sessionAuth: any | string | null = sessionStorage.getItem("auth");
   sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as any) : null;
 
   const response = await fetch(baseUrl, {

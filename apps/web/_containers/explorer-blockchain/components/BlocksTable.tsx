@@ -59,10 +59,10 @@ export function BlocksTable({ blockchain, blocks }: BlocksTableProps) {
               const size = getSize(blockStats);
               const hash = `${blockHeader.hash.slice(
                 0,
-                8
+                8,
               )}...${blockHeader.hash.slice(
                 blockHeader.hash.length - 8,
-                blockHeader.hash.length
+                blockHeader.hash.length,
               )}`;
 
               return (

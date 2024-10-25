@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         } else {
           const blockStats = await rpcClients[blockchain].request(
             "getblockstats",
-            [data.blocks === 0 ? data.blocks : data.blocks - 9]
+            [data.blocks === 0 ? data.blocks : data.blocks - 9],
           );
           const res = await rpcClients[blockchain].request("getblockheaders", [
             blockStats.blockhash,
@@ -67,7 +67,8 @@ export async function GET(request: NextRequest) {
 
       blocks = await Promise.all(promises);
     }
-    return handleResponse<any>(blocks);<any>(blocks);
+    return handleResponse<any>(blocks);
+    <any>blocks;
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
@@ -86,7 +87,7 @@ async function getBlockHeaders(blockchain: string, hash: any): Promise<any> {
     } else {
       const blockHeader = await rpcClients[blockchain].request(
         "getblockheader",
-        [blockhash]
+        [blockhash],
       );
       await redisClient.json.set(redisRef, "$", blockHeader);
       await redisClient.EXPIRE(redisRef, 60 * 5);

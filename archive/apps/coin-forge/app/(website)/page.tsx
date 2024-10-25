@@ -10,7 +10,13 @@ export default function Home() {
         <Button type="button" asChild fullWidth className="flex-1">
           <Link href="/auth/register">Register</Link>
         </Button>
-        <Button type="button" variant="link" asChild fullWidth className="flex-1">
+        <Button
+          type="button"
+          variant="link"
+          asChild
+          fullWidth
+          className="flex-1"
+        >
           <Link href="/api/auth/signin">Login</Link>
         </Button>
       </div>

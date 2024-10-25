@@ -25,8 +25,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    children: 'I agree to the terms and conditions',
-    variant: 'primary',
+    children: "I agree to the terms and conditions",
+    variant: "primary",
   },
 };
 

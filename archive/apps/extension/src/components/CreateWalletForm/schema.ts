@@ -33,7 +33,7 @@ export const CreateWalletSchema = StepsSchema.merge(WalletSchema).refine(
   {
     message: "Passphrase does not match",
     path: ["passphraseConfirm"],
-  }
+  },
 );
 
 export type CreateWalletSchema = z.infer<typeof CreateWalletSchema>;

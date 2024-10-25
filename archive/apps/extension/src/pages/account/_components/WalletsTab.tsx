@@ -69,7 +69,7 @@ export function WalletsTab() {
             className={clsx(
               "border border-gray-300 -mb-[1px]",
               index === 0 && "rounded-t-md",
-              index === getWalletsQuery.data.meta.total - 1 && "rounded-b-md"
+              index === getWalletsQuery.data.meta.total - 1 && "rounded-b-md",
             )}
           >
             <WalletCard

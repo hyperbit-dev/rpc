@@ -7,7 +7,7 @@ import { connect, redisClient } from "@/_lib/redis";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const id = (await params).id;

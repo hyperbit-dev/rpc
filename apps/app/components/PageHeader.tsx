@@ -8,5 +8,9 @@ export function PageHeader({
   className?: string;
   children?: ReactNode;
 }) {
-  return <h1 className={clsx("text-3xl mb-2 font-semibold", className)}>{children}</h1>;
+  return (
+    <h1 className={clsx("text-3xl mb-2 font-semibold", className)}>
+      {children}
+    </h1>
+  );
 }

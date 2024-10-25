@@ -17,7 +17,7 @@ function getBlockchainQuery({
 }
 
 export function useGetBlockchainQuery(
-  variables: ReturnType<typeof keys.singleBlockchainQueryParams>
+  variables: ReturnType<typeof keys.singleBlockchainQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.singleBlockchainQuery(variables),

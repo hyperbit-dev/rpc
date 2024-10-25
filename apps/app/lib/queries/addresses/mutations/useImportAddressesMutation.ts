@@ -14,7 +14,7 @@ function importAddressesMutation(body: any) {
 }
 
 export function useImportAddressMutation(
-  options?: UseMutationOptions<any, unknown, any>
+  options?: UseMutationOptions<any, unknown, any>,
 ) {
   const queryClient = useQueryClient();
   return useMutation({

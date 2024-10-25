@@ -15,7 +15,7 @@ function listSessionsQuery({ queryKey }: { queryKey: ListSessionsQueryKey }) {
 }
 
 export function useListSessionsQuery(
-  variables: ReturnType<typeof keys.listSessionsQueryParams>
+  variables: ReturnType<typeof keys.listSessionsQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.listSessionsQuery(variables),

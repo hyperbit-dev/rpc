@@ -4,11 +4,7 @@ import * as keys from "../keys";
 
 type ListAddressesQueryKey = ReturnType<typeof keys.listAddressesQuery>;
 
-function listAddressesQuery({
-  queryKey,
-}: {
-  queryKey: ListAddressesQueryKey;
-}) {
+function listAddressesQuery({ queryKey }: { queryKey: ListAddressesQueryKey }) {
   const params = keys.listAddressesQueryParams(queryKey);
   const queryParams = new URLSearchParams(params).toString();
   const url = `/api/v1/addresses?${queryParams}`;
@@ -18,7 +14,7 @@ function listAddressesQuery({
 }
 
 export function useListAddressesQuery(
-  variables: ReturnType<typeof keys.listAddressesQueryParams>
+  variables: ReturnType<typeof keys.listAddressesQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.listAddressesQuery(variables),

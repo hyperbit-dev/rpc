@@ -1,7 +1,7 @@
 import Drawer from "rc-drawer";
 import { useState } from "react";
 
-import '../../../node_modules/rc-drawer/assets/index.css'
+import "../../../node_modules/rc-drawer/assets/index.css";
 
 type SendDrawerProps = {
   open?: boolean;

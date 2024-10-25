@@ -14,7 +14,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
         {children}
       </td>
     );
-  }
+  },
 );
 
 TableCell.displayName = "TableCell";

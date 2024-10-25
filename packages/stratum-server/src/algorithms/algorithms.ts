@@ -14,7 +14,7 @@ export const algorithms: Record<string, Algorithm> = {
   allium: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -27,7 +27,7 @@ export const algorithms: Record<string, Algorithm> = {
   blake: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -50,7 +50,7 @@ export const algorithms: Record<string, Algorithm> = {
   c11: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -63,7 +63,7 @@ export const algorithms: Record<string, Algorithm> = {
   equihash: {
     multiplier: 1,
     diff: parseInt(
-      "0x0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      "0x0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     ),
     hash: function (options: any) {
       const parameters = options.parameters || {};
@@ -86,7 +86,7 @@ export const algorithms: Record<string, Algorithm> = {
   firopow: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     epochLength: 1300,
     hash: function () {
@@ -100,7 +100,7 @@ export const algorithms: Record<string, Algorithm> = {
   fugue: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -113,7 +113,7 @@ export const algorithms: Record<string, Algorithm> = {
   ghostrider: {
     multiplier: Math.pow(2, 16),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -126,7 +126,7 @@ export const algorithms: Record<string, Algorithm> = {
   groestl: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -159,7 +159,7 @@ export const algorithms: Record<string, Algorithm> = {
   meowpow: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ff000000000000000000000000000000000000000000000000000000"
+      "0x00000000ff000000000000000000000000000000000000000000000000000000",
     ),
     epochLength: 15000,
     hash: function () {
@@ -173,7 +173,7 @@ export const algorithms: Record<string, Algorithm> = {
   kawpow: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ff000000000000000000000000000000000000000000000000000000"
+      "0x00000000ff000000000000000000000000000000000000000000000000000000",
     ),
     epochLength: 7500,
     hash: function () {
@@ -187,7 +187,7 @@ export const algorithms: Record<string, Algorithm> = {
   evrprogpow: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ff000000000000000000000000000000000000000000000000000000"
+      "0x00000000ff000000000000000000000000000000000000000000000000000000",
     ),
     epochLength: 12000,
     hash: function () {
@@ -201,14 +201,14 @@ export const algorithms: Record<string, Algorithm> = {
   keccak: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function (coinConfig: CoinConfig) {
       if (coinConfig.normalHashing === true) {
         return (data: any, nTimeInt: any) => {
           return multiHashing.keccak.apply(this, [
             multiHashing.keccak(
-              Buffer.concat([data, Buffer.from(nTimeInt.toString(16), "hex")])
+              Buffer.concat([data, Buffer.from(nTimeInt.toString(16), "hex")]),
             ),
           ]);
         };
@@ -224,7 +224,7 @@ export const algorithms: Record<string, Algorithm> = {
   minotaur: {
     multiplier: Math.pow(2, 12),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -237,7 +237,7 @@ export const algorithms: Record<string, Algorithm> = {
   minotaurx: {
     multiplier: Math.pow(2, 12),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -250,7 +250,7 @@ export const algorithms: Record<string, Algorithm> = {
   nist5: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -263,7 +263,7 @@ export const algorithms: Record<string, Algorithm> = {
   quark: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -276,7 +276,7 @@ export const algorithms: Record<string, Algorithm> = {
   qubit: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -308,7 +308,7 @@ export const algorithms: Record<string, Algorithm> = {
   scrypt: {
     multiplier: Math.pow(2, 16),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function (coinConfig: CoinConfig) {
       const nValue = coinConfig.nValue || 1024;
@@ -374,7 +374,7 @@ export const algorithms: Record<string, Algorithm> = {
   sha256: {
     //Uncomment diff if you want to use hardcoded truncated diff
     diff: parseInt(
-      "00000000ffff0000000000000000000000000000000000000000000000000000"
+      "00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -388,7 +388,7 @@ export const algorithms: Record<string, Algorithm> = {
   sha256d: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -419,7 +419,7 @@ export const algorithms: Record<string, Algorithm> = {
   skein: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -452,7 +452,7 @@ export const algorithms: Record<string, Algorithm> = {
   verthash: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ff000000000000000000000000000000000000000000000000000000"
+      "0x00000000ff000000000000000000000000000000000000000000000000000000",
     ),
     hash: /* istanbul ignore next */ function () {
       // Can't test due to "verthash.dat" file
@@ -466,7 +466,7 @@ export const algorithms: Record<string, Algorithm> = {
   x11: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -479,7 +479,7 @@ export const algorithms: Record<string, Algorithm> = {
   x13: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -492,7 +492,7 @@ export const algorithms: Record<string, Algorithm> = {
   x15: {
     multiplier: 1,
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -505,7 +505,7 @@ export const algorithms: Record<string, Algorithm> = {
   x16r: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -518,7 +518,7 @@ export const algorithms: Record<string, Algorithm> = {
   x16rt: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -531,7 +531,7 @@ export const algorithms: Record<string, Algorithm> = {
   x16rv2: {
     multiplier: Math.pow(2, 8),
     diff: parseInt(
-      "0x00000000ffff0000000000000000000000000000000000000000000000000000"
+      "0x00000000ffff0000000000000000000000000000000000000000000000000000",
     ),
     hash: function () {
       return () => {
@@ -553,7 +553,7 @@ for (let algo in algorithms) {
     algorithm.nonTruncatedDiff = utils.shiftMax256Right(algorithm.shift);
     algorithm.bits = utils.bufferToCompactBits(algorithm.nonTruncatedDiff);
     algorithm.maxDiff = BigNumber(
-      Buffer.from(utils.convertBitsToBuff(algorithm.bits)).toString()
+      Buffer.from(utils.convertBitsToBuff(algorithm.bits)).toString(),
     ).toNumber();
   } else if (algorithm.multiplier) {
     algorithm.maxDiff = BigNumber(algorithm.diff)

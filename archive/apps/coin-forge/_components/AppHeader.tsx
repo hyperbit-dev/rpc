@@ -15,7 +15,7 @@ export function AppHeader({
       className={clsx(
         "px-4 py-2 sticky top-0",
         { "border-b border-gray-700": border },
-        className
+        className,
       )}
     >
       {children}

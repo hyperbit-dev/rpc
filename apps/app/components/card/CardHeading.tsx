@@ -12,7 +12,7 @@ export function CardHeading({
     <h3
       className={clsx(
         "text-md font-medium text-gray-700 leading-none m-0",
-        className
+        className,
       )}
     >
       {children}

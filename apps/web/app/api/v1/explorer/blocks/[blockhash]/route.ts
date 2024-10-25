@@ -11,7 +11,7 @@ const schema = z.object({
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ blockhash: string }> }
+  { params }: { params: Promise<{ blockhash: string }> },
 ) {
   try {
     const blockhash = (await params).blockhash;

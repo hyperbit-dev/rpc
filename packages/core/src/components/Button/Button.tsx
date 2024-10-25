@@ -16,7 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = asChild ? Slot : "button";
     return (
@@ -119,12 +119,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               "border-gray-300 action:bg-gray-300",
             ],
           ],
-          className
+          className,
         )}
         ref={ref}
       />
     );
-  }
+  },
 );
 
 Button.displayName = "SuiButton";

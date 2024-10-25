@@ -12,7 +12,7 @@ export function TableCell({
     <td
       className={clsx(
         "px-4 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200",
-        className
+        className,
       )}
     >
       {children}

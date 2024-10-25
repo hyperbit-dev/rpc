@@ -17,9 +17,9 @@ export const WalletSchema = z
         z.object({
           id: z.string().optional(),
           value: z.string().min(1, {
-            message: 'Required field'
+            message: "Required field",
           }),
-        })
+        }),
       )
       .length(12)
       .nonempty({

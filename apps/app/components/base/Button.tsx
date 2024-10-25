@@ -7,10 +7,7 @@ export type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { type = "submit", Variant = "brand", Width, className, ...props },
-    ref
-  ) => {
+  ({ type = "submit", Variant = "brand", Width, className, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -28,12 +25,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               "border-gray-300 text-gray-500 hover:border-brand-600 hover:text-brand-600 focus:outline-none focus:border-brand-600 focus:text-brand-600 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-brand-500 dark:hover:border-brand-600 dark:focus:text-brand-500 dark:focus:border-brand-600",
           ],
           Width && `w-${Width}`,
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

@@ -20,7 +20,7 @@ type GetExplorerSummaryQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 };
 
 export function useGetExplorerSummaryQuery(
-  params: GetExplorerSummaryQueryProps
+  params: GetExplorerSummaryQueryProps,
 ) {
   const { blockchain, ...options } = params;
   return useQuery<any, Error, any>({

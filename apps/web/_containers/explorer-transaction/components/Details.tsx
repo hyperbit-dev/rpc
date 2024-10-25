@@ -12,7 +12,7 @@ import {
 function getMiningFee(
   vin: ApiVin[],
   vout: ApiVout[],
-  coinbase: number
+  coinbase: number,
 ): string {
   let inputsTotalValue = 0;
   let outputsTotalValue = 0;
@@ -43,7 +43,7 @@ export function Details({
   const miningFee: string = getMiningFee(
     transaction.vin,
     transaction.vout,
-    coinbase
+    coinbase,
   );
 
   const resultFee = isNaN(Number(miningFee)) ? 0 : miningFee;

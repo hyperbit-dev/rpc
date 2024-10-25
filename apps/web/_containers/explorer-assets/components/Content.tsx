@@ -15,7 +15,7 @@ export function Content({
   assets: Record<string, any>;
 }) {
   const [assets, setAssets] = useState<any[]>(
-    Object.values(initialAssets).slice(0, 25)
+    Object.values(initialAssets).slice(0, 25),
   );
 
   const [filters, setFilters] = useState({
@@ -34,7 +34,7 @@ export function Content({
         setAssets(Object.values(assets));
       });
     },
-    [blockchain]
+    [blockchain],
   );
 
   const meta = useMemo(() => {
@@ -118,7 +118,7 @@ export function Content({
                       {asset.blockhash.slice(0, 4)}...
                       {asset.blockhash.slice(
                         asset.blockhash.length - 4,
-                        asset.blockhash.length
+                        asset.blockhash.length,
                       )}
                     </NextLink>
                   </Cell>

@@ -48,7 +48,7 @@ export function CreateWalletForm() {
     try {
       const blockchain = blockchains.find((x: any) => x.id === blockchainId);
       const network = blockchain.networks.find(
-        (x: any) => x.name === networkName
+        (x: any) => x.name === networkName,
       );
 
       const walletNetwork = chains[blockchain.symbol][network.name];

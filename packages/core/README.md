@@ -1,18 +1,23 @@
 # A simple (demo) react component libarary
+
 This repository was published along with an article on [how to create a react component library](https://dev.to/shinski/how-to-create-a-react-component-library-using-vites-library-mode-4lma) with Vite's library mode.
 
 second repo that consumes this libarary: https://github.com/@slipstreamui/react-consumer
 
 ## Installation
+
 You can install it with npm (don't expect much fanciness):
+
 ```bash
 npm i @slipstreamui/react
 ```
 
 ## Usage
+
 ```javascript
-import { Button, Label, Input } from '@slipstreamui/react';
+import { Button, Label, Input } from "@slipstreamui/react";
 ```
+
 See this file for an example on using this library: https://github.com/@slipstreamui/react-consumer/blob/main/src/App.tsx
 
 ## React + TypeScript + Vite

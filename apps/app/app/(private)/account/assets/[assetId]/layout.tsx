@@ -72,7 +72,7 @@ export default function AssetLayout({
                 "text-sm py-2 block hover:text-brand-500",
                 pathname === `/account/assets/${params.assetId}`
                   ? "text-brand-500"
-                  : "text-gray-500"
+                  : "text-gray-500",
               )}
             >
               Overview
@@ -85,7 +85,7 @@ export default function AssetLayout({
                 "text-sm py-2 block hover:text-brand-500",
                 pathname === `/account/assets/${params.assetId}/transactions`
                   ? "text-brand-500"
-                  : "text-gray-500"
+                  : "text-gray-500",
               )}
             >
               Transactions
@@ -98,7 +98,7 @@ export default function AssetLayout({
                 "text-sm py-2 block hover:text-brand-500",
                 pathname === `/account/assets/${params.assetId}/tokens`
                   ? "text-brand-500"
-                  : "text-gray-500"
+                  : "text-gray-500",
               )}
             >
               NFTs/Tokens
@@ -111,7 +111,7 @@ export default function AssetLayout({
                 "text-sm py-2 block hover:text-brand-500",
                 pathname === `/account/assets/${params.assetId}/addresses`
                   ? "text-brand-500"
-                  : "text-gray-500"
+                  : "text-gray-500",
               )}
             >
               Addresses
@@ -124,7 +124,7 @@ export default function AssetLayout({
                 "text-sm py-2 block hover:text-brand-500",
                 pathname === `/account/assets/${params.assetId}/settings`
                   ? "text-brand-500"
-                  : "text-gray-500"
+                  : "text-gray-500",
               )}
             >
               Settings

@@ -11,7 +11,7 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
         {children}
       </tr>
     );
-  }
+  },
 );
 
 TableRow.displayName = "TableRow";

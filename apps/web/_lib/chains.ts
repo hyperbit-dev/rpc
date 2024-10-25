@@ -5,12 +5,12 @@ export function getNetwork(chainId: string) {
     // @ts-ignore
     (chain) =>
       Object.values(chain).find(
-        (x) => x.id.toLowerCase() === chainId.toLowerCase()
-      )
+        (x) => x.id.toLowerCase() === chainId.toLowerCase(),
+      ),
   )?.[0];
   return !!networks
     ? Object.values(networks).find(
-        (x) => x.id.toLowerCase() === chainId.toLowerCase()
+        (x) => x.id.toLowerCase() === chainId.toLowerCase(),
       )
     : undefined;
 }

@@ -21,7 +21,7 @@ export function getBlockHeight({
     `/api/v1/explorer/blocks/height/${height}?blockchain=${blockchain}`,
     {
       cache: "no-store",
-    }
+    },
   );
 }
 
@@ -32,7 +32,7 @@ type GetBlockHeightQueryProps = {
 
 export function useGetBlockHeightQuery(
   { height, blockchain }: GetBlockHeightQueryProps,
-  options?: UseQueryOptions<ApiBlock, Error>
+  options?: UseQueryOptions<ApiBlock, Error>,
 ) {
   return useQuery<string, Error, string>({
     queryKey: ["blocks", "height", { height, blockchain }],

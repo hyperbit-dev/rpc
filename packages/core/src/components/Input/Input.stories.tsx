@@ -25,24 +25,24 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    variant: 'secondary'
+    variant: "secondary",
   },
 };
 
 export const Primary: Story = {
   args: {
-    variant: 'primary'
+    variant: "primary",
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: 'warning'
+    variant: "warning",
   },
 };
 
 export const Danger: Story = {
   args: {
-    variant: 'danger'
+    variant: "danger",
   },
 };

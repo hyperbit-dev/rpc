@@ -11,11 +11,11 @@ export const FormFeedback = forwardRef<HTMLSpanElement, FormFeedbackProps>(
     const classes = clsx(
       "leading-tight text-sm",
       valid ? "text-green-500" : "text-red-500",
-      className
+      className,
     );
 
     return <span {...props} ref={ref} className={classes} />;
-  }
+  },
 );
 
 FormFeedback.displayName = "SuiFormFeedback";

@@ -9,7 +9,9 @@ interface LazySvgProps extends ComponentProps<"svg"> {
 export const LazySvg = ({ name, ...props }: LazySvgProps) => {
   const Svg = dynamic(
     () =>
-      import(`../../../node_modules/cryptocurrency-icons/svg/color/${name}.svg`)
+      import(
+        `../../../node_modules/cryptocurrency-icons/svg/color/${name}.svg`
+      ),
   );
 
   return (

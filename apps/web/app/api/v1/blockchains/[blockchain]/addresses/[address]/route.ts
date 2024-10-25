@@ -2,7 +2,7 @@ import { chains } from "@hyperbitjs/chains";
 
 export async function GET(
   _: Request,
-  { params }: { params: Promise<{ blockchain: string; address: string }> }
+  { params }: { params: Promise<{ blockchain: string; address: string }> },
 ): Promise<any> {
   const blockchain = (await params).blockchain;
   const address = (await params).address;

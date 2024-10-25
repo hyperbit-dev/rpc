@@ -45,15 +45,15 @@ export function getAssetsCache(blockchain: string): Promise<any> {
   }
 }
 
-export function getAssetData(
-  name: string,
-  blockchain: string
-): Promise<any> {
+export function getAssetData(name: string, blockchain: string): Promise<any> {
   const chain = config.blockchains.chains[blockchain];
   if (chain.features.assetsEnabled) {
-    return fetchClient<any>(`/api/v1/explorer/assets/${name}?blockchain=${blockchain}`, {
-      cache: "no-store",
-    });
+    return fetchClient<any>(
+      `/api/v1/explorer/assets/${name}?blockchain=${blockchain}`,
+      {
+        cache: "no-store",
+      },
+    );
   } else {
     return Promise.reject();
   }
@@ -62,9 +62,12 @@ export function getAssetData(
 export function listAddressesByAsset(name: string, blockchain: string) {
   const chain = config.blockchains.chains[blockchain];
   if (chain.features.assetsEnabled) {
-    return fetchClient<any>(`/api/v1/explorer/assets/${name}/addresses/?blockchain=${blockchain}`, {
-      cache: "no-store",
-    });
+    return fetchClient<any>(
+      `/api/v1/explorer/assets/${name}/addresses/?blockchain=${blockchain}`,
+      {
+        cache: "no-store",
+      },
+    );
   } else {
     return Promise.reject();
   }

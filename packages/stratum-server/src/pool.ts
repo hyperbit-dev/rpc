@@ -15,7 +15,10 @@ import {
   RpcData,
   VarDiffOptions,
 } from "./types";
-import { addressToScript, getReadableHashRateString } from "@hyperbit-private/utils";
+import {
+  addressToScript,
+  getReadableHashRateString,
+} from "@hyperbit-private/utils";
 import { VarDiff } from "./var-diff";
 import { Algorithm } from "./algorithms/types";
 
@@ -40,7 +43,9 @@ export class Pool extends EventEmitter {
 
     if (!(options.coin.algorithm in algorithms)) {
       this.emitErrorLog(
-        "The " + options.coin.algorithm + " hashing algorithm is not supported."
+        "The " +
+          options.coin.algorithm +
+          " hashing algorithm is not supported.",
       );
       throw new Error();
     }
@@ -124,11 +129,11 @@ export class Pool extends EventEmitter {
       (
         error: string | null,
         // @ts-ignore
-        result: any
+        result: any,
       ) => {
         if (error) {
           this.emitErrorLog(
-            "Error with getblocktemplate on creating first job, server cannot start"
+            "Error with getblocktemplate on creating first job, server cannot start",
           );
           return;
         }
@@ -154,7 +159,7 @@ export class Pool extends EventEmitter {
           this.emitWarningLog(warnMessage);
         }
         finishedCallback();
-      }
+      },
     );
   }
 
@@ -191,7 +196,7 @@ export class Pool extends EventEmitter {
       this._options.blockRefreshInterval > 0
     )
       infoLines.push(
-        "Block polling every:\t" + this._options.blockRefreshInterval + " ms"
+        "Block polling every:\t" + this._options.blockRefreshInterval + " ms",
       );
     console.log(infoLines.join("\n\t\t\t\t\t\t"));
     this.emitSpecialLog(infoLines.join("\n\t\t\t\t\t\t"));
@@ -223,7 +228,7 @@ export class Pool extends EventEmitter {
               generateProgress();
             }
           }
-        }
+        },
       );
     };
 
@@ -244,7 +249,7 @@ export class Pool extends EventEmitter {
         this.daemon!.cmd("getpeerinfo", [], (results: any) => {
           const peers = Array.isArray(results) ? results : [results];
           let totalBlocks = peers.sort(
-            (a: any, b: any) => b.startingheight - a.startingheight
+            (a: any, b: any) => b.startingheight - a.startingheight,
           )[0].startingheight;
           let percent = ((blockCount / totalBlocks) * 100).toFixed(2);
           this.emitWarningLog(
@@ -252,7 +257,7 @@ export class Pool extends EventEmitter {
               percent +
               "% of blockchain from " +
               peers.length +
-              " peers"
+              " peers",
           );
         });
       });
@@ -300,15 +305,15 @@ export class Pool extends EventEmitter {
               rpcCommand +
               " " +
               JSON.stringify(
-                result.error + "  result.response=" + result.response
-              )
+                result.error + "  result.response=" + result.response,
+              ),
           );
           return;
         } else if (result.response === "rejected") {
           this.emitErrorLog(
             "Daemon instance " +
               result.instance.index +
-              " rejected a supposedly valid block"
+              " rejected a supposedly valid block",
           );
           return;
         }
@@ -316,7 +321,7 @@ export class Pool extends EventEmitter {
       this.emitLog(
         "Submitted Block using " +
           rpcCommand +
-          " successfully to daemon instance(s)"
+          " successfully to daemon instance(s)",
       );
       callback();
     });
@@ -383,16 +388,16 @@ export class Pool extends EventEmitter {
                       error: string | null,
                       // @ts-ignore
                       result: any,
-                      foundNewBlock: boolean
+                      foundNewBlock: boolean,
                     ) => {
                       if (foundNewBlock) {
                         this.emitLog(
-                          "Block notification via RPC after block submission"
+                          "Block notification via RPC after block submission",
                         );
                       }
-                    }
+                    },
                   );
-                }
+                },
               );
             });
           }
@@ -410,7 +415,7 @@ export class Pool extends EventEmitter {
         this._options.daemons.length < 1
       ) {
         this.emitErrorLog(
-          "No daemons have been configured - pool cannot start"
+          "No daemons have been configured - pool cannot start",
         );
         return;
       }
@@ -418,7 +423,7 @@ export class Pool extends EventEmitter {
         this._options.daemons,
         (severity: string, message: string) => {
           this.emit("log", severity, message);
-        }
+        },
       );
       this.daemon
         .once("online", () => {
@@ -426,7 +431,7 @@ export class Pool extends EventEmitter {
         })
         .on("connectionFailed", (error) => {
           this.emitErrorLog(
-            "Failed to connect daemon(s): " + JSON.stringify(error)
+            "Failed to connect daemon(s): " + JSON.stringify(error),
           );
           reject();
         })
@@ -450,7 +455,7 @@ export class Pool extends EventEmitter {
       this.daemon!.batchCmd(batchRpcCalls, (results: any[]) => {
         if (!results) {
           this.emitErrorLog(
-            "Could not start pool, error with init batch RPC call"
+            "Could not start pool, error with init batch RPC call",
           );
           return reject();
         }
@@ -466,7 +471,7 @@ export class Pool extends EventEmitter {
               "Could not start pool, error with init RPC " +
                 rpcCall +
                 " - " +
-                JSON.stringify(results[i].message)
+                JSON.stringify(results[i].message),
             );
             return reject();
           }
@@ -490,10 +495,10 @@ export class Pool extends EventEmitter {
           typeof rpcResults.validateaddress.pubkey === "undefined"
         ) {
           console.log(
-            "The address provided is not from the daemon wallet - this is required for POS coins."
+            "The address provided is not from the daemon wallet - this is required for POS coins.",
           );
           this.emitErrorLog(
-            "The address provided is not from the daemon wallet - this is required for POS coins."
+            "The address provided is not from the daemon wallet - this is required for POS coins.",
           );
           return reject();
         }
@@ -518,7 +523,7 @@ export class Pool extends EventEmitter {
         } else {
           this.emitErrorLog(
             "Could not detect block submission RPC method, " +
-              JSON.stringify(results)
+              JSON.stringify(results),
           );
           return reject();
         }
@@ -533,10 +538,10 @@ export class Pool extends EventEmitter {
     this.stratumServer
       .on("started", () => {
         this._options.initStats.stratumPorts = Object.keys(
-          this._options.ports
+          this._options.ports,
         ).map((x) => Number(x));
         this.stratumServer!.broadcastMiningJobs(
-          this.jobManager!.currentJob!.getJobParams()
+          this.jobManager!.currentJob!.getJobParams(),
         );
         finishedCallback();
       })
@@ -544,19 +549,19 @@ export class Pool extends EventEmitter {
         this.emitLog(
           "No new blocks for " +
             this._options.jobRebroadcastTimeout +
-            " seconds - updating transactions & rebroadcasting work"
+            " seconds - updating transactions & rebroadcasting work",
         );
         this.getBlockTemplate(
           async (
             error: string | null,
             rpcData: RpcData,
-            processedBlock: boolean
+            processedBlock: boolean,
           ) => {
             if (error || processedBlock) {
               return;
             }
             await this.jobManager!.updateCurrentJob(rpcData);
-          }
+          },
         );
       })
       .on("client.connected", (client) => {
@@ -572,7 +577,7 @@ export class Pool extends EventEmitter {
             (
               // @ts-ignore
               params,
-              resultCallback: any
+              resultCallback: any,
             ) => {
               let extraNonce = _this.jobManager!.extraNonceCounter.next();
               resultCallback(null, extraNonce, extraNonce);
@@ -582,15 +587,15 @@ export class Pool extends EventEmitter {
                 _this._options.ports[client.socket.localPort]!.diff
               ) {
                 client.sendDifficulty(
-                  _this._options.ports[client.socket.localPort]!.diff
+                  _this._options.ports[client.socket.localPort]!.diff,
                 );
               } else {
                 client.sendDifficulty(8);
               }
               client.sendMiningJob(
-                _this.jobManager!.currentJob!.getJobParams()
+                _this.jobManager!.currentJob!.getJobParams(),
               );
-            }
+            },
           )
           .on("authorization", (params: any) => {
             console.log("worker authorized", params.publicAddress);
@@ -609,12 +614,12 @@ export class Pool extends EventEmitter {
               client.extraNonce1,
               (result: any) => {
                 resultCallback(result.error, result.result ? true : null);
-              }
+              },
             );
           })
           .on("malformedMessage", (message: string) => {
             this.emitWarningLog(
-              "Malformed message from " + client.getLabel() + ": " + message
+              "Malformed message from " + client.getLabel() + ": " + message,
             );
           })
           .on("socketError", (err: Error) => {
@@ -622,12 +627,12 @@ export class Pool extends EventEmitter {
               "Socket error from " +
                 client.getLabel() +
                 ": " +
-                JSON.stringify(err)
+                JSON.stringify(err),
             );
           })
           .on("socketTimeout", (reason: string) => {
             this.emitWarningLog(
-              "Connected timed out for " + client.getLabel() + ": " + reason
+              "Connected timed out for " + client.getLabel() + ": " + reason,
             );
           })
           .on("socketDisconnect", () => {})
@@ -637,7 +642,7 @@ export class Pool extends EventEmitter {
                 client.remoteAddress +
                 " banned for " +
                 remainingBanTime +
-                " more seconds"
+                " more seconds",
             );
           })
           .on("forgaveBannedIP", () => {
@@ -648,30 +653,30 @@ export class Pool extends EventEmitter {
               "Unknown stratum method from " +
                 client.getLabel() +
                 ": " +
-                fullMessage.method
+                fullMessage.method,
             );
           })
           .on("socketFlooded", () => {
             this.emitWarningLog(
-              "Detected socket flooding from " + client.getLabel()
+              "Detected socket flooding from " + client.getLabel(),
             );
           })
           .on("tcpProxyError", (data: string) => {
             this.emitErrorLog(
               "Client IP detection failed, tcpProxyProtocol is enabled yet did not receive proxy protocol message, instead got data: " +
-                data
+                data,
             );
           })
           .on("bootedBannedWorker", () => {
             this.emitWarningLog(
               "Booted worker " +
                 client.getLabel() +
-                " who was connected from an IP address that was just banned"
+                " who was connected from an IP address that was just banned",
             );
           })
           .on("triggerBan", (reason: string) => {
             this.emitWarningLog(
-              "Banned triggered for " + client.getLabel() + ": " + reason
+              "Banned triggered for " + client.getLabel() + ": " + reason,
             );
             this.emit("banIP", client.remoteAddress, client.workerName);
           });
@@ -694,12 +699,12 @@ export class Pool extends EventEmitter {
           error: string | null,
           // @ts-ignore
           result: any,
-          foundNewBlock: boolean
+          foundNewBlock: boolean,
         ) => {
           if (foundNewBlock) {
             this.emitLog("Block notification via RPC polling");
           }
-        }
+        },
       );
     }, pollingInterval);
   }
@@ -720,7 +725,7 @@ export class Pool extends EventEmitter {
             "getblocktemplate call failed for daemon instance " +
               result?.instance?.index +
               " with error " +
-              JSON.stringify(result.error)
+              JSON.stringify(result.error),
           );
           callback(result.message);
         } else {
@@ -730,7 +735,7 @@ export class Pool extends EventEmitter {
           callback = () => {};
         }
       },
-      true
+      true,
     );
   }
 
@@ -765,15 +770,15 @@ export class Pool extends EventEmitter {
           (
             error: any,
             // @ts-ignore
-            result: any
+            result: any,
           ) => {
             if (error) {
               this.emitErrorLog(
                 "Block notify error getting block template for " +
-                  this._options.coin.name
+                  this._options.coin.name,
               );
             }
-          }
+          },
         );
       }
     }
@@ -798,7 +803,7 @@ export class Pool extends EventEmitter {
         resultCback(
           clientsToRelinquish.map((item: RelinquishMinersStratumClient) => {
             return item.client;
-          })
+          }),
         );
       });
     });
@@ -809,7 +814,7 @@ export class Pool extends EventEmitter {
       this.stratumServer!.manuallyAddStratumClient(clientObj);
     });
     this.stratumServer!.broadcastMiningJobs(
-      this.jobManager!.currentJob!.getJobParams()
+      this.jobManager!.currentJob!.getJobParams(),
     );
   }
 

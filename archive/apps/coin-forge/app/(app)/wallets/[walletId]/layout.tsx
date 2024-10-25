@@ -28,7 +28,7 @@ export default function WalletPageLayout({
     const fetchData = async () => {
       const wallet = await pouchClient.getWallet(
         params.walletId,
-        data?.user?.id
+        data?.user?.id,
       );
       setWallet(wallet);
     };
@@ -57,7 +57,7 @@ export default function WalletPageLayout({
                 pathname === `/wallets/${params.walletId}`
                   ? "border-b-brand-500"
                   : "border-b-transparent",
-                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500"
+                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500",
               )}
               href={`/wallets/${params.walletId}`}
             >
@@ -70,7 +70,7 @@ export default function WalletPageLayout({
                 pathname === `/wallets/${params.walletId}/addresses`
                   ? "border-b-brand-500"
                   : "border-b-transparent",
-                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500"
+                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500",
               )}
               href={`/wallets/${params.walletId}/addresses`}
             >
@@ -83,7 +83,7 @@ export default function WalletPageLayout({
                 pathname === `/wallets/${params.walletId}/tokens`
                   ? "border-b-brand-500"
                   : "border-b-transparent",
-                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500"
+                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500",
               )}
               href={`/wallets/${params.walletId}/tokens`}
             >
@@ -96,7 +96,7 @@ export default function WalletPageLayout({
                 pathname === `/wallets/${params.walletId}/transactions`
                   ? "border-b-brand-500"
                   : "border-b-transparent",
-                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500"
+                "inline-block p-2 leading-none border-b-2 action:border-b-brand-500",
               )}
               href={`/wallets/${params.walletId}/transactions`}
             >

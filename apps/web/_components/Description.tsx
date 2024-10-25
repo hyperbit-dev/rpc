@@ -21,7 +21,7 @@ export function Description({
     <div
       className={clsx(
         "p-2.5 action:bg-brand-50 grid items-center",
-        copyValue || canCopy ? "grid-cols-[20px_auto]" : "grid-cols-[auto]"
+        copyValue || canCopy ? "grid-cols-[20px_auto]" : "grid-cols-[auto]",
       )}
     >
       {copyValue || canCopy ? (

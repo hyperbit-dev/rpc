@@ -25,17 +25,20 @@ export default function WalletAddressPage({
 
   useEffect(() => {
     const fetchData = async () => {
-      const wallet = await pouchClient.getWallet(params.walletId, data?.user?.id);
+      const wallet = await pouchClient.getWallet(
+        params.walletId,
+        data?.user?.id,
+      );
       setWallet(wallet);
 
       const network = getNetwork(wallet.chainId);
       if (network) {
         const latest = await fetch(
-          `/api/v1/blockchains/${network.name.toLowerCase()}/market/latest`
+          `/api/v1/blockchains/${network.name.toLowerCase()}/market/latest`,
         ).then((x) => x.json());
         setLatest(latest);
         const chart = await fetch(
-          `/api/v1/blockchains/${network.name.toLowerCase()}/market/chart`
+          `/api/v1/blockchains/${network.name.toLowerCase()}/market/chart`,
         ).then((x) => x.json());
         setChart(chart);
 
@@ -62,7 +65,7 @@ export default function WalletAddressPage({
   function getAddresses(wallet: PouchDbWalletDoc): string[] {
     const addresses: string[] = [];
     wallet?.data?.externalAddresses.forEach((address) =>
-      addresses.push(address.address)
+      addresses.push(address.address),
     );
     // wallet?.data?.externalAddresses.forEach((address) =>
     //   addresses.push(address.address)

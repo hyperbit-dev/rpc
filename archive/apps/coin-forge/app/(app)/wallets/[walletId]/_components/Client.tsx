@@ -22,11 +22,11 @@ export default function WalletPageClient({ walletId }: { walletId: string }) {
       const network = getNetwork(wallet.chainId);
       if (network) {
         const latest = await fetch(
-          `/api/v1/blockchains/${network.name.toLowerCase()}/market/latest`
+          `/api/v1/blockchains/${network.name.toLowerCase()}/market/latest`,
         ).then((x) => x.json());
         setLatest(latest);
         const chart = await fetch(
-          `/api/v1/blockchains/${network.name.toLowerCase()}/market/chart`
+          `/api/v1/blockchains/${network.name.toLowerCase()}/market/chart`,
         ).then((x) => x.json());
         setChart(chart);
 

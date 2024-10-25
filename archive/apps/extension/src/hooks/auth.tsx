@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         {
           method: "POST",
           body: JSON.stringify(data),
-        }
+        },
       );
       if (res.errors) {
         throw new Error(res.errors[0].message);
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         {
           method: "POST",
           body: JSON.stringify(data),
-        }
+        },
       );
       if (res.errors) {
         throw new Error(res.errors[0].message);
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         {
           method: "POST",
           body: JSON.stringify({ token }),
-        }
+        },
       );
       if (res.errors) {
         throw new Error(res.errors[0].message);
@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       google,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user]
+    [user],
   );
   // @ts-expect-error TODO
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

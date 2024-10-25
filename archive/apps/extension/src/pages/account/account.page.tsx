@@ -97,7 +97,7 @@ export function AccountPage() {
           type="button"
           className={clsx(
             activeTab === "assets" ? "border-brand-500" : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent",
           )}
           onClick={() => setActiveTab("assets")}
         >
@@ -107,7 +107,7 @@ export function AccountPage() {
           type="button"
           className={clsx(
             activeTab === "tokens" ? "border-brand-500" : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent",
           )}
           onClick={() => setActiveTab("tokens")}
         >
@@ -119,7 +119,7 @@ export function AccountPage() {
             activeTab === "activity"
               ? "border-brand-500"
               : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px] bg-transparent",
           )}
           onClick={() => setActiveTab("activity")}
         >

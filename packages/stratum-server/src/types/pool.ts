@@ -1,8 +1,8 @@
-import tls from 'tls';
-import { StratumClient } from '../stratum';
-import { Daemon } from './';
-import { Banning } from './stratum';
-import { CoinConfig } from '../algorithms/types';
+import tls from "tls";
+import { StratumClient } from "../stratum";
+import { Daemon } from "./";
+import { Banning } from "./stratum";
+import { CoinConfig } from "../algorithms/types";
 
 export type Config = {
   address: string;

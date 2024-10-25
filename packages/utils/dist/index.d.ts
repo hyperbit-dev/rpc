@@ -1,6 +1,9 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
-declare function addressFromEx(exAddress: string, ripdm160Key: string): string | null;
+declare function addressFromEx(
+  exAddress: string,
+  ripdm160Key: string,
+): string | null;
 declare function getVersionByte(address: string): Uint8Array;
 declare function sha256(buff: Buffer): Buffer;
 declare function sha256d(buff: Buffer): Buffer;
@@ -33,4 +36,37 @@ declare function getTruncatedDiff(shift: number): Buffer;
 declare function revertByteOrder(buff: Buffer): any;
 declare function revertBuffers(buffers: Buffer[]): any[];
 
-export { addressFromEx, addressToScript, bignumFromBitsBuffer, bignumFromBitsHex, bufferToCompactBits, convertBitsToBuff, getReadableHashRateString, getTruncatedDiff, getVersionByte, hexFromReversedBuffer, miningKeyToScript, packInt32BE, packInt32LE, packInt64LE, packUInt16LE, packUInt32BE, packUInt32LE, pubkeyToScript, range, reverseBuffer, reverseByteOrder, reverseHex, revertBuffers, revertByteOrder, serializeNumber, serializeString, sha256, sha256d, shiftMax256Right, uint256BufferFromHash, varIntBuffer, varStringBuffer };
+export {
+  addressFromEx,
+  addressToScript,
+  bignumFromBitsBuffer,
+  bignumFromBitsHex,
+  bufferToCompactBits,
+  convertBitsToBuff,
+  getReadableHashRateString,
+  getTruncatedDiff,
+  getVersionByte,
+  hexFromReversedBuffer,
+  miningKeyToScript,
+  packInt32BE,
+  packInt32LE,
+  packInt64LE,
+  packUInt16LE,
+  packUInt32BE,
+  packUInt32LE,
+  pubkeyToScript,
+  range,
+  reverseBuffer,
+  reverseByteOrder,
+  reverseHex,
+  revertBuffers,
+  revertByteOrder,
+  serializeNumber,
+  serializeString,
+  sha256,
+  sha256d,
+  shiftMax256Right,
+  uint256BufferFromHash,
+  varIntBuffer,
+  varStringBuffer,
+};

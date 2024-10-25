@@ -16,7 +16,7 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(
     return (
       <form {...props} ref={ref} className={classes} onSubmit={_handleSubmit} />
     );
-  }
+  },
 );
 
 Form.displayName = "SuiForm";

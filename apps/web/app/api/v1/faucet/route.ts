@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       {
         message: "Unproccesable request, please provide the required fields",
       },
-      { status: 422 }
+      { status: 422 },
     );
   }
 
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       {
         message: "Invalid amount value. Please req between 100 and MAX.",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -42,10 +42,10 @@ export async function POST(req: Request) {
     return Response.json(
       {
         message: `Limit reached. Please come back in ${Math.floor(
-          currentHours
+          currentHours,
         )} hours.`,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
         },
         method: "POST",
-      }
+      },
     );
 
     const captchaValidation = await recaptchaResponse.json();
@@ -73,14 +73,14 @@ export async function POST(req: Request) {
           "listaddressesbyasset",
           {
             asset_name: asset,
-          }
+          },
         );
 
         const accountAddress = await rpcClients[blockchain].request(
           "getaccountaddress",
           {
             account: "",
-          }
+          },
         );
 
         if (
@@ -99,7 +99,7 @@ export async function POST(req: Request) {
               "",
               accountAddress,
               accountAddress,
-            ]
+            ],
           );
         }
       }
@@ -109,7 +109,7 @@ export async function POST(req: Request) {
         {
           address,
           amount: reqAmount,
-        }
+        },
       );
 
       if (response?.code === 500) {
@@ -125,13 +125,13 @@ export async function POST(req: Request) {
           // @ts-ignore
           assetTransfers: !assetTransfers.code ? assetTransfers : [],
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
     return Response.json(
       { message: "Unproccesable request, Invalid captcha code" },
-      { status: 422 }
+      { status: 422 },
     );
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });

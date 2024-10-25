@@ -52,7 +52,7 @@ export function WalletPage() {
             activeTab === "addresses"
               ? "border-brand-500"
               : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]",
           )}
           onClick={() => setActiveTab("addresses")}
         >
@@ -62,7 +62,7 @@ export function WalletPage() {
           type="button"
           className={clsx(
             activeTab === "tokens" ? "border-brand-500" : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]",
           )}
           onClick={() => setActiveTab("tokens")}
         >
@@ -74,7 +74,7 @@ export function WalletPage() {
             activeTab === "activity"
               ? "border-brand-500"
               : "border-transparent",
-            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]"
+            "w-full p-1 font-medium text-md outline-none action:text-brand-500 border-b-4 -mb-[4px]",
           )}
           onClick={() => setActiveTab("activity")}
         >

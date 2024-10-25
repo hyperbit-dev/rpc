@@ -17,7 +17,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       fullWidth = true,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = asChild ? Slot : "input";
     return (
@@ -113,11 +113,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               "focus:[&:not(action)]:border-gray-300 hover:[&:not(action)]:border-gray-300 active:[&:not(action)]:border-gray-300",
             ],
           ],
-          className
+          className,
         )}
       />
     );
-  }
+  },
 );
 
 Input.displayName = "SuiInput";

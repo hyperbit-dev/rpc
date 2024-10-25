@@ -13,7 +13,7 @@ function Provider({ children }: any) {
           refetchOnWindowFocus: false, // default: true
         },
       },
-    })
+    }),
   );
 
   return (

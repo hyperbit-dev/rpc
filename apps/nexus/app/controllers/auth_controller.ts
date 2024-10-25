@@ -90,7 +90,7 @@ export default class AuthController {
     // send reset password link
   }
 
-    // TODO: Make all resets "valid" in order to hide users from phishing attempts
+  // TODO: Make all resets "valid" in order to hide users from phishing attempts
   async resetVerify({ request }: HttpContext) {
     const { token } = request.only(['token', 'password', 'passwordConfiration'])
     const builder = new MessageBuilder()

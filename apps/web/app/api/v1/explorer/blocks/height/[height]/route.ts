@@ -10,7 +10,7 @@ function isNumeric(value: string) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ height: string }> }
+  { params }: { params: Promise<{ height: string }> },
 ) {
   try {
     const height = (await params).height;

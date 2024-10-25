@@ -6,7 +6,7 @@ type GetAddressAssetBalancesParams = {
 };
 
 export function getAddressAssetBalancesQuery(
-  params: GetAddressAssetBalancesParams
+  params: GetAddressAssetBalancesParams,
 ) {
   const [, , { address, blockchain }] = params.queryKey;
   const searchParams = new URLSearchParams();
@@ -22,7 +22,7 @@ type GetAddressAssetBalancesQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 };
 
 export function useGetAddressAssetBalancesQuery(
-  params: GetAddressAssetBalancesQueryProps
+  params: GetAddressAssetBalancesQueryProps,
 ) {
   const { address, blockchain, ...options } = params;
   return useQuery<any, Error, any>({

@@ -13,7 +13,7 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>(
       bg = "gray",
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = clsx(
       "sui--chip leading-tight inline-block",
@@ -35,18 +35,18 @@ export const Chip = forwardRef<HTMLDivElement, ChipProps>(
       color && color === "white"
         ? "text-white"
         : color === "black"
-        ? "text-black"
-        : `text-${color}-900`,
+          ? "text-black"
+          : `text-${color}-900`,
       bg && [
         { "bg-black": bg === "black" },
         { "bg-white": bg === "white" },
         { [`bg-${bg}-${shade}`]: bg !== "black" && bg !== "white" },
       ],
-      className
+      className,
     );
 
     return <div {...props} ref={ref} className={classes} />;
-  }
+  },
 );
 
 Chip.displayName = "SuiChip";

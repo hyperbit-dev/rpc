@@ -48,7 +48,7 @@ export function HomePage() {
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-      console.log('codeResponse', codeResponse)
+      console.log("codeResponse", codeResponse);
       const response = await auth.google(codeResponse.access_token);
       console.log("response", response);
     },

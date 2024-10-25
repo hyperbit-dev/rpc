@@ -58,7 +58,7 @@ export const Modal = ({ Title, children }: ModalProps) => {
       </div>
       <div className="transition duration fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80 dark:bg-neutral-900 z-[79]"></div>
     </>,
-    document.body
+    document.body,
   );
 };
 

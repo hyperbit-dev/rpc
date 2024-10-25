@@ -31,7 +31,7 @@ type GetAddressBalanceQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 
 export function useGetAddressBalanceQuery(
   variables: GetAddressBalanceQueryProps,
-  options?: UseQueryOptions<ApiAddressBalance, Error, ApiAddressBalance>
+  options?: UseQueryOptions<ApiAddressBalance, Error, ApiAddressBalance>,
 ): UseQueryResult<ApiAddressBalance, Error> {
   return useQuery({
     ...options,

@@ -1,6 +1,6 @@
-import { EventEmitter } from 'events';
-import { StratumClient } from './stratum';
-import { VarDiffOptions } from './types/var-diff';
+import { EventEmitter } from "events";
+import { StratumClient } from "./stratum";
+import { VarDiffOptions } from "./types/var-diff";
 
 export class RingBuffer {
   data: number[] = [];
@@ -69,13 +69,13 @@ export class VarDiff extends EventEmitter {
   manageClient(client: StratumClient): void {
     let stratumPort = Number(client.socket.localPort);
     if (Number(stratumPort) !== Number(this.port)) {
-      console.error('Handling a client which is not of this vardiff?');
+      console.error("Handling a client which is not of this vardiff?");
     }
 
     let lastTimeStamp: number;
     let lastRtc: number;
     let timeBuffer: RingBuffer;
-    client.on('submit', () => {
+    client.on("submit", () => {
       let ts = (Date.now() / 1000) | 0;
       if (!lastRtc) {
         lastRtc = ts - this.varDiffOptions.retargetTime / 2;
@@ -115,7 +115,7 @@ export class VarDiff extends EventEmitter {
       }
       let newDiff = toFixed(client.difficulty * ddiff, 8);
       timeBuffer.clear();
-      this.emit('newDifficulty', client, newDiff);
+      this.emit("newDifficulty", client, newDiff);
     });
   }
 }

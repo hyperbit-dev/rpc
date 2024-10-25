@@ -7,7 +7,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     const classes = clsx("sui--form-group", "mb-4", className);
 
     return <div {...props} ref={ref} className={classes} />;
-  }
+  },
 );
 
 FormGroup.displayName = "SuiFormGroup";

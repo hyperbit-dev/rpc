@@ -25,7 +25,7 @@ export function SectionUtxos({
       .filter(
         (x) =>
           x.txid.toString().toLowerCase().includes(query.toLocaleLowerCase()) ||
-          x.height.toString().toLowerCase().includes(query.toLocaleLowerCase())
+          x.height.toString().toLowerCase().includes(query.toLocaleLowerCase()),
       )
       .slice(0, MAX_COUNT) ?? addressUtxos;
 

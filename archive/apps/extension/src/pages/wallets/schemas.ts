@@ -8,7 +8,7 @@ export const CreateWalletSchema = WalletSchema.merge(
     //   .string({ required_error: "Seed phrase is required" })
     //   .min(1, { message: "Seed phrase is required" })
     //   .optional(),
-  })
+  }),
 ).refine((data) => data?.passphrase === data?.passphraseConfirm, {
   message: "Passphrase does not match",
   path: ["passphraseConfirm"],

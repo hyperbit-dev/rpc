@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export async function POST(
   request: Request,
-  { params: { name } }: { params: { name: string } }
+  { params: { name } }: { params: { name: string } },
 ): Promise<any> {
   try {
     const blockchainSchema = z.enum(["rvn", "trvn"]);

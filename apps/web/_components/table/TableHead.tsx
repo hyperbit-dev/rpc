@@ -17,7 +17,7 @@ const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
         </tr>
       </thead>
     );
-  }
+  },
 );
 
 TableHead.displayName = "TableHead";

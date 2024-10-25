@@ -4,7 +4,7 @@ import BigNumber from "bignumber.js";
 
 export function addressFromEx(
   exAddress: string,
-  ripdm160Key: string
+  ripdm160Key: string,
 ): string | null {
   try {
     let versionByte: Uint8Array = getVersionByte(exAddress);
@@ -241,11 +241,11 @@ export function getReadableHashRateString(hashrate: number): string {
 export function shiftMax256Right(shiftRight: number): Buffer {
   let arr256 = Array.apply(null, new Array(256)).map(
     Number.prototype.valueOf,
-    1
+    1,
   );
   const arrLeft = Array.apply(null, new Array(shiftRight)).map(
     Number.prototype.valueOf,
-    0
+    0,
   );
   arr256 = arrLeft.concat(arr256).slice(0, 256);
   const octets = [];
@@ -275,7 +275,7 @@ export function bignumFromBitsBuffer(bitsBuff: Buffer): BigNumber {
   let numBytes = bitsBuff.readUInt8(0);
   let bigBits = new BigNumber(bitsBuff.slice(1).readInt32BE(0));
   let target = bigBits.multipliedBy(
-    new BigNumber(2).pow(new BigNumber(8).multipliedBy(numBytes - 3))
+    new BigNumber(2).pow(new BigNumber(8).multipliedBy(numBytes - 3)),
   );
   return target;
 }
