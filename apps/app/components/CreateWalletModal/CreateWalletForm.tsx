@@ -1,5 +1,5 @@
 import { chains, MainNet, TestNet } from "@hyperbitjs/chains";
-import { Wallet } from "@hyperbitjs-private/wallet";
+import { Wallet } from "@hyperbit-private/wallet";
 import { useFormContext } from "react-hook-form";
 import {
   Checkbox,

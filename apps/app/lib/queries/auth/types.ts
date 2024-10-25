@@ -8,12 +8,16 @@ export type AuthResponse = {
 };
 
 export type LoginRequest = {
-    email: string;
-    password: string;
-  };
-  
-  export type RegisterRequest = {
-    email: string;
-    password: string;
-    passwordConfirmation: string;
-  };
+  email: string;
+  password: string;
+};
+
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+};
+
+export type VerifyEmailRequest = {
+  token: string;
+};

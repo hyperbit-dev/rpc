@@ -2,7 +2,7 @@
 
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
-import { Alert, FormFeedback } from "@hyperbitui/react";
+import { Alert, FormFeedback } from "@hyperbit-private/react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
