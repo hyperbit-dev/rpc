@@ -1,6 +1,6 @@
 import { chains, Network } from '@hyperbitjs/chains'
 import rpcService from '#services/rpc.service'
-import { RpcCommands } from '#validators/rpc'
+import { RpcCommand, RpcCommands } from '#validators/rpc'
 
 export class BlockchainService {
   network: Network
@@ -239,8 +239,23 @@ export class BlockchainService {
   }
 
   request(method: RpcCommands, params: any) {
+    // @ts-ignore
     if (typeof this[method] === 'function') {
+      // @ts-ignore
       return this[method](params)
     }
+  }
+
+  rawRequest({
+    method,
+    params,
+    id,
+  }: {
+    jsonrpc: string
+    method: RpcCommand
+    params: any[]
+    id: string
+  }) {
+    return rpcService.request(this.network.id, method, params, id)
   }
 }

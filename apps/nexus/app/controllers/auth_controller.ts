@@ -1,5 +1,8 @@
 import AuthAccessToken from '#models/auth_access_token'
+import Organization from '#models/organization'
+import OrganizationUser from '#models/organization_user'
 import User from '#models/user'
+import emailService from '#services/email.service'
 import { registerValidator } from '#validators/auth'
 import { MessageBuilder } from '@adonisjs/core/helpers'
 import stringHelpers from '@adonisjs/core/helpers/string'
@@ -14,6 +17,9 @@ export default class AuthController {
         name: request.input('session_token'),
         expiresIn: '24 hours',
       })
+
+      await emailService.checkVerificationStatus(user)
+
       return token
     } catch (error) {
       return response.status(400).send({ message: 'Something went wrong' })
@@ -25,14 +31,18 @@ export default class AuthController {
       return response.unauthorized()
     }
     const user = await User.findBy('id', auth.user.id)
-    
+
     await User.accessTokens.delete(user!, auth.user.currentAccessToken.identifier)
     // delete all access tokens with the name 'session_token' for the user
-    await AuthAccessToken.query().where('tokenable_id', user!.id).where('name', 'session_token').delete()
+    await AuthAccessToken.query()
+      .where('tokenable_id', user!.id)
+      .where('name', 'session_token')
+      .delete()
   }
 
+  // TODO: Make all registrations "valid" in order to hide users from phishing attempts
   async register({ request, response }: HttpContext) {
-    const credentials = request.only(['email', 'password', 'passwordConfirmation'])
+    const credentials = request.only(['organization', 'email', 'password', 'passwordConfirmation'])
     try {
       await registerValidator.validate(credentials)
 
@@ -40,12 +50,21 @@ export default class AuthController {
         email: credentials.email,
         password: credentials.password,
       })
-      console.log('user', user)
-      // TODO Send email verification and password setup
+      const organization = await Organization.create({
+        name: credentials.organization,
+        ownerId: user.id,
+      })
+      await OrganizationUser.create({
+        userId: user.id,
+        organizationId: organization.id,
+      })
+
       const token = await User.accessTokens.create(user, undefined, {
         name: request.input('session_token'),
         expiresIn: '24 hours',
       })
+
+      await emailService.sendEmail(user)
 
       return token
     } catch (error) {
@@ -53,6 +72,7 @@ export default class AuthController {
     }
   }
 
+  // TODO: Make all resets "valid" in order to hide users from phishing attempts
   async reset({ request }: HttpContext) {
     const { email } = request.only(['email'])
     const user = await User.findBy('email', email)
@@ -70,6 +90,7 @@ export default class AuthController {
     // send reset password link
   }
 
+    // TODO: Make all resets "valid" in order to hide users from phishing attempts
   async resetVerify({ request }: HttpContext) {
     const { token } = request.only(['token', 'password', 'passwordConfiration'])
     const builder = new MessageBuilder()
@@ -79,6 +100,15 @@ export default class AuthController {
     }
     // update user
     // remove from database
+  }
+
+  public async verifyEmail({ request, response }: HttpContext) {
+    try {
+      const { token } = request.params()
+      await emailService.verifyEmail(token)
+    } catch {
+      response.abort({ message: 'Cannot verify email' })
+    }
   }
 
   async provider({ ally, response, request }: HttpContext) {
@@ -110,5 +140,9 @@ export default class AuthController {
       default:
         return response.status(400).send({ message: 'Provider not found' })
     }
+  }
+
+  async getSessions({ auth }: HttpContext) {
+    return AuthAccessToken.query().where('tokenable_id', auth.user!.id)
   }
 }

@@ -44,5 +44,8 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  ensureEmailVerified: () => import('#middleware/ensure_email_verified_middleware'),
+  stripeSubscription: () => import('#middleware/stripe_subscription_middleware'),
+  apiLogger: () => import('#middleware/api_logger_middleware'),
   auth: () => import('#middleware/auth_middleware'),
 })

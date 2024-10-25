@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
-import { BaseModel, beforeCreate, belongsTo, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import Blockchain from './blockchain.js'
-import type { BelongsTo, HasMany, HasOne } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import WalletAddress from './wallet_address.js'
 import BlockchainNetwork from './blockchain_network.js'
 

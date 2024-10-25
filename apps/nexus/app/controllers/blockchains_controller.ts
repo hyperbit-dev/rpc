@@ -34,26 +34,47 @@ export default class BlockchainsController {
       .first()
   }
 
-  async rpcRequest({ request, params, response }: HttpContext) {
+  async rpcMethodRequest({ request, params, response }: HttpContext) {
+    const getBlockValidator = vine.compile(
+      vine.object({
+        symbol: blockchainSymbolValidator,
+        method: rpcCommandValidator,
+      })
+    )
+
+    try {
+      const { symbol, method } = await getBlockValidator.validate(params)
+      const data = request.body()
+
+      const blockchainService = BlockchainFactory.getService(symbol)
+      return blockchainService.request(method, data)
+    } catch (error) {
+      return response.badRequest(error)
+    }
+  }
+
+  async rpcRawRequest({ request, params, response }: HttpContext) {
     const getBlockValidator = vine.compile(
       vine.object({
         symbol: blockchainSymbolValidator,
       })
     )
 
-    const getRpcValidator = vine.compile(
+    const getBodyValidator = vine.compile(
       vine.object({
-        command: rpcCommandValidator,
+        jsonrpc: vine.enum(['2.0']),
+        method: rpcCommandValidator,
+        params: vine.array(vine.any()),
+        id: vine.string(),
       })
     )
 
     try {
       const { symbol } = await getBlockValidator.validate(params)
-      const { command, ...args } = request.body()
-      const { command: method } = await getRpcValidator.validate({ command })
+      const args = await getBodyValidator.validate(request.body())
 
       const blockchainService = BlockchainFactory.getService(symbol)
-      return blockchainService.request(method, args)
+      return blockchainService.rawRequest(args)
     } catch (error) {
       return response.badRequest(error)
     }
