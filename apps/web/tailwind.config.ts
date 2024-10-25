@@ -1,13 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-import { slipstream } from "@hyperbitui/theme";
+import { slipstream } from "@hyperbit-private/theme";
 
 module.exports = {
   content: [
     "./_components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    './node_modules/preline/preline.js',
-    "../../node_modules/@hyperbitui/react/**/*.{js,ts,jsx,tsx}",
-    "../../node_modules/@hyperbitui/theme/**/*.{js,ts,jsx,tsx}",
+    "../../node_modules/@hyperbit-private/react/**/*.{js,ts,jsx,tsx}",
+    "../../node_modules/@hyperbit-private/theme/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -47,6 +46,5 @@ module.exports = {
     slipstream,
     require("@tailwindcss/forms"),
     require("tailwindcss-radix")(),
-    require('preline/plugin'),
   ],
 };

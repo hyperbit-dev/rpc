@@ -2,7 +2,7 @@ import { Container } from "@/_components/Container";
 
 export default function PrivacyPolicyPage() {
   return (
-    <Container className="py-12">
+    <Container className="py-12 flex flex-col gap-2 leading-loose">
       <h1>Privacy Policy</h1>
       <p>
         This Privacy Policy describes Our policies and procedures on the

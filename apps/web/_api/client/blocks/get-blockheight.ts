@@ -1,6 +1,6 @@
 import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
-import { ApiBlock } from "@/app/(server)/api/v1/explorer/blocks";
+import { ApiBlock } from "@/app/api/v1/explorer/blocks";
 
 type GetBlockHeightParams = {
   queryKey: [

@@ -17,17 +17,17 @@ async function findInCache(
     .return.first();
 }
 
-type BaseFaucet = {
-  faucet: FaucetData;
-  cached: boolean;
-  time: number;
-};
+// type BaseFaucet = {
+//   faucet: FaucetData;
+//   cached: boolean;
+//   time: number;
+// };
 
-type Faucet = Entity & {
-  faucet: FaucetData;
-  cached: boolean;
-  time: number;
-};
+// type Faucet = Entity & {
+//   faucet: FaucetData;
+//   cached: boolean;
+//   time: number;
+// };
 
 type FaucetData = {
   ipAddress: string;
@@ -50,6 +50,7 @@ async function storeInCache(data: Entity): Promise<Entity> {
     });
 
     const ttlInSeconds = 24 * 60 * 60; // 24 hours
+    // @ts-ignore
     const id = faucet[EntityId] as string;
 
     await faucetRepository.expire(id, ttlInSeconds);

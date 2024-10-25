@@ -1,21 +1,8 @@
-import { AuthResponse } from "./auth/types";
-
-export const checkEnvironment = (nexus: boolean = false) => {
-  let base_url =
-    process.env.NODE_ENV === "development"
-      ? nexus
-        ? "http://localhost:3333"
-        : (process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000")
-      : (process.env.HOST ??
-        (typeof window !== "undefined" && window.location.origin));
-  return base_url;
-};
-
 export async function fetchNexus<T>(url: string, params?: any): Promise<T> {
-  const host = `${checkEnvironment(true)}${url}`;
-  let sessionAuth: AuthResponse | string | null =
+  const host = `${process.env.NEXT_NEXUS_URL}${url}`;
+  let sessionAuth: any | string | null =
     sessionStorage.getItem("auth");
-  sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as AuthResponse) : null;
+  sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as any) : null;
 
   const response = await fetch(host, {
     ...params,
@@ -39,12 +26,13 @@ export async function fetchNexus<T>(url: string, params?: any): Promise<T> {
 }
 
 export async function fetchClient<T>(url: string, params?: any): Promise<T> {
-  const host = `${checkEnvironment()}${url}`;
-  let sessionAuth: AuthResponse | string | null =
+  const host = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000";
+  const baseUrl = `${host}${url}`;
+  let sessionAuth: any | string | null =
     sessionStorage.getItem("auth");
-  sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as AuthResponse) : null;
+  sessionAuth = sessionAuth ? (JSON.parse(sessionAuth) as any) : null;
 
-  const response = await fetch(host, {
+  const response = await fetch(baseUrl, {
     ...params,
     cache: "no-store",
     credentials: "include",

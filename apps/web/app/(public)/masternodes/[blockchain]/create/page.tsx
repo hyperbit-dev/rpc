@@ -1,6 +1,6 @@
 import { Container } from "~/_components/Container";
 import { PageHeader } from "~/_components/PageHeader";
-import { Form, FormGroup, Input, Label } from "@hyperbitui/react";
+import { Form, FormGroup, Input, Label } from "@hyperbit-private/react";
 import React from "react";
 
 // tx e.g. ecc50e3f5e952c7fe8e191488924cf80822dc701147d497ea4816868ea338fea

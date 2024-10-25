@@ -1,4 +1,4 @@
-import { ApiBlock } from "@/app/(server)/api/v1/explorer/blocks";
+import { ApiBlock } from "@/app/api/v1/explorer/blocks";
 import { getBlockQuery } from ".";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 

@@ -1,4 +1,4 @@
-import { ApiBlock } from "@/app/(server)/api/v1/explorer/blocks";
+import { ApiBlock } from "@/app/api/v1/explorer/blocks";
 
 export function getKb(block: ApiBlock): number {
   return block.size / Math.pow(1024, 1);

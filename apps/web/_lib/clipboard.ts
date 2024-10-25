@@ -1,3 +1,5 @@
+"use client";
+
 import { toast } from "react-toastify";
 
 export function copy(value: string | number) {

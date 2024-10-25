@@ -1,4 +1,6 @@
-import { Button } from "@hyperbitui/react";
+"use client";
+
+import { Button } from "@hyperbit-private/react";
 import React from "react";
 import { downloadToJSON } from "~/_lib/json";
 

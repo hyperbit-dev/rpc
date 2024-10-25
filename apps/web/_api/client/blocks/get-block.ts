@@ -1,4 +1,4 @@
-import { ApiBlock } from "@/app/(server)/api/v1/explorer/blocks";
+import { ApiBlock } from "@/app/api/v1/explorer/blocks";
 import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 
@@ -23,7 +23,7 @@ type GetBlockQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 
 export function useGetBlockQuery(params: GetBlockQueryProps) {
   const { blockhash, blockchain, ...options } = params;
-  return useQuery<ApiBlock, Error, ApiBlock>({
+  return useQuery<any, Error, any>({
     queryKey: ["blocks", { blockchain, blockhash }],
     // @ts-ignore
     queryFn: getBlockQuery,

@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, FormGroup, Input, Label } from "@hyperbitui/react";
+import { Button, FormGroup, Input, Label } from "@hyperbit-private/react";
 import { QueryClient } from "@tanstack/react-query";
 import { Fragment, useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";

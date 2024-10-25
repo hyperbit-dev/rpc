@@ -1,3 +1,5 @@
+"use client";
+
 import { TabsTrigger } from "@radix-ui/react-tabs";
 
 export function Tab({
