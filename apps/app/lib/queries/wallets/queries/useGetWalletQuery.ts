@@ -13,7 +13,7 @@ function getWalletQuery({ queryKey }: { queryKey: ListWalletQueryKey }) {
 }
 
 export function useGetWalletQuery(
-  variables: ReturnType<typeof keys.singleWalletQueryParams>
+  variables: ReturnType<typeof keys.singleWalletQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.singleWalletQuery(variables),

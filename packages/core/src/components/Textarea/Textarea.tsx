@@ -15,7 +15,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       rows = 3,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = clsx("sui--textarea", className);
     return (
@@ -30,7 +30,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea {...props} ref={ref} className={classes} rows={rows} />
       </Input>
     );
-  }
+  },
 );
 
 Textarea.displayName = "SuiTextarea";

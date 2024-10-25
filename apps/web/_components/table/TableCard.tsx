@@ -7,11 +7,14 @@ export type TableCardProps = {
 const TableCard = forwardRef<HTMLDivElement, TableCardProps>(
   ({ children }, ref) => {
     return (
-      <div ref={ref} className="overflow-x-auto border border-gray-200 rounded-lg">
+      <div
+        ref={ref}
+        className="overflow-x-auto border border-gray-200 rounded-lg"
+      >
         {children}
       </div>
     );
-  }
+  },
 );
 
 TableCard.displayName = "TableCard";

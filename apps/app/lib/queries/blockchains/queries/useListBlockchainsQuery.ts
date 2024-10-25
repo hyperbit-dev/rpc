@@ -18,7 +18,7 @@ function listBlockchainsQuery({
 }
 
 export function useListBlockchainsQuery(
-  variables: ReturnType<typeof keys.listBlockchainsQueryParams>
+  variables: ReturnType<typeof keys.listBlockchainsQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.listBlockchainsQuery(variables),

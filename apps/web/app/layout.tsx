@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={clsx(
           "h-full flex flex-col overflow-hidden",
-          inter.className
+          inter.className,
         )}
       >
         <Provider>{children}</Provider>

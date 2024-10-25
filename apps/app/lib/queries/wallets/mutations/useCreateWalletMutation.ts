@@ -14,7 +14,7 @@ function createWalletMutation(body: any) {
 }
 
 export function useCreateWalletMutation(
-  options?: UseMutationOptions<any, unknown, any>
+  options?: UseMutationOptions<any, unknown, any>,
 ) {
   const queryClient = useQueryClient();
   return useMutation({

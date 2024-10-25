@@ -29,7 +29,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
       as="nav"
       className={clsx(
         "relative z-20 border-b",
-        Theme === "light" ? "border-transparent" : "border-gray-200"
+        Theme === "light" ? "border-transparent" : "border-gray-200",
       )}
     >
       {({ open }) => (
@@ -46,7 +46,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                   className={clsx(
                     "relative inline-flex items-center justify-center p-2 rounded-md",
                     "focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white",
-                    "action:bg-brand-500 action:text-white"
+                    "action:bg-brand-500 action:text-white",
                   )}
                 >
                   <span className="absolute -inset-0.5" />
@@ -55,7 +55,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                     <XMarkIcon
                       className={clsx(
                         "block w-6 h-6",
-                        Theme === "light" ? "text-white" : "text-black"
+                        Theme === "light" ? "text-white" : "text-black",
                       )}
                       aria-hidden="true"
                     />
@@ -63,7 +63,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                     <Bars3Icon
                       className={clsx(
                         "block w-6 h-6",
-                        Theme === "light" ? "text-white" : "text-black"
+                        Theme === "light" ? "text-white" : "text-black",
                       )}
                       aria-hidden="true"
                     />
@@ -103,7 +103,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                           "rounded-md p-2 text-sm font-medium",
                           Theme === "light"
                             ? "text-white action:text-brand-800"
-                            : "text-gray-900 action:text-brand-500"
+                            : "text-gray-900 action:text-brand-500",
                         )}
                       >
                         {item.name}
@@ -235,7 +235,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                   href={item.href}
                   className={clsx(
                     "action:text-brand-500",
-                    "block rounded-md px-3 py-2 text-sm font-medium"
+                    "block rounded-md px-3 py-2 text-sm font-medium",
                   )}
                 >
                   {item.name}

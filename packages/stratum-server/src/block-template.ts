@@ -5,7 +5,12 @@ import { algorithms } from "./algorithms";
 import { createGeneration, getFees } from "./transactions";
 import { getRoot } from "./merkle-tree";
 import { JobParams, PoolOptions, RpcData } from "./types";
-import { packUInt32BE, reverseBuffer, sha256d, varIntBuffer } from "@hyperbit-private/utils";
+import {
+  packUInt32BE,
+  reverseBuffer,
+  sha256d,
+  varIntBuffer,
+} from "@hyperbit-private/utils";
 import { Algorithm } from "./algorithms/types";
 
 export class BlockTemplate {
@@ -47,7 +52,7 @@ export class BlockTemplate {
     this.target = new BigNumber(this.rpcData.target, 16);
     this.target_hex = this.rpcData.target;
     this.difficulty = parseFloat(
-      (this._algorithm.diff / this.target.toNumber()).toFixed(9)
+      (this._algorithm.diff / this.target.toNumber()).toFixed(9),
     );
 
     this.nTime = packUInt32BE(this.rpcData.curtime).toString("hex");
@@ -71,7 +76,7 @@ export class BlockTemplate {
         blockReward,
         this.rewardFees,
         this._options.recipients,
-        this._options.address
+        this._options.address,
       );
 
       // @ts-ignore
@@ -83,7 +88,7 @@ export class BlockTemplate {
     }
 
     this.prevHashReversed = reverseBuffer(
-      Buffer.from(this.rpcData.previousblockhash, "hex")
+      Buffer.from(this.rpcData.previousblockhash, "hex"),
     ).toString("hex");
   }
 
@@ -93,7 +98,7 @@ export class BlockTemplate {
     this.txCount = this.rpcData.transactions.length + 1; // add total txs and new coinbase
 
     this.merkleRootReversed = reverseBuffer(
-      Buffer.from(this.merkleRoot, "hex")
+      Buffer.from(this.merkleRoot, "hex"),
     ).toString("hex");
 
     const powLimit = this._algorithm.diff;
@@ -137,7 +142,7 @@ export class BlockTemplate {
       packUInt32BE(this.rpcData.height).toString("hex"),
       position,
       4,
-      "hex"
+      "hex",
     );
 
     header.write(this.rpcData.bits, (position += 4), 4, "hex");
@@ -154,7 +159,7 @@ export class BlockTemplate {
     // @ts-ignore
     header_hash: Buffer,
     nonce: Buffer,
-    mixhash: Buffer
+    mixhash: Buffer,
   ): Buffer {
     let header = this.serializeHeader();
     let foo = Buffer.alloc(40);

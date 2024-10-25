@@ -39,7 +39,7 @@ const Template: Story = {
         </FormGroup>
         <FormGroup>
           <InputGroup {...args} flush={false}>
-          <InputGroupAppend>$</InputGroupAppend>
+            <InputGroupAppend>$</InputGroupAppend>
             <Input />
             <InputGroupPrepend>Not Flush</InputGroupPrepend>
           </InputGroup>

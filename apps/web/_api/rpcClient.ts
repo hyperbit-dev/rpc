@@ -16,7 +16,9 @@ export function getRpcCredentials(chain: Record<string, string>) {
 function setupClients() {
   const clients: Record<string, Client> = {};
   Object.keys(config.blockchains.chains).forEach((chain) => {
-    clients[chain] = new Client(getRpcCredentials(config.blockchains.chains[chain]));
+    clients[chain] = new Client(
+      getRpcCredentials(config.blockchains.chains[chain]),
+    );
   });
   return clients;
 }

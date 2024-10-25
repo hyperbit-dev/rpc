@@ -142,7 +142,7 @@ export class StratumServer extends EventEmitter {
     if (subId != null) {
       this._stratumClients[subId]!.manuallyAuthClient(
         client.workerName!,
-        client.workerPass!
+        client.workerPass!,
       );
       this._stratumClients[subId]!.manuallySetValues(client);
     }

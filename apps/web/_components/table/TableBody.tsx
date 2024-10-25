@@ -7,7 +7,7 @@ export type TableBodyProps = {
 const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ children }, ref) => {
     return <tbody ref={ref}>{children}</tbody>;
-  }
+  },
 );
 
 TableBody.displayName = "TableBody";

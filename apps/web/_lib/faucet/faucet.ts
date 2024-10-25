@@ -4,7 +4,7 @@ import getRedisFaucet from "./redis";
 async function findInCache(
   ipAddress: string,
   // coin = process.env.NEXT_PUBLIC_BLOCKCHAIN_TICKER ?? ""
-  coin = ""
+  coin = "",
 ) {
   const faucetRepository = await getRedisFaucet();
 

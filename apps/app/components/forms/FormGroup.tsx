@@ -5,14 +5,8 @@ type FormGroupProps = React.HTMLProps<HTMLDivElement> & {};
 
 export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={clsx("mb-4", className)}
-      />
-    );
-  }
+    return <div {...props} ref={ref} className={clsx("mb-4", className)} />;
+  },
 );
 
 FormGroup.displayName = "FormGroup";

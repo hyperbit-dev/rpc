@@ -14,7 +14,7 @@ function listWalletsQuery({ queryKey }: { queryKey: ListWalletsQueryKey }) {
 }
 
 export function useListWalletsQuery(
-  variables: ReturnType<typeof keys.listWalletsQueryParams>
+  variables: ReturnType<typeof keys.listWalletsQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.listWalletsQuery(variables),

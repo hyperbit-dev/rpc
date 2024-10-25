@@ -134,7 +134,7 @@ export class Wallet {
    */
   public getMissingWalletAddresses(addresses: Address[]): Address[] {
     return addresses.filter(
-      (x) => !this.getAddresses().includes((x as Address).address)
+      (x) => !this.getAddresses().includes((x as Address).address),
     );
   }
 
@@ -144,7 +144,7 @@ export class Wallet {
   public getMissingExternalAddresses(addresses: Address[]): Address[] {
     return this.getAddresses(true).filter(
       (y): y is Address =>
-        !addresses.some((addr) => addr.address === (y as Address).address)
+        !addresses.some((addr) => addr.address === (y as Address).address),
     );
   }
 
@@ -164,7 +164,7 @@ export class Wallet {
   private _getLastAddress({ account = 0 }: { account?: number }) {
     if (this.accounts[account]) {
       const addresses = Array.from(
-        this.accounts[account]["external"].values()
+        this.accounts[account]["external"].values(),
       ).sort((a, b) => (a.path < b.path ? 1 : -1));
       return addresses[0];
     } else {
@@ -203,7 +203,7 @@ export class Wallet {
       }
     } else {
       if (isExternal) {
-        this.accounts[account] = { 
+        this.accounts[account] = {
           external: [address],
           change: [],
         };

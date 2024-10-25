@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ address: string }> }
+  { params }: { params: Promise<{ address: string }> },
 ) {
   try {
     const address = (await params).address;

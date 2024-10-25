@@ -17,7 +17,7 @@ import Image from "next/image";
 export function LoginForm() {
   const router = useRouter();
   const [apiError, setApiErrors] = useState<{ message: string } | undefined>(
-    undefined
+    undefined,
   );
   const authLoginMutation = useLoginMutation();
   const form = useForm<LoginFormSchema>({

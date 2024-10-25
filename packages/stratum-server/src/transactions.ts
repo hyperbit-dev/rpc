@@ -24,7 +24,7 @@ export function createGeneration(
   // @ts-ignore
   feeReward: number,
   recipients: any[],
-  poolAddress: string
+  poolAddress: string,
 ): CreateGeneration {
   let poolAddrHash = bitcoin.address.fromBase58Check(poolAddress).hash;
   let tx = new bitcoin.Transaction();
@@ -51,12 +51,12 @@ export function createGeneration(
   tx.addInput(
     Buffer.from(
       "0000000000000000000000000000000000000000000000000000000000000000",
-      "hex"
+      "hex",
     ),
     0xffffffff,
     0xffffffff,
     // https://github.com/RavenCommunity/kawpow-stratum-pool/commit/f59b1e2c0485804782fea99c024a29fde666e648
-    Buffer.concat([serializedBlockHeight, Buffer.from("6b6177706f77", "hex")])
+    Buffer.concat([serializedBlockHeight, Buffer.from("6b6177706f77", "hex")]),
   );
   let feePercent = 0;
   for (let i = 0; i < recipients.length; i++) {
@@ -69,9 +69,9 @@ export function createGeneration(
   for (let i = 0; i < recipients.length; i++) {
     tx.addOutput(
       scriptCompile(
-        bitcoin.address.fromBase58Check(recipients[i].address).hash
+        bitcoin.address.fromBase58Check(recipients[i].address).hash,
       ),
-      Math.round(blockReward * (recipients[i].percent / 100))
+      Math.round(blockReward * (recipients[i].percent / 100)),
     );
   }
   if (rpcData.default_witness_commitment !== undefined) {

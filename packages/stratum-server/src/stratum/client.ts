@@ -84,7 +84,7 @@ export class StratumClient extends EventEmitter {
           this.shares.invalid +
             " out of the last " +
             totalShares +
-            " shares were invalid"
+            " shares were invalid",
         );
         this.socket.destroy();
         return true;
@@ -170,7 +170,7 @@ export class StratumClient extends EventEmitter {
           result: [null, extraNonce1],
           error: null,
         });
-      }
+      },
     );
   }
 
@@ -219,7 +219,7 @@ export class StratumClient extends EventEmitter {
         if (disconnect === true) {
           this.socket.destroy();
         }
-      }
+      },
     );
   }
 
@@ -263,7 +263,7 @@ export class StratumClient extends EventEmitter {
           result: result,
           error: error,
         });
-      }
+      },
     );
   }
 

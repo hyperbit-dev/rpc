@@ -37,7 +37,7 @@ export function usePouchDbWallet(walletId: string) {
             setWallet(wallet);
           });
       })
-      .catch((error: { message: any; }) => {
+      .catch((error: { message: any }) => {
         setError(error.message);
       })
       .finally(() => {

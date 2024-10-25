@@ -79,7 +79,7 @@ export async function createTransaction({
 
 function setNetwork(
   network: MainNet | TestNet | RegTest | SimNet,
-  name: "mainnet" | "testnet" | "regtest" | "simnet"
+  name: "mainnet" | "testnet" | "regtest" | "simnet",
 ) {
   bitcore.Networks.add({
     ...toBitcore(network, name),

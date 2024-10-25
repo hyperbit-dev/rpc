@@ -11,7 +11,11 @@ export function Sidebar() {
     >
       <div className="flex flex-row items-center gap-2 px-6 py-4 mb-8 select-none">
         <Image src="/logo.svg" width={40} height={40} alt="logo" />
-        <span className="text-lg font-bold leading-none uppercase">Coin<br/>Forge</span>
+        <span className="text-lg font-bold leading-none uppercase">
+          Coin
+          <br />
+          Forge
+        </span>
       </div>
       <nav className="flex flex-col flex-1 gap-4 p-2 text-sm list-none">
         <li>

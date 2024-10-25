@@ -20,7 +20,7 @@ export function Vin({
       a.push({
         ...c,
         address: c.address,
-        value: c.coinbase ? 5000 : c?.value ?? 0,
+        value: c.coinbase ? 5000 : (c?.value ?? 0),
       });
     }
     return a;

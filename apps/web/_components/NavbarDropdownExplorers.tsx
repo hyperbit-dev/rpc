@@ -13,7 +13,7 @@ export function NavbarDropdownExplorers() {
         <Menu.Button
           className={clsx(
             "action:text-brand-500",
-            "rounded-md p-2 text-sm font-medium"
+            "rounded-md p-2 text-sm font-medium",
           )}
         >
           Explorers
@@ -31,7 +31,7 @@ export function NavbarDropdownExplorers() {
         <Menu.Items
           className={clsx(
             "absolute left-0 right-0 origin-top-left",
-            "z-40 w-full py-1 mt-4 rounded-b-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-gray-100 py-4"
+            "z-40 w-full py-1 mt-4 rounded-b-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-gray-100 py-4",
           )}
         >
           <Container>
@@ -51,7 +51,7 @@ export function NavbarDropdownExplorers() {
                           "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                           selected
                             ? "bg-white shadow-sm text-[#f15b22]"
-                            : "action:text-[#f15b22] duration-300 ease"
+                            : "action:text-[#f15b22] duration-300 ease",
                         )
                       }
                     >
@@ -80,7 +80,7 @@ export function NavbarDropdownExplorers() {
                           "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                           selected
                             ? "bg-white shadow-sm text-[#21CCFF]"
-                            : "action:text-[#21CCFF] duration-300 ease"
+                            : "action:text-[#21CCFF] duration-300 ease",
                         )
                       }
                     >
@@ -107,7 +107,7 @@ export function NavbarDropdownExplorers() {
                     key="ravencoin"
                     className={clsx(
                       "rounded-lg bg-white p-4 h-full flex-1",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                     )}
                   >
                     <div className="mb-4 text-sm font-medium text-gray-500">
@@ -168,7 +168,7 @@ export function NavbarDropdownExplorers() {
                     key="evrmore"
                     className={clsx(
                       "rounded-lg bg-white p-4 h-full flex-1",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                     )}
                   >
                     <div className="mb-4 text-sm font-medium text-gray-500">

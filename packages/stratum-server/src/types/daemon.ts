@@ -1,6 +1,6 @@
-import { Config } from '@hyperbitjs/rpc';
+import { Config } from "@hyperbitjs/rpc";
 
-export type Daemon = Omit<Config, 'url'> & {
+export type Daemon = Omit<Config, "url"> & {
   url?: string;
   host?: string;
   port?: number | string;

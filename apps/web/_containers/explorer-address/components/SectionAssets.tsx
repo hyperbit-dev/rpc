@@ -27,7 +27,7 @@ export function SectionAssets({
             const asset = assetBalances[key];
             return (
               <Table.Row key={key}>
-                <Table.Cell style={{width: '50px'}}>
+                <Table.Cell style={{ width: "50px" }}>
                   <ClipboardButton value={key} />
                 </Table.Cell>
                 <Table.Cell>

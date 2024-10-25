@@ -21,7 +21,7 @@ export async function GET(request: NextRequest): Promise<any> {
     }
 
     const data = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=30`
+      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=30`,
     ).then((res) => res.json());
     redisClient.json.set(redisRef, "$", data);
     redisClient.EXPIRE(redisRef, 60 * 5);

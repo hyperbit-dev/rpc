@@ -18,7 +18,9 @@ export async function Navbar() {
               <div className="flex flex-row items-center gap-2">
                 <Image src="/logo.svg" width={40} height={40} alt="logo" />
                 <span className="text-lg font-bold leading-none uppercase">
-                  Coin<br/>Forge
+                  Coin
+                  <br />
+                  Forge
                 </span>
               </div>
             </Link>

@@ -8,12 +8,12 @@ export const FormFeedback = forwardRef<HTMLSpanElement, FormFeedbackProps>(
     const classes = clsx(
       "sui--form-feedback leading-tight text-sm",
       valid ? "text-green-500" : "text-red-500",
-      className
+      className,
     );
     const Comp = asChild ? Slot : "span";
 
     return <Comp {...props} ref={ref} className={classes} />;
-  }
+  },
 );
 
 FormFeedback.displayName = "SuiFormFeedback";

@@ -18,7 +18,7 @@ export const WalletSchema = z
       .boolean({ required_error: "Required" })
       .refine((x) => !!x, { message: "Required" }),
   })
-  .refine((data) =>  data?.passphrase === data?.passphraseConfirm, {
+  .refine((data) => data?.passphrase === data?.passphraseConfirm, {
     message: "Passphrase does not match",
     path: ["passphraseConfirm"],
   });

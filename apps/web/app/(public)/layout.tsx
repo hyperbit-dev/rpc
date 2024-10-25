@@ -8,7 +8,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <main className="flex flex-col flex-1 h-full overflow-auto">
         {children}
       </main>

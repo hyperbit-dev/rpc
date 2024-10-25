@@ -17,7 +17,7 @@ import Image from "next/image";
 export function RegisterForm() {
   const router = useRouter();
   const [apiError, setApiErrors] = useState<{ message: string } | undefined>(
-    undefined
+    undefined,
   );
   const authRegisterMutation = useRegisterMutation();
   const form = useForm<RegisterFormSchema>({
@@ -146,7 +146,9 @@ export function RegisterForm() {
           </Button>
         </FormGroup>
         <FormGroup className="flex items-center justify-center text-sm">
-          <Link href="/auth/login">Have an account? <span className="text-brand-500">Sign in</span></Link>
+          <Link href="/auth/login">
+            Have an account? <span className="text-brand-500">Sign in</span>
+          </Link>
         </FormGroup>
       </form>
     </Container>

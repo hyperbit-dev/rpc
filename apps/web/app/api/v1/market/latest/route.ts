@@ -9,7 +9,6 @@ export type ApiMarketLatest = {
   totalVolume: number;
 };
 
-
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const blockchain = searchParams.get("blockchain");
@@ -30,7 +29,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=1&interval=daily`
+      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=1&interval=daily`,
     ).then((res) => res.json());
     if (data.error) {
       throw new Error(data.error);

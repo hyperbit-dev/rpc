@@ -18,10 +18,6 @@ export default defineConfig(({ mode }) => {
       },
     },
 
-    plugins: [
-      crx({ manifest }),
-      react(),
-      nodePolyfills(),
-    ],
+    plugins: [crx({ manifest }), react(), nodePolyfills()],
   }
 })

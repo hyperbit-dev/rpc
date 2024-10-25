@@ -1,5 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Checkbox, Form, FormFeedback, FormGroup, Input, Label } from '@hyperbit-private/react'
+import {
+  Button,
+  Checkbox,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from '@hyperbit-private/react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link, redirect } from 'react-router-dom'
 import { CreateWalletSchema } from './schema'

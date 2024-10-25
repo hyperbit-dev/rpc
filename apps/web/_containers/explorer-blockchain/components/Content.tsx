@@ -164,7 +164,7 @@ export function Content({ blockchain }: { blockchain: string }) {
             <span
               className={clsx(
                 "text-lg",
-                latestPrice >= avgPrice ? "text-green-500" : "text-red-500"
+                latestPrice >= avgPrice ? "text-green-500" : "text-red-500",
               )}
             >
               ${latestPrice} {latestPrice >= avgPrice ? "↗" : "↘"}
@@ -182,7 +182,7 @@ export function Content({ blockchain }: { blockchain: string }) {
               <div className="text-sm">
                 Last Update:{" "}
                 {new Date(
-                  getMarketChartQuery?.dataUpdatedAt
+                  getMarketChartQuery?.dataUpdatedAt,
                 ).toLocaleTimeString()}
               </div>
             ) : undefined}
@@ -209,7 +209,7 @@ export function Content({ blockchain }: { blockchain: string }) {
               <div className="text-sm">
                 Last Update:{" "}
                 {new Date(
-                  getExplorerSummaryQuery?.dataUpdatedAt
+                  getExplorerSummaryQuery?.dataUpdatedAt,
                 ).toLocaleTimeString()}
               </div>
             ) : undefined}

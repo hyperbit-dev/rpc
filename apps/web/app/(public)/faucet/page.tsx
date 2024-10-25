@@ -123,7 +123,7 @@ export default function FaucetPage() {
             },
           ];
         },
-        []
+        [],
       )
     : [];
 
@@ -253,7 +253,7 @@ export default function FaucetPage() {
                       >
                         {`${tx.txid.substring(0, 15)}...${tx.txid.substring(
                           tx.txid.length - 15,
-                          tx.txid.length
+                          tx.txid.length,
                         )}`}
                       </NextLink>
 
@@ -288,7 +288,7 @@ export default function FaucetPage() {
                               >
                                 {`${at.substring(0, 15)}...${at.substring(
                                   at.length - 15,
-                                  at.length
+                                  at.length,
                                 )}`}
                               </NextLink>
                               <button

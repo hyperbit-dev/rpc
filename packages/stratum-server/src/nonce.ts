@@ -1,7 +1,7 @@
-import crypto from 'node:crypto';
+import crypto from "node:crypto";
 
 export class ExtraNonceCounter {
   next() {
-    return crypto.randomBytes(2).toString('hex');
+    return crypto.randomBytes(2).toString("hex");
   }
 }

@@ -1,19 +1,19 @@
 // https://github.com/EvrmoreOrg/meowcoin-personal-stratum-server/commit/851365862320ce41436331d58e08ca9aa7e4929c
-import { AuthorizeFnCallback, createPool } from '../src';
+import { AuthorizeFnCallback, createPool } from "../src";
 
 function main() {
   const pool = createPool(
     {
-      address: 'MM9C6qkDpLuvBDm5ELjFoA2ddVHP2cx4pS',
+      address: "MM9C6qkDpLuvBDm5ELjFoA2ddVHP2cx4pS",
       // api,
       // banning,
       blockRefreshInterval: 400,
       coin: {
-        chainId: '340D72AA-B588-4AE4-9B08-99E65A61EB5F',
-        algorithm: 'meowpow', // meowpow | KAW
-        name: 'meowcoin',
-        reward: 'POW',
-        symbol: 'MEWC',
+        chainId: "340D72AA-B588-4AE4-9B08-99E65A61EB5F",
+        algorithm: "meowpow", // meowpow | KAW
+        name: "meowcoin",
+        reward: "POW",
+        symbol: "MEWC",
       },
       connectionTimeout: 600,
       daemons: [
@@ -32,7 +32,7 @@ function main() {
       // meowpow_wrapper_port,
       p2p: {
         enabled: false,
-        host: '127.0.0.1',
+        host: "127.0.0.1",
         port: 8767,
         disableTransactions: true,
       },
@@ -88,7 +88,7 @@ function main() {
       tcpProxyProtocol: false,
       testnet: true,
     },
-    authorizeFn
+    authorizeFn,
   );
   pool.start();
 }
@@ -100,14 +100,14 @@ function authorizeFn(
   workerPassword: string,
   extraNonce1: string | null,
   version: number | string | null,
-  callback: AuthorizeFnCallback
+  callback: AuthorizeFnCallback,
 ) {
-  console.log('remoteAddress', remoteAddress);
-  console.log('localPort', localPort);
-  console.log('address', address);
-  console.log('workerPassword', workerPassword);
-  console.log('extraNonce1', extraNonce1);
-  console.log('version', version);
+  console.log("remoteAddress", remoteAddress);
+  console.log("localPort", localPort);
+  console.log("address", address);
+  console.log("workerPassword", workerPassword);
+  console.log("extraNonce1", extraNonce1);
+  console.log("version", version);
   callback({
     error: null,
     authorized: true,

@@ -18,7 +18,7 @@ export const InputGroupPrepend = forwardRef<
       variant = "secondary",
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = clsx(
       "sui--input-group_prepend",
@@ -103,7 +103,7 @@ export const InputGroupPrepend = forwardRef<
               "first:rounded-l-full last:rounded-r-full": rounded === "full",
             },
           ],
-      className
+      className,
     );
 
     return (
@@ -111,7 +111,7 @@ export const InputGroupPrepend = forwardRef<
         {children}
       </div>
     );
-  }
+  },
 );
 
 InputGroupPrepend.displayName = "SuiInputGroupPrepend";

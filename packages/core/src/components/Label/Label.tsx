@@ -13,11 +13,11 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
         { "text-lg": size === "lg" },
       ],
       { "opacity-50 cursor-not-allowed": props.disabled },
-      className
+      className,
     );
 
     return <label {...props} ref={ref} className={classes} />;
-  }
+  },
 );
 
 Label.displayName = "SuiLabel";

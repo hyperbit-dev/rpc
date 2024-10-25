@@ -4,12 +4,12 @@ import { FormGroup, Input, Label } from "@hyperbit-private/react";
 import { useRef } from "react";
 
 export function ImportMnemonic() {
-    const ref = useRef();
+  const ref = useRef();
   const { control, register } = useFormContext();
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       name: "mnemonic",
-    }
+    },
   );
 
   console.log("fields", fields);

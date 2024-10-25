@@ -5,7 +5,7 @@ export type AuthorizeFn = (
   workerPassword: string,
   extraNonce1: string | null,
   version: number | string | null,
-  cb: AuthorizeFnCallback
+  cb: AuthorizeFnCallback,
 ) => void;
 
 export type AuthorizeFnCallback = ({

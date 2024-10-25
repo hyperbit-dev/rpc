@@ -66,7 +66,7 @@ export class JobManager extends EventEmitter {
       this._options.daemons,
       (severity: string, message: string) => {
         this.emit("log", severity, message);
-      }
+      },
     );
 
     this.daemon
@@ -75,7 +75,7 @@ export class JobManager extends EventEmitter {
       })
       .on("connectionFailed", (error) => {
         this.emitErrorLog(
-          "Failed to connect daemon(s): " + JSON.stringify(error)
+          "Failed to connect daemon(s): " + JSON.stringify(error),
         );
       })
       .on("error", (message) => {
@@ -113,7 +113,7 @@ export class JobManager extends EventEmitter {
     const tmpBlockTemplate = new BlockTemplate(
       this.jobCounter.next(),
       rpcData,
-      this._options
+      this._options,
     );
     await tmpBlockTemplate.init();
 
@@ -141,7 +141,7 @@ export class JobManager extends EventEmitter {
     const tmpBlockTemplate = new BlockTemplate(
       this.jobCounter.next(),
       rpcData,
-      this._options
+      this._options,
     );
     await tmpBlockTemplate.init();
 
@@ -163,7 +163,7 @@ export class JobManager extends EventEmitter {
     miner_given_header: string,
     miner_given_mixhash: string,
     extraNonce1: string,
-    callback_parent: any
+    callback_parent: any,
   ) {
     const _this = this;
     const submitTime = (Date.now() / 1000) | 0;
@@ -222,7 +222,7 @@ export class JobManager extends EventEmitter {
     if (
       !job.registerSubmit(
         header_hash.toLowerCase(),
-        miner_given_nonce.toLowerCase()
+        miner_given_nonce.toLowerCase(),
       )
     ) {
       return shareError([22, "duplicate share"]);
@@ -274,7 +274,7 @@ export class JobManager extends EventEmitter {
               res.on("end", () => {
                 body = JSON.parse(body);
                 console.log(
-                  "********** INCOMING SHARE FROM WORKER ************"
+                  "********** INCOMING SHARE FROM WORKER ************",
                 );
                 console.log("header_hash            = " + header_hash);
                 console.log("miner_sent_header_hash = " + miner_given_header);
@@ -292,13 +292,13 @@ export class JobManager extends EventEmitter {
                 console.log("difficulty             = " + difficulty);
                 console.log("kawpowd_url            = " + kawpowd_url);
                 console.log(
-                  "********** END INCOMING SHARE FROM WORKER ************"
+                  "********** END INCOMING SHARE FROM WORKER ************",
                 );
                 if (body.share === false) {
                   if (body.block === false) {
                     callback(
                       "kawpow share didn't meet job or block difficulty level",
-                      false
+                      false,
                     );
                     return shareError([20, "kawpow validation failed"]);
                   }
@@ -308,7 +308,7 @@ export class JobManager extends EventEmitter {
                     .serializeBlock(
                       Buffer.from(header_hash, "hex"),
                       Buffer.from(miner_given_nonce, "hex"),
-                      Buffer.from(miner_given_mixhash, "hex")
+                      Buffer.from(miner_given_mixhash, "hex"),
                     )
                     .toString("hex");
                   blockHash = body.digest;
@@ -344,7 +344,7 @@ export class JobManager extends EventEmitter {
                 blockHash: blockHash,
                 blockHashInvalid: blockHashInvalid,
               },
-              blockHex
+              blockHex,
             );
             callback_parent({
               result: true,
@@ -361,7 +361,7 @@ export class JobManager extends EventEmitter {
             _this.emitErrorLog("kawpow verify failed, ERRORS: " + err);
             return;
           }
-        }
+        },
       );
     } else if (this._options.meowpow_validator === "meowpowd") {
       async.series(
@@ -396,7 +396,7 @@ export class JobManager extends EventEmitter {
               res.on("end", () => {
                 body = JSON.parse(body);
                 console.log(
-                  "********** INCOMING SHARE FROM WORKER ************"
+                  "********** INCOMING SHARE FROM WORKER ************",
                 );
                 console.log("header_hash            = " + header_hash);
                 console.log("miner_sent_header_hash = " + miner_given_header);
@@ -414,13 +414,13 @@ export class JobManager extends EventEmitter {
                 console.log("difficulty             = " + difficulty);
                 console.log("meowpowd_url            = " + meowpowd_url);
                 console.log(
-                  "********** END INCOMING SHARE FROM WORKER ************"
+                  "********** END INCOMING SHARE FROM WORKER ************",
                 );
                 if (body.share === false) {
                   if (body.block === false) {
                     callback(
                       "meowpow share didn't meet job or block difficulty level",
-                      false
+                      false,
                     );
                     return shareError([20, "meowpow validation failed"]);
                   }
@@ -430,7 +430,7 @@ export class JobManager extends EventEmitter {
                     .serializeBlock(
                       Buffer.from(header_hash, "hex"),
                       Buffer.from(miner_given_nonce, "hex"),
-                      Buffer.from(miner_given_mixhash, "hex")
+                      Buffer.from(miner_given_mixhash, "hex"),
                     )
                     .toString("hex");
                   blockHash = body.digest;
@@ -466,7 +466,7 @@ export class JobManager extends EventEmitter {
                 blockHash: blockHash,
                 blockHashInvalid: blockHashInvalid,
               },
-              blockHex
+              blockHex,
             );
             callback_parent({
               result: true,
@@ -483,7 +483,7 @@ export class JobManager extends EventEmitter {
             _this.emitErrorLog("meowpow verify failed, ERRORS: " + err);
             return;
           }
-        }
+        },
       );
     } else if (this._options.coin.algorithm === "kawpow") {
       this.daemon!.cmd(
@@ -516,7 +516,7 @@ export class JobManager extends EventEmitter {
                 .serializeBlock(
                   Buffer.from(header_hash, "hex"),
                   Buffer.from(miner_given_nonce, "hex"),
-                  Buffer.from(mix_hash, "hex")
+                  Buffer.from(mix_hash, "hex"),
                 )
                 .toString("hex");
               blockHash = digest;
@@ -540,7 +540,7 @@ export class JobManager extends EventEmitter {
                 blockHash: blockHash!,
                 blockHashInvalid: blockHashInvalid,
               },
-              blockHex!
+              blockHex!,
             );
             callback_parent({
               result: true,
@@ -550,7 +550,7 @@ export class JobManager extends EventEmitter {
           } else {
             return shareError([20, "bad share: invalid hash"]);
           }
-        }
+        },
       );
     } else if (this._options.coin.algorithm === "meowpow") {
       this.daemon!.cmd(
@@ -583,7 +583,7 @@ export class JobManager extends EventEmitter {
                 .serializeBlock(
                   Buffer.from(header_hash, "hex"),
                   Buffer.from(miner_given_nonce, "hex"),
-                  Buffer.from(mix_hash, "hex")
+                  Buffer.from(mix_hash, "hex"),
                 )
                 .toString("hex");
               blockHash = digest;
@@ -607,7 +607,7 @@ export class JobManager extends EventEmitter {
                 blockHash: blockHash!,
                 blockHashInvalid: blockHashInvalid,
               },
-              blockHex!
+              blockHex!,
             );
             callback_parent({
               result: true,
@@ -617,7 +617,7 @@ export class JobManager extends EventEmitter {
           } else {
             return shareError([20, "bad share: invalid hash"]);
           }
-        }
+        },
       );
     } else if (this._options.coin.algorithm === "evrprogpow") {
       this.daemon!.cmd(
@@ -650,7 +650,7 @@ export class JobManager extends EventEmitter {
                 .serializeBlock(
                   Buffer.from(header_hash, "hex"),
                   Buffer.from(miner_given_nonce, "hex"),
-                  Buffer.from(mix_hash, "hex")
+                  Buffer.from(mix_hash, "hex"),
                 )
                 .toString("hex");
               blockHash = digest;
@@ -674,7 +674,7 @@ export class JobManager extends EventEmitter {
                 blockHash: blockHash!,
                 blockHashInvalid: blockHashInvalid,
               },
-              blockHex!
+              blockHex!,
             );
             callback_parent({
               result: true,
@@ -684,7 +684,7 @@ export class JobManager extends EventEmitter {
           } else {
             return shareError([20, "bad share: invalid hash"]);
           }
-        }
+        },
       );
     }
   }

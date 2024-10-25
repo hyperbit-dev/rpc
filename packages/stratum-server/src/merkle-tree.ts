@@ -21,7 +21,7 @@ type RpcData = {
 
 export async function getRoot(
   rpcData: RpcData,
-  generateTxRaw: string
+  generateTxRaw: string,
 ): Promise<string> {
   const hashes = [
     reverseBuffer(Buffer.from(generateTxRaw, "hex")).toString("hex"),

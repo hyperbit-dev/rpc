@@ -21,7 +21,9 @@ export default function SettingsPageLayout({
           <TabLink href="/account/settings/plans">Plans</TabLink>
           <TabLink href="/account/settings/add-ons">Add-ons</TabLink>
           <TabLink href="/account/settings/history">History</TabLink>
-          <TabLink href="/account/settings/payment-methods">Payment Methods</TabLink>
+          <TabLink href="/account/settings/payment-methods">
+            Payment Methods
+          </TabLink>
         </nav>
       </div>
       {children}

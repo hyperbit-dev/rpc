@@ -3,7 +3,12 @@ import { Buffer } from "node:buffer";
 import crypto from "node:crypto";
 import net from "node:net";
 import { PoolOptions, StratumError } from "./types";
-import { varStringBuffer, packUInt32LE, packInt64LE, sha256d } from "@hyperbit-private/utils";
+import {
+  varStringBuffer,
+  packUInt32LE,
+  packInt64LE,
+  sha256d,
+} from "@hyperbit-private/utils";
 
 type InvCodes = {
   error: number;
@@ -34,7 +39,7 @@ export class Peer extends EventEmitter {
   networkServices: Buffer = Buffer.from("0100000000000000", "hex"); // //NODE_NETWORK services (value 1 packed as uint64)
   emptyNetAddress: Buffer = Buffer.from(
     "010000000000000000000000000000000000ffff000000000000",
-    "hex"
+    "hex",
   );
   userAgent: Buffer = varStringBuffer("/node-stratum/");
   blockStartHeight: Buffer = Buffer.from("00000000", "hex"); //block start_height, can be empty
@@ -49,7 +54,7 @@ export class Peer extends EventEmitter {
       options.testnet
         ? options.coin.peerMagicTestnet!
         : options.coin.peerMagic!,
-      "hex"
+      "hex",
     );
     this.magicInt = this.magic.readUInt32LE(0);
 
@@ -81,7 +86,7 @@ export class Peer extends EventEmitter {
       },
       () => {
         this.sendVersion();
-      }
+      },
     );
 
     this.client.on("close", () => {
@@ -171,9 +176,9 @@ export class Peer extends EventEmitter {
               }
               this.handleMessage(msgCommand, payload);
               beginReadingMessage(lopped);
-            }
+            },
           );
-        }
+        },
       );
     };
     beginReadingMessage(null);
@@ -237,7 +242,7 @@ export class Peer extends EventEmitter {
     stream: net.Socket,
     amount: number,
     preRead: Buffer | any,
-    callback: any
+    callback: any,
   ): void {
     let buff = preRead ? preRead : Buffer.from([]);
 

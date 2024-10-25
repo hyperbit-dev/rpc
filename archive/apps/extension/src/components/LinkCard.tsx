@@ -15,7 +15,7 @@ export function LinkCard({
       className={clsx(
         "flex items-center justify-between p-3 leading-tight",
         "action:bg-brand-100 action:text-black",
-        "outline-none"
+        "outline-none",
       )}
     >
       {children}

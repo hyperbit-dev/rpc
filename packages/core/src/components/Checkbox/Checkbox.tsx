@@ -18,14 +18,14 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       variant = "primary",
       ...props
     },
-    ref
+    ref,
   ) => {
     const checkboxId = useId();
 
     const labelClasses = clsx(
       "sui--checkbox-label inline-flex gap-1.5 group/checkbox cursor-pointer",
       { [`items-${align}`]: align },
-      labelProps?.className
+      labelProps?.className,
     );
 
     const inputClasses = clsx(
@@ -82,14 +82,14 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         { "rounded-2xl": rounded === "2xl" },
         { "rounded-3xl": rounded === "3xl" },
         { "rounded-full": rounded === "full" },
-      ]
+      ],
     );
 
     const spanClasses = clsx(
       "sui--checkbox-span select-none leading-none",
       { "cursor-not-allowed": disabled },
       { "text-lg": size === "lg" },
-      { "text-md": size === "md" }
+      { "text-md": size === "md" },
     );
 
     return (
@@ -112,7 +112,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         </span>
       </Label>
     );
-  }
+  },
 );
 
 Checkbox.displayName = "SuiCheckbox";

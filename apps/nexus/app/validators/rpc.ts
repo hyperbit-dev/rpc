@@ -36,6 +36,6 @@ export enum RpcCommands {
   SUBMIT_BLOCK = 'submitblock',
 }
 
-export type RpcCommand = `${RpcCommands}`;
+export type RpcCommand = `${RpcCommands}`
 
 export const rpcCommandValidator = vine.enum(RpcCommands)

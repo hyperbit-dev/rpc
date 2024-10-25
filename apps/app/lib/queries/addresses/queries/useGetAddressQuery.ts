@@ -4,11 +4,7 @@ import * as keys from "../keys";
 
 type ListAddressQueryKey = ReturnType<typeof keys.getAddressQuery>;
 
-function getAddressQuery({
-  queryKey,
-}: {
-  queryKey: ListAddressQueryKey;
-}) {
+function getAddressQuery({ queryKey }: { queryKey: ListAddressQueryKey }) {
   const { addressId } = keys.getAddressQueryParams(queryKey);
   const url = `/api/v1/addresses/${addressId}`;
   return fetchNexus<any>(url, {
@@ -17,7 +13,7 @@ function getAddressQuery({
 }
 
 export function useGetAddressQuery(
-  variables: ReturnType<typeof keys.getAddressQueryParams>
+  variables: ReturnType<typeof keys.getAddressQueryParams>,
 ) {
   return useQuery({
     queryKey: keys.getAddressQuery(variables),

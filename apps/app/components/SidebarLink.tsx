@@ -19,7 +19,7 @@ export function SidebarLink({
         "hover:text-brand-600 active:text-brand-600 focus:text-brand-600",
         "hover:bg-brand-100/50 active:bg-brand-100/50 focus:bg-brand-100/50",
         "hover:border-brand-200 active:border-brand-200 focus:border-brand-200",
-        pathname === to && "text-brand-600 bg-brand-100/50 border-brand-200"
+        pathname === to && "text-brand-600 bg-brand-100/50 border-brand-200",
       )}
       href={to}
     >

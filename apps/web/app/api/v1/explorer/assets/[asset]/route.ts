@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ asset: string }> }
+  { params }: { params: Promise<{ asset: string }> },
 ): Promise<any> {
   const asset = (await params).asset;
   const searchParams = req.nextUrl.searchParams;

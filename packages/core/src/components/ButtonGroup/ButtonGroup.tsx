@@ -5,7 +5,7 @@ import { ButtonGroupProps } from "./types";
 export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
   (
     { className, outline, flush, rounded, size, variant, children, ...props },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -35,7 +35,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
           "sui--button-group",
           "inline-flex items-center justify-center h-auto",
           { "space-x-2": !flush },
-          className
+          className,
         )}
         role="group"
         {...props}
@@ -43,7 +43,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 ButtonGroup.displayName = "SuiButtonGroup";

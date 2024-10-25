@@ -59,7 +59,7 @@ export class DaemonInterface extends EventEmitter {
       if (res.statusCode === 401) {
         this.logger(
           "error",
-          "Unauthorized RPC access - invalid RPC username or password"
+          "Unauthorized RPC access - invalid RPC username or password",
         );
         return;
       }
@@ -79,7 +79,7 @@ export class DaemonInterface extends EventEmitter {
             "\nRequest Data: " +
             jsonData.substr(0, 200) +
             "\nResponse Data: " +
-            data.substr(0, 200)
+            data.substr(0, 200),
         );
       }
       if (dataJson && callback) {
@@ -141,7 +141,7 @@ export class DaemonInterface extends EventEmitter {
     // @ts-ignore
     _streamResults?: any,
     // @ts-ignore
-    _returnRawData?: any
+    _returnRawData?: any,
   ) {
     if (this._daemons.length > 1) {
       const results: any[] = [];

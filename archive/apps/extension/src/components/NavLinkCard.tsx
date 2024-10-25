@@ -19,7 +19,7 @@ export function NavLinkCard({
         "flex items-center justify-between p-3 leading-tight",
         "action:bg-brand-100 action:text-black",
         "outline-none",
-        className
+        className,
       )}
       {...props}
     >

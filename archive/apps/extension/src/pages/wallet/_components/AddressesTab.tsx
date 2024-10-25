@@ -51,7 +51,7 @@ export function AddressesTab({
               "border border-gray-300 -mb-[1px] mx-1",
               index === 0 && "rounded-t-md",
               // @ts-expect-error TODO
-              index === addresses.length - 1 && "rounded-b-md"
+              index === addresses.length - 1 && "rounded-b-md",
             )}
           >
             <div className="flex flex-row items-center gap-3 p-2 leading-none">

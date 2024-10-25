@@ -46,7 +46,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
       "dark:bg-gray-700",
       "peer-checked:after:border-white after:content-[''] after:absolute",
       "after:bg-white after:border-gray-300 after:border after:rounded-full",
-      "after:transition-all dark:border-gray-600"
+      "after:transition-all dark:border-gray-600",
     );
 
     return (
@@ -58,5 +58,5 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
         </span>
       </label>
     );
-  }
+  },
 );

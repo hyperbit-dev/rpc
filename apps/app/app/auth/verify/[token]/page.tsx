@@ -22,7 +22,7 @@ export default function AuthVerifyPage({
         onError: () => {
           setError("Token provided is used, invalid, or expired.");
         },
-      }
+      },
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,6 +1,13 @@
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
-import { BaseModel, beforeCreate, hasManyThrough, hasMany, hasOne, column } from '@adonisjs/lucid/orm'
+import {
+  BaseModel,
+  beforeCreate,
+  hasManyThrough,
+  hasMany,
+  hasOne,
+  column,
+} from '@adonisjs/lucid/orm'
 import type { HasOne, HasMany, HasManyThrough } from '@adonisjs/lucid/types/relations'
 import OrganizationUser from '#models/organization_user'
 import StripeSubscription from '#models/stripe_subscription'

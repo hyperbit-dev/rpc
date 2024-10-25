@@ -20,7 +20,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const dimensions = clsx(
     { "12": size === "sm" },
     { "16": size === "md" || !size },
-    { "20": size === "lg" }
+    { "20": size === "lg" },
   );
 
   return (
@@ -47,8 +47,12 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
           { "px-6 py-3 text-lg": size === "lg" },
         ],
         variant !== "custom" && [
-          variant === "primary" && ["text-white bg-brand-500/50 border-brand-500"],
-          variant === "secondary" && ["text-white bg-gray-500/50 border-gray-500"],
+          variant === "primary" && [
+            "text-white bg-brand-500/50 border-brand-500",
+          ],
+          variant === "secondary" && [
+            "text-white bg-gray-500/50 border-gray-500",
+          ],
           variant === "success" && ["text-white bg-sky-500 border-sky-500"],
           variant === "warning" && [
             "text-white bg-yellow-500/50 border-yellow-500",
@@ -60,7 +64,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
           ],
           variant === "light" && ["text-gray-900 bg-gray-100 border-gray-100"],
         ],
-        className
+        className,
       )}
       role="alert"
       ref={ref}

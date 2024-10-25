@@ -18,7 +18,7 @@ export const InputGroupAppend = forwardRef<
       variant = "secondary",
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = clsx(
       "sui--input-group_append",
@@ -103,7 +103,7 @@ export const InputGroupAppend = forwardRef<
               "first:rounded-l-full last:rounded-r-full": rounded === "full",
             },
           ],
-      className
+      className,
     );
 
     return (
@@ -111,7 +111,7 @@ export const InputGroupAppend = forwardRef<
         {children}
       </div>
     );
-  }
+  },
 );
 
 InputGroupAppend.displayName = "SuiInputGroupAppend";

@@ -15,13 +15,13 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
       variant = "secondary",
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = clsx(
       "sui--input-group group",
       "inline-flex items-stretch justify-center h-auto",
-      !flush && 'gap-2',
-      className
+      !flush && "gap-2",
+      className,
     );
 
     const renderedChildren = React.Children.toArray(children)
@@ -80,7 +80,7 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 InputGroup.displayName = "SuiInputGroup";
