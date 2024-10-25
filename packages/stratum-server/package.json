@@ -1,0 +1,46 @@
+{
+  "name": "@hyperbit-private/stratum-server",
+  "author": "Hyperbit <support@hyperbit.app>",
+  "version": "0.0.0",
+  "private": true,
+  "description": "_description_",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ./src --ext .ts"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "typescript-config": "*",
+    "@types/async": "^3.2.24",
+    "@types/eslint": "^8.56.1",
+    "@types/node": "^20.10.6",
+    "eslint": "^8.56.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "@hyperbit-private/utils": "*",
+    "vitest": "^1.3.1"
+  },
+  "dependencies": {
+    "@hyperbitjs/chains": "^1.6.0",
+    "@hyperbitjs/rpc": "^0.3.0",
+    "hasher-evrprogpow": "git+https://github.com/rvnminers-A-and-N/hasher-evrprogpow.git",
+    "meowpow-hasher": "git+https://github.com/rvnminers-A-and-N/meowpow-hasher.git",
+    "async": "^3.2.5",
+    "base-58": "^0.0.1",
+    "bignumber.js": "^9.1.2",
+    "bitcoinjs-lib": "^6.1.5",
+    "denodeify": "^1.2.1",
+    "merkle-bitcoin": "^1.0.2",
+    "multi-hashing": "^1.0.2",
+    "node-gyp": "^10.0.1",
+    "sha3": "^2.1.4"
+  }
+}
