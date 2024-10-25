@@ -1,6 +1,6 @@
 "use client";
 
-import { Wallet } from "@hyperbitjs-private/wallet";
+import { Wallet } from "@hyperbit-private/wallet";
 import PouchDB from "pouchdb";
 import { useEffect, useState } from "react";
 import { useGetWalletQuery } from "../queries";
@@ -37,7 +37,7 @@ export function usePouchDbWallet(walletId: string) {
             setWallet(wallet);
           });
       })
-      .catch((error) => {
+      .catch((error: { message: any; }) => {
         setError(error.message);
       })
       .finally(() => {
