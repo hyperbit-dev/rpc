@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "build:app": "turbo run build --filter=\"./apps/app\" --production=true",
-    "build:web": "turbo run build --filter=\"./apps/web\" --production=true",
+    "build:app": "turbo run build --filter=\"./apps/app\"",
+    "build:web": "turbo run build --filter=\"./apps/web\"",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
