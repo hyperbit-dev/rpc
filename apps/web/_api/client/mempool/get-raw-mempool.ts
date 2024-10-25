@@ -1,4 +1,4 @@
-import { ApiRawMempool } from "@/app/(server)/api/v1/explorer/mempool";
+import { ApiRawMempool } from "@/app/api/v1/explorer/mempool";
 import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 
@@ -22,7 +22,7 @@ type GetRawMempoolQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 
 export function useGetRawMempoolQuery(params: GetRawMempoolQueryProps) {
   const { blockchain, ...options } = params;
-  return useQuery<ApiRawMempool, Error, ApiRawMempool>({
+  return useQuery<any, Error, any>({
     queryKey: ["raw-mempool"],
     // @ts-ignore
     queryFn: getRawMempoolQuery,

@@ -1,5 +1,5 @@
 import { Container } from "@/_components/Container";
-import { Button } from "@hyperbitui/react";
+import { Button } from "@hyperbit-private/react";
 import { search } from "./actions";
 import Link from "next/link";
 import Image from "next/image";

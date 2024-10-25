@@ -50,34 +50,34 @@ export default function ResourcePage() {
               rx="1"
               stroke="#5fc77e"
             />
-            <path d="M15 16H16.5" stroke="#5fc77e" stroke-linecap="round" />
-            <path d="M11.5 16H13" stroke="#5fc77e" stroke-linecap="round" />
-            <path d="M8 16H9.5" stroke="#5fc77e" stroke-linecap="round" />
+            <path d="M15 16H16.5" stroke="#5fc77e" strokeLinecap="round" />
+            <path d="M11.5 16H13" stroke="#5fc77e" strokeLinecap="round" />
+            <path d="M8 16H9.5" stroke="#5fc77e" strokeLinecap="round" />
             <path
               d="M15 13.3333H16.5"
               stroke="#5fc77e"
-              stroke-linecap="round"
+              strokeLinecap="round"
             />
             <path
               d="M11.5 13.3333H13"
               stroke="#5fc77e"
-              stroke-linecap="round"
+              strokeLinecap="round"
             />
-            <path d="M8 13.3334H9.5" stroke="#5fc77e" stroke-linecap="round" />
+            <path d="M8 13.3334H9.5" stroke="#5fc77e" strokeLinecap="round" />
             <path
               d="M15 10.6667H16.5"
               stroke="#5fc77e"
-              stroke-linecap="round"
+              strokeLinecap="round"
             />
             <path
               d="M11.5 10.6667H13"
               stroke="#5fc77e"
-              stroke-linecap="round"
+              strokeLinecap="round"
             />
-            <path d="M8 10.6667H9.5" stroke="#5fc77e" stroke-linecap="round" />
-            <path d="M15 8H16.5" stroke="#5fc77e" stroke-linecap="round" />
-            <path d="M11.5 8H13" stroke="#5fc77e" stroke-linecap="round" />
-            <path d="M8 8H9.5" stroke="#5fc77e" stroke-linecap="round" />
+            <path d="M8 10.6667H9.5" stroke="#5fc77e" strokeLinecap="round" />
+            <path d="M15 8H16.5" stroke="#5fc77e" strokeLinecap="round" />
+            <path d="M11.5 8H13" stroke="#5fc77e" strokeLinecap="round" />
+            <path d="M8 8H9.5" stroke="#5fc77e" strokeLinecap="round" />
           </svg>
           <h3 className="text-sm font-medium">Mnemonic</h3>
         </a>

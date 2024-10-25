@@ -1,3 +1,5 @@
+"use client";
+
 export const getValidSubdomain = (host?: string | null | Request) => {
   let subdomain: string | null = null;
   if (!host && typeof window !== "undefined") {

@@ -1,13 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-// import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "./Container";
-// import { signIn, signOut, useSession } from "next-auth/react";
 
 const navigation = [
   { name: "Explorers", href: "/explorers" },

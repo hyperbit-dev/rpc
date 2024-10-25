@@ -2,7 +2,7 @@ import { Container } from "@/_components/Container";
 
 export default function TermsOfServicePage() {
   return (
-    <Container className="py-12">
+    <Container className="py-12 flex flex-col gap-2 leading-loose">
       <h1>Terms and Conditions of Use</h1>
       <h2>1. Terms</h2>
       <p>

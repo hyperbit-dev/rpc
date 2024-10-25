@@ -1,4 +1,4 @@
-import { ApiMarketLatest } from "@/app/(server)/api/v1/market/latest/types";
+import { ApiMarketLatest } from "@/app/api/v1/market/latest/route";
 import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 
@@ -21,7 +21,7 @@ type GetLatestMarketQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 
 export function useGetLatestMarketQuery(params: GetLatestMarketQueryProps) {
   const { blockchain, ...options } = params;
-  return useQuery<ApiMarketLatest, Error, ApiMarketLatest>({
+  return useQuery<any, Error, any>({
     queryKey: ["market", "latest", { blockchain }],
     // @ts-ignore
     queryFn: getLatestMarketQuery,

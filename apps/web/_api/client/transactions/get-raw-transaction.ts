@@ -1,4 +1,4 @@
-import { ApiRawTransaction } from "@/app/(server)/api/v1/explorer/transactions/[id]/types";
+import { ApiRawTransaction } from "@/app/api/v1/explorer/transactions/[id]/types";
 import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 
@@ -23,7 +23,7 @@ type GetRawTransactionQueryProps = Omit<UseQueryOptions, "queryKey"> & {
 
 export function useGetRawTransactionQuery(params: GetRawTransactionQueryProps) {
   const { id, blockchain, ...options } = params;
-  return useQuery<ApiRawTransaction, Error, ApiRawTransaction>({
+  return useQuery<any, Error, any>({
     queryKey: ["transaction", { blockchain, id }],
     // @ts-ignore
     queryFn: getRawTransactionQuery,
