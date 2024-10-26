@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "./Container";
+import { tasaOrbiter } from "@/styles/fonts";
 
 const navigation = [
   { name: "Explorers", href: "/explorers" },
@@ -86,9 +87,13 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                     />
                   )}
                   <span
-                    className={clsx("text-lg font-medium leading-none", {
-                      "text-white": Theme === "light",
-                    })}
+                    className={clsx(
+                      "text-xl font-bold leading-none",
+                      tasaOrbiter.className,
+                      {
+                        "text-white": Theme === "light",
+                      },
+                    )}
                   >
                     Hyperbit
                   </span>
@@ -100,10 +105,10 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                         key={item.name}
                         href={item.href}
                         className={clsx(
-                          "rounded-md p-2 text-sm font-medium",
+                          "rounded-md p-2 text-md font-normal",
                           Theme === "light"
                             ? "text-white action:text-brand-800"
-                            : "text-gray-900 action:text-brand-500",
+                            : "text-gray-700 action:text-brand-500",
                         )}
                       >
                         {item.name}
