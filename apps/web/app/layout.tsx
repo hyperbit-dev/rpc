@@ -1,11 +1,9 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import clsx from "clsx";
 import { Provider } from "~/_components/Provider";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { circular, tahoma } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: "Hyperbit",
@@ -17,13 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={clsx(
-          "h-full flex flex-col overflow-hidden",
-          inter.className,
-        )}
-      >
+    <html
+      lang="en"
+      className={clsx("h-full", tahoma.className, circular.className)}
+    >
+      <body className={clsx("h-full flex flex-col overflow-hidden")}>
         <Provider>{children}</Provider>
       </body>
       <GoogleAnalytics gaId="G-DYZWKX01BP" />
