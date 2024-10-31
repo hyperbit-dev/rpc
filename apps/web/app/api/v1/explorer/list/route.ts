@@ -1,6 +1,7 @@
 import { config } from "~/_config";
 import { connect, redisClient } from "@/_lib/redis";
 import { rpcClients } from "~/_api/rpcClient";
+import marketService from "@/_services/market.service";
 
 export async function GET(): Promise<any> {
   await connect();
@@ -19,11 +20,7 @@ export async function GET(): Promise<any> {
       const redisRef = `rpc:${key}:getblockchaininfo`;
       promises.push(redisClient.json.get(redisRef));
       promises.push(rpcClients[key].request("getblockchaininfo"));
-      promises.push(
-        fetch(
-          `http://localhost:3000/api/v1/market/latest?blockchain=${key}`
-        ).then((res) => res.json())
-      );
+      promises.push(marketService.getMarketData(key));
     });
     const response = await Promise.all(promises);
     const groupedResponse = [];
@@ -48,7 +45,6 @@ export async function GET(): Promise<any> {
 
     return Response.json(results);
   } catch (err) {
-    console.log('err', err)
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }
