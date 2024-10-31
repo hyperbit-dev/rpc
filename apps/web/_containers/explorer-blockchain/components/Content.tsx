@@ -12,6 +12,43 @@ import clsx from "clsx";
 import { Chart } from "./Chart";
 import { BlocksTable } from "./BlocksTable";
 
+function humanReadableDifficulty(difficulty: number) {
+  const units = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
+  let index = 0;
+
+  // Divide the difficulty until it is small enough to be represented in the current unit
+  while (difficulty >= 1000 && index < units.length - 1) {
+    difficulty /= 1000;
+    index++;
+  }
+
+  // Format to two decimal places and append the appropriate unit
+  return `${difficulty.toFixed(2)} ${units[index]}`;
+}
+
+function humanReadableHashrate(hashrate: number) {
+  const units = [
+    "H/s",
+    "KH/s",
+    "MH/s",
+    "GH/s",
+    "TH/s",
+    "PH/s",
+    "EH/s",
+    "ZH/s",
+    "YH/s",
+  ];
+  let index = 0;
+
+  // Divide the hashrate until it is small enough to be represented in the current unit
+  while (hashrate >= 1000 && index < units.length - 1) {
+    hashrate /= 1000;
+    index++;
+  }
+  // Format to two decimal places and append the appropriate unit
+  return `${hashrate.toFixed(2)} ${units[index]}`;
+}
+
 export function Content({ blockchain }: { blockchain: string }) {
   const getExplorerSummaryQuery = useGetExplorerSummaryQuery({
     blockchain,
@@ -98,7 +135,7 @@ export function Content({ blockchain }: { blockchain: string }) {
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
-              {explorerSummary?.miningInfo.difficulty}
+              {humanReadableDifficulty(explorerSummary?.miningInfo.difficulty)}
             </span>
           )}
         </div>
@@ -109,10 +146,12 @@ export function Content({ blockchain }: { blockchain: string }) {
           ) : getExplorerSummaryQuery.isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
-            <span className="text-lg">{`${
-              explorerSummary?.miningInfo.hashrate ??
-              explorerSummary?.miningInfo.networkhashps
-            } MH/s`}</span>
+            <span className="text-lg">
+              {humanReadableHashrate(
+                explorerSummary?.miningInfo.hashrate ??
+                  explorerSummary?.miningInfo.networkhashps
+              )}
+            </span>
           )}
         </div>
         <div className="p-2">
@@ -140,14 +179,19 @@ export function Content({ blockchain }: { blockchain: string }) {
           )}
         </div>
         <div className="p-2">
-          <div className="pb-1 text-sm">Transactions Per Second (30 days)</div>
+          <div className="pb-1 text-sm">Transactions Per Day (30 days)</div>
           {getExplorerSummaryQuery.isLoading ? (
             <Skeleton />
           ) : getExplorerSummaryQuery.isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
-              {explorerSummary?.blockchainTxStats.txrate}
+              {(
+                explorerSummary?.blockchainTxStats.txrate *
+                60 *
+                60 *
+                24
+              ).toFixed(2)}
             </span>
           )}
         </div>
@@ -164,7 +208,7 @@ export function Content({ blockchain }: { blockchain: string }) {
             <span
               className={clsx(
                 "text-lg",
-                latestPrice >= avgPrice ? "text-green-500" : "text-red-500",
+                latestPrice >= avgPrice ? "text-green-500" : "text-red-500"
               )}
             >
               ${latestPrice} {latestPrice >= avgPrice ? "↗" : "↘"}
@@ -182,7 +226,7 @@ export function Content({ blockchain }: { blockchain: string }) {
               <div className="text-sm">
                 Last Update:{" "}
                 {new Date(
-                  getMarketChartQuery?.dataUpdatedAt,
+                  getMarketChartQuery?.dataUpdatedAt
                 ).toLocaleTimeString()}
               </div>
             ) : undefined}
@@ -209,7 +253,7 @@ export function Content({ blockchain }: { blockchain: string }) {
               <div className="text-sm">
                 Last Update:{" "}
                 {new Date(
-                  getExplorerSummaryQuery?.dataUpdatedAt,
+                  getExplorerSummaryQuery?.dataUpdatedAt
                 ).toLocaleTimeString()}
               </div>
             ) : undefined}

@@ -24,7 +24,7 @@ export async function GET(
     const redisRef = `rpc:${blockchain}:getaddressbalance:${address}`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return handleResponse<ApiAddressBalance>(res);
     }
 

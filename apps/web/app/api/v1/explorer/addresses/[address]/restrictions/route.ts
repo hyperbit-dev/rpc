@@ -23,7 +23,7 @@ export async function GET(
     const redisRef = `rpc:${blockchain}:listaddressrestrictions:${address}`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return handleResponse<any>(res);
     }
 

@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     let data;
     const redisRef = `rpc:${blockchain}:getblockchaininfo`;
     data = await redisClient.json.get(redisRef);
-    if (!data) {
+    if (!data || data?.status === 500) {
       data = await rpcClients[blockchain].request("getblockchaininfo");
       redisClient.json.set(redisRef, "$", data);
       // Expire shorter than standard to get faster blocks

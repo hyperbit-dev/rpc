@@ -2,7 +2,7 @@ import { chains } from "@hyperbitjs/chains";
 import { z } from "zod";
 
 export const blockchainSchema = z.object({
-  blockchain: z.enum(["trvn", "tevr", "mewc", "tmewc"]),
+  blockchain: z.enum(["trvn", "evr", "tevr", "mewc"]),
 });
 
 export const blockchains: Record<string, any> = {
@@ -88,6 +88,22 @@ export const blockchains: Record<string, any> = {
     //     masternodesEnabled: false,
     //   },
     // },
+    evr: {
+      name: chains.evr.mainnet.name,
+      unit: chains.evr.mainnet.unit,
+      enabled: true,
+      network: "mainnet",
+      coinbase: 5000,
+      rpcUrl: process.env.EVR_RPC_URL,
+      rpcUser: process.env.EVR_RPC_USER,
+      rpcPassword: process.env.EVR_RPC_PASSWORD,
+      coinGeckoCoin: process.env.EVR_COIN_GECKO_COIN,
+      features: {
+        assetsEnabled: true,
+        faucetEnabled: true,
+        masternodesEnabled: false,
+      },
+    },
     tevr: {
       name: chains.evr.mainnet.name,
       unit: chains.evr.mainnet.unit,
@@ -120,22 +136,22 @@ export const blockchains: Record<string, any> = {
         masternodesEnabled: false,
       },
     },
-    tmewc: {
-      name: chains.mewc.mainnet.name,
-      unit: chains.mewc.mainnet.unit,
-      enabled: true,
-      network: chains.mewc.testnet.network,
-      coinbase: 5000,
-      rpcUrl: process.env.TMEWC_RPC_URL,
-      rpcUser: process.env.TMEWC_RPC_USER,
-      rpcPassword: process.env.TMEWC_RPC_PASSWORD,
-      coinGeckoCoin: process.env.TMEWC_COIN_GECKO_COIN,
-      features: {
-        assetsEnabled: true,
-        faucetEnabled: true,
-        masternodesEnabled: false,
-      },
-    },
+    // tmewc: {
+    //   name: chains.mewc.mainnet.name,
+    //   unit: chains.mewc.mainnet.unit,
+    //   enabled: true,
+    //   network: chains.mewc.testnet.network,
+    //   coinbase: 5000,
+    //   rpcUrl: process.env.TMEWC_RPC_URL,
+    //   rpcUser: process.env.TMEWC_RPC_USER,
+    //   rpcPassword: process.env.TMEWC_RPC_PASSWORD,
+    //   coinGeckoCoin: process.env.TMEWC_COIN_GECKO_COIN,
+    //   features: {
+    //     assetsEnabled: true,
+    //     faucetEnabled: true,
+    //     masternodesEnabled: false,
+    //   },
+    // },
     // neox: {
     //   // name: chains.noex.mainnet.name,
     //   enabled: false,

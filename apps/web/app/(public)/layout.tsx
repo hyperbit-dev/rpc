@@ -1,5 +1,6 @@
 import { Navbar } from "~/_components/Navbar";
 import { ReactNode } from "react";
+import NavigationMenuDemo from "@/_components/Navigation";
 
 type LayoutProps = {
   children: ReactNode;
@@ -9,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col flex-1 h-full overflow-auto">
+      <main className="flex flex-col min-h-full">
         {children}
       </main>
     </>

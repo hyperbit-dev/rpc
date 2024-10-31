@@ -20,26 +20,32 @@ export async function GET(request: NextRequest) {
     const redisRef1 = `faucet:${blockchain}:getbalance`;
     const redisRef2 = `faucet:${blockchain}:listmyassets`;
     const redisRef3 = `faucet:${blockchain}:getaccountaddress`;
+    
+    type Assets = {
+      status?: number;
+      [key: string]: any;
+    };
+    
     let balance,
-      assets = {},
+      assets: Assets = {},
       address;
 
     balance = await redisClient.json.get(redisRef1);
-    if (!balance) {
+    if (!balance || balance?.status === 500) {
       balance = await rpcClients[blockchain].request("getbalance", {});
       redisClient.json.set(redisRef1, "$", balance);
       redisClient.EXPIRE(redisRef1, 60 * 5);
     }
 
     assets = await redisClient.json.get(redisRef2);
-    if (!assets) {
+    if (!assets || assets?.status === 500) {
       assets = await rpcClients[blockchain].request("listmyassets", {});
       redisClient.json.set(redisRef2, "$", assets);
       redisClient.EXPIRE(redisRef2, 60 * 5);
     }
 
     address = await redisClient.json.get(redisRef3);
-    if (!address) {
+    if (!address || address?.status === 500) {
       address = await rpcClients[blockchain].request("getaccountaddress", {
         account: "",
       });

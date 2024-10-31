@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "./Container";
-import { tasaOrbiter } from "@/styles/fonts";
+import { workSans } from "@/styles/fonts";
 
 const navigation = [
   { name: "Explorers", href: "/explorers" },
@@ -15,22 +15,12 @@ const navigation = [
 ];
 
 export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
-  // const { data: session } = useSession();
-
-  // function handleLogin() {
-  //   signIn("google");
-  // }
-
-  // function handleSignOut() {
-  //   signOut();
-  // }
-
   return (
     <Disclosure
       as="nav"
       className={clsx(
         "relative z-20 border-b",
-        Theme === "light" ? "border-transparent" : "border-gray-200",
+        Theme === "light" ? "border-transparent" : "border-gray-200"
       )}
     >
       {({ open }) => (
@@ -47,7 +37,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                   className={clsx(
                     "relative inline-flex items-center justify-center p-2 rounded-md",
                     "focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white",
-                    "action:bg-brand-500 action:text-white",
+                    "action:bg-brand-500 action:text-white"
                   )}
                 >
                   <span className="absolute -inset-0.5" />
@@ -56,7 +46,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                     <XMarkIcon
                       className={clsx(
                         "block w-6 h-6",
-                        Theme === "light" ? "text-white" : "text-black",
+                        Theme === "light" ? "text-white" : "text-black"
                       )}
                       aria-hidden="true"
                     />
@@ -64,7 +54,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                     <Bars3Icon
                       className={clsx(
                         "block w-6 h-6",
-                        Theme === "light" ? "text-white" : "text-black",
+                        Theme === "light" ? "text-white" : "text-black"
                       )}
                       aria-hidden="true"
                     />
@@ -89,33 +79,31 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                   <span
                     className={clsx(
                       "text-xl font-bold leading-none",
-                      tasaOrbiter.className,
+                      workSans.className,
                       {
                         "text-white": Theme === "light",
-                      },
+                      }
                     )}
                   >
                     Hyperbit
                   </span>
                 </Link>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-3">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={clsx(
-                          "rounded-md p-2 text-md font-normal",
-                          Theme === "light"
-                            ? "text-white action:text-brand-800"
-                            : "text-gray-700 action:text-brand-500",
-                        )}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                <nav className="hidden sm:mx-6 sm:block flex-1 justify-center items-center flex flex-col space-x-3">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={clsx(
+                        "rounded-md p-2 text-md font-normal",
+                        Theme === "light"
+                          ? "text-white action:text-brand-800"
+                          : "text-gray-700 action:text-brand-500"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </nav>
               </div>
               <div>
                 <a href="https://github.com/hyperbit-dev" target="_blank">
@@ -240,7 +228,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
                   href={item.href}
                   className={clsx(
                     "action:text-brand-500",
-                    "block rounded-md px-3 py-2 text-sm font-medium",
+                    "block rounded-md px-3 py-2 text-sm font-medium"
                   )}
                 >
                   {item.name}
