@@ -45,6 +45,7 @@ export async function GET(): Promise<any> {
 
     return Response.json(results);
   } catch (err) {
+    console.log('err', err)
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 }
