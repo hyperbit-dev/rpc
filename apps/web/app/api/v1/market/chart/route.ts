@@ -16,7 +16,7 @@ export async function GET(request: NextRequest): Promise<any> {
     const redisRef = `market:${blockchain}:charts`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return Response.json(res, { status: 200 });
     }
 

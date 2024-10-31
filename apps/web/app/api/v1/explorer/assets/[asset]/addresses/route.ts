@@ -22,7 +22,7 @@ export async function GET(
     const redisRef = `rpc:${blockchain}:listaddressesbyasset:${asset.toUpperCase()}`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return Response.json(res, { status: 200 });
     }
 

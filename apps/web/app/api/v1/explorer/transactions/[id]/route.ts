@@ -24,7 +24,7 @@ export async function GET(
     const redisRef = `rpc:${blockchain}:getrawtransaction:${id}:verbose:${1}`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return handleResponse<ApiRawTransaction>(res);
     }
 

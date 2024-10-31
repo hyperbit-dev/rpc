@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
+    <main className="flex flex-col min-h-full">
       <div
         style={{
           background:
@@ -19,7 +19,7 @@ export default function Home() {
             <h1 className="mb-1 text-4xl font-extrabold text-white">
               Navigating Your Crypto Journey with Ease!
             </h1>
-            <p className="text-lg font-medium text-white">
+            <p className="text-lg font-normal text-white">
               Explore our user-friendly crypto resources to manage your assets
               effortlessly.
             </p>
@@ -43,6 +43,6 @@ export default function Home() {
         </Container>
       </div>
       {/* <main className="flex flex-col flex-1 h-full overflow-auto"></main> */}
-    </>
+    </main>
   );
 }

@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const redisRef = `market:${blockchain}:latest`;
     const res = await redisClient.json.get(redisRef);
 
-    if (res) {
+    if (res && res?.status !== 500) {
       return handleResponse<any>(res);
     }
 

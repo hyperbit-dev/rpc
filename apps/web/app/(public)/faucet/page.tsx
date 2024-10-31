@@ -13,10 +13,6 @@ import { NextLink } from "~/_components/NextLink";
 const BLOCKCHAIN_OPTIONS = [
   { label: "Ravencoin", value: "trvn" },
   {
-    label: "Meowcoin",
-    value: "tmewc",
-  },
-  {
     label: "Evrmore",
     value: "tevr",
   },

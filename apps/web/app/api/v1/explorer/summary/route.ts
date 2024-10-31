@@ -16,17 +16,19 @@ export async function GET(request: NextRequest): Promise<any> {
     const redisRef2 = `rpc:${blockchain}:getmininginfo`;
     const redisRef3 = `rpc:${blockchain}:getchaintxstats`;
     const redisRef4 = `rpc:${blockchain}:getinfo`;
+    const redisRef5 = `rpc:${blockchain}:getmempoolinfo`;
 
     let getblockchaininfo;
     let getmininginfo;
     let getchaintxstats;
     let getinfo;
+    let getmempoolinfo;
 
     getblockchaininfo = await redisClient.json.get(redisRef1);
-    if (!getblockchaininfo) {
+    if (!getblockchaininfo || getblockchaininfo?.status === 500) {
       const response =
         await rpcClients[blockchain].request("getblockchaininfo");
-      if (!response.error) {
+      if (!response.error && response?.status !== 500) {
         getblockchaininfo = response;
         redisClient.json.set(redisRef1, "$", getblockchaininfo);
         redisClient.EXPIRE(redisRef1, 60);
@@ -34,9 +36,9 @@ export async function GET(request: NextRequest): Promise<any> {
     }
 
     getmininginfo = await redisClient.json.get(redisRef2);
-    if (!getmininginfo) {
+    if (!getmininginfo || getmininginfo?.status === 500) {
       const response = await rpcClients[blockchain].request("getmininginfo");
-      if (!response.error) {
+      if (!response.error && response?.status !== 500) {
         getmininginfo = response;
         redisClient.json.set(redisRef2, "$", getmininginfo);
         redisClient.EXPIRE(redisRef2, 60 * 5);
@@ -44,9 +46,9 @@ export async function GET(request: NextRequest): Promise<any> {
     }
 
     getchaintxstats = await redisClient.json.get(redisRef3);
-    if (!getchaintxstats) {
+    if (!getchaintxstats || getchaintxstats?.status === 500) {
       const response = await rpcClients[blockchain].request("getchaintxstats");
-      if (!response.error) {
+      if (!response.error && response?.status !== 500) {
         getchaintxstats = response;
         redisClient.json.set(redisRef3, "$", getchaintxstats);
         redisClient.EXPIRE(redisRef3, 60 * 5);
@@ -54,12 +56,22 @@ export async function GET(request: NextRequest): Promise<any> {
     }
 
     getinfo = await redisClient.json.get(redisRef4);
-    if (!getinfo) {
+    if (!getinfo || getinfo?.status === 500) {
       const response = await rpcClients[blockchain].request("getinfo");
-      if (!response.error) {
+      if (!response.error && response?.status !== 500) {
         getinfo = response;
         redisClient.json.set(redisRef4, "$", getinfo);
         redisClient.EXPIRE(redisRef4, 60 * 5);
+      }
+    }
+
+    getmempoolinfo = await redisClient.json.get(redisRef5);
+    if (!getmempoolinfo || getmempoolinfo?.status === 500) {
+      const response = await rpcClients[blockchain].request("getmempoolinfo");
+      if (!response.error && response?.status !== 500) {
+        getmempoolinfo = response;
+        redisClient.json.set(redisRef5, "$", getmempoolinfo);
+        redisClient.EXPIRE(redisRef5, 60 * 5);
       }
     }
 

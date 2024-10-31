@@ -47,7 +47,7 @@ export function Chart({
 
   return (
     <div className="py-3">
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer height={250}>
         <LineChart data={chartData.data}>
           <YAxis
             type="number"
