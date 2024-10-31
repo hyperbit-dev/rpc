@@ -19,7 +19,7 @@ export function Navbar({ Theme = "dark" }: { Theme?: "light" | "dark" }) {
     <Disclosure
       as="nav"
       className={clsx(
-        "relative z-20 border-b",
+        "relative z-20 border-b bg-white",
         Theme === "light" ? "border-transparent" : "border-gray-200"
       )}
     >
