@@ -53,19 +53,16 @@ export function Content({ blockchain }: { blockchain: string }) {
   const getExplorerSummaryQuery = useGetExplorerSummaryQuery({
     blockchain,
   });
-
   const explorerSummary = getExplorerSummaryQuery.data;
 
   const getLatestBlocksQuery = useGetLatestBlocksQuery({
     blockchain,
   });
-
   const blocks = getLatestBlocksQuery.data;
 
   const getMarketChartQuery = useGetMarketChartQuery({
     blockchain,
   });
-
   const marketChart = getMarketChartQuery.data;
 
   const network =
@@ -95,14 +92,26 @@ export function Content({ blockchain }: { blockchain: string }) {
   const minor = version.slice(version.length - 6, version.length - 3);
   const major = version.slice(0, version.length - 6);
 
+  const isLoading =
+    getExplorerSummaryQuery.isLoading ||
+    getMarketChartQuery.isLoading ||
+    getLatestBlocksQuery.isLoading;
+  const isError =
+    getExplorerSummaryQuery.isError ||
+    getMarketChartQuery.isError ||
+    getLatestBlocksQuery.isError ||
+    !explorerSummary?.blockchainInfo ||
+    !explorerSummary?.miningInfo ||
+    !explorerSummary?.blockchainTxStats;
+
   return (
     <Container>
       <div className="grid grid-cols-1 my-4 bg-white border-b border-r border-gray-200 divide-x divide-y rounded-md sm:grid-cols-2 lg:grid-cols-4">
         <div className="p-2 border-t border-l border-gray-200 rounded-md">
           <div className="pb-1 text-sm">Network</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -117,9 +126,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Last Block</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -129,9 +138,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Difficulty</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -141,9 +150,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Hashrate</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -156,9 +165,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Transaction Count</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -168,9 +177,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Transactions (30 days)</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -180,9 +189,9 @@ export function Content({ blockchain }: { blockchain: string }) {
         </div>
         <div className="p-2">
           <div className="pb-1 text-sm">Transactions Per Day (30 days)</div>
-          {getExplorerSummaryQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getExplorerSummaryQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
@@ -200,9 +209,9 @@ export function Content({ blockchain }: { blockchain: string }) {
             Price{" "}
             {explorerSummary?.blockchainInfo.chain === "test" && "(Mainnet)"}
           </div>
-          {getMarketChartQuery.isLoading ? (
+          {isLoading ? (
             <Skeleton />
-          ) : getMarketChartQuery.isError ? (
+          ) : isError ? (
             <span className="text-lg">Unavailable</span>
           ) : (
             <span
@@ -216,7 +225,7 @@ export function Content({ blockchain }: { blockchain: string }) {
           )}
         </div>
       </div>
-      {getMarketChartQuery.isLoading ? (
+      {isLoading ? (
         <Skeleton height={300} />
       ) : !marketChart?.error ? (
         <>
@@ -238,7 +247,7 @@ export function Content({ blockchain }: { blockchain: string }) {
           </div>
         </>
       ) : undefined}
-      {getLatestBlocksQuery.isLoading ? (
+      {isLoading ? (
         <>
           <div className="my-4">
             <Skeleton height={30} />
