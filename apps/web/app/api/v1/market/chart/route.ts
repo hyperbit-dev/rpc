@@ -24,7 +24,7 @@ export async function GET(request: NextRequest): Promise<any> {
       `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=30`,
     ).then((res) => res.json());
     redisClient.json.set(redisRef, "$", data);
-    redisClient.EXPIRE(redisRef, 60 * 5);
+    redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
     return Response.json(data, { status: 200 });
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });

@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
-import { handleError, handleResponse } from "@/_api/validation";
+import { handleResponse } from "@/_api/validation";
 import rpcClients from "~/_api/rpcClient";
-import { connect, redisClient, disconnect } from "@/_lib/redis";
+import { connect, redisClient } from "@/_lib/redis";
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       data = await rpcClients[blockchain].request("getblockchaininfo");
       redisClient.json.set(redisRef, "$", data);
       // Expire shorter than standard to get faster blocks
-      redisClient.EXPIRE(redisRef, 60);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
     }
 
     let blockHeaders: any[] = [];
@@ -46,9 +46,9 @@ export async function GET(request: NextRequest) {
           ]);
           blockHeaders = res.reverse();
           await redisClient.json.set(redisRef1, "$", blockStats);
-          await redisClient.EXPIRE(redisRef1, 60 * 5);
+          await redisClient.EXPIRE(redisRef1, 60 * 5 * 1000);
           await redisClient.json.set(redisRef2, "$", res);
-          await redisClient.EXPIRE(redisRef2, 60 * 5);
+          await redisClient.EXPIRE(redisRef2, 60 * 5 * 1000);
           break;
         }
 
@@ -90,7 +90,7 @@ async function getBlockHeaders(blockchain: string, hash: any): Promise<any> {
         [blockhash],
       );
       await redisClient.json.set(redisRef, "$", blockHeader);
-      await redisClient.EXPIRE(redisRef, 60 * 5);
+      await redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
       blockHeaders.push(blockHeader);
       blockhash = blockHeader.previousblockhash;
     }
@@ -116,7 +116,7 @@ async function getBlockStats(blockchain: string, blockHeader: any) {
         ]);
 
         await redisClient.json.set(redisRef, "$", data);
-        await redisClient.EXPIRE(redisRef, 60 * 5);
+        await redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
         return {
           blockHeader,
           blockStats: data,
@@ -138,7 +138,7 @@ async function getBlockStats(blockchain: string, blockHeader: any) {
           2,
         ]);
         await redisClient.json.set(redisRef, "$", data);
-        await redisClient.EXPIRE(redisRef, 60 * 5);
+        await redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
         return {
           blockHeader,
           blockStats: data,

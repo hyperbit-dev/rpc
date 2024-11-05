@@ -34,14 +34,14 @@ export async function GET(request: NextRequest) {
     if (!balance || balance?.status === 500) {
       balance = await rpcClients[blockchain].request("getbalance", {});
       redisClient.json.set(redisRef1, "$", balance);
-      redisClient.EXPIRE(redisRef1, 60 * 5);
+      redisClient.EXPIRE(redisRef1, 60 * 5 * 1000);
     }
 
     assets = await redisClient.json.get(redisRef2);
     if (!assets || assets?.status === 500) {
       assets = await rpcClients[blockchain].request("listmyassets", {});
       redisClient.json.set(redisRef2, "$", assets);
-      redisClient.EXPIRE(redisRef2, 60 * 5);
+      redisClient.EXPIRE(redisRef2, 60 * 5 * 1000);
     }
 
     address = await redisClient.json.get(redisRef3);
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
         account: "",
       });
       redisClient.json.set(redisRef3, "$", address);
-      redisClient.EXPIRE(redisRef3, 60 * 5);
+      redisClient.EXPIRE(redisRef3, 60 * 5 * 1000);
     }
 
     Object.keys(assets).forEach((key) => {
