@@ -26,13 +26,21 @@ class AssetService {
         return res;
       }
 
-      const assets = await rpcClients[blockchain].request("listassets", [
+      const data = await rpcClients[blockchain].request("listassets", [
         name,
         true,
         count,
         start,
       ]);
-      return assets;
+
+      if(!data || data?.code === 500) {
+        throw new Error(data.message);
+      }
+
+      redisClient.json.set(redisRef, "$", data);
+      redisClient.EXPIRE(redisRef, 60 * 5);
+
+      return data;
     } catch (err) {
       throw new Error((err as Error).message);
     }
