@@ -129,5 +129,19 @@ export const config: Record<string, any> = {
     //     masternodesEnabled: false,
     //   },
     // },
+    mewc: {
+      // name: chains.neox.mainnet.name,
+      enabled: true,
+      network: chains.mewc.mainnet!.network,
+      rpcUrl: process.env.MEWC_RPC_URL,
+      rpcUser: process.env.MEWC_RPC_USER,
+      rpcPassword: process.env.MEWC_RPC_PASSWORD,
+      coinGeckoCoin: process.env.MEWC_COIN_GECKO_COIN,
+      features: {
+        assetsEnabled: true,
+        faucetEnabled: false,
+        masternodesEnabled: false,
+      },
+    },
   },
 };

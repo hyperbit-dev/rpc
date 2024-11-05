@@ -1,4 +1,3 @@
-import { listAssets } from "~/_api/client/assets";
 import { config } from "~/_lib/config";
 import { redirect } from "next/navigation";
 import { Content } from "./components/Content";
