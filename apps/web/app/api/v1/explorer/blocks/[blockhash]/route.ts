@@ -4,7 +4,7 @@ import { ApiBlock } from "./types";
 import { blockchainSchema } from "@/_config";
 import { z } from "zod";
 import { connect, redisClient } from "@/_lib/redis";
-import blockService from "@/_services/block.service";
+import BlockService from "@/_services/block.service";
 
 const schema = z.object({
   verbosity: z.number().gte(0).lte(2).optional(),
@@ -27,7 +27,7 @@ export async function GET(
     schema.parse({ verbosity });
     blockchainSchema.parse({ blockchain });
 
-    const data = await blockService.getBlockByHash(
+    const data = await BlockService.getBlockByHash(
       blockchain,
       blockhash,
       verbosity

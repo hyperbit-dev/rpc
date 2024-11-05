@@ -4,13 +4,14 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Container } from "~/_components/Container";
 import {
+  useGetBlocksQuery,
   useGetExplorerSummaryQuery,
-  useGetLatestBlocksQuery,
   useGetMarketChartQuery,
 } from "~/_api/client";
 import clsx from "clsx";
 import { Chart } from "./Chart";
 import { BlocksTable } from "./BlocksTable";
+import Link from "next/link";
 
 function humanReadableDifficulty(difficulty: number) {
   const units = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
@@ -55,10 +56,12 @@ export function Content({ blockchain }: { blockchain: string }) {
   });
   const explorerSummary = getExplorerSummaryQuery.data;
 
-  const getLatestBlocksQuery = useGetLatestBlocksQuery({
+  const getBlocksQuery = useGetBlocksQuery({
+    offset: "0",
+    limit: "10",
     blockchain,
   });
-  const blocks = getLatestBlocksQuery.data;
+  const blocks = getBlocksQuery.data;
 
   const getMarketChartQuery = useGetMarketChartQuery({
     blockchain,
@@ -93,13 +96,10 @@ export function Content({ blockchain }: { blockchain: string }) {
   const major = version.slice(0, version.length - 6);
 
   const isLoading =
-    getExplorerSummaryQuery.isLoading ||
-    getMarketChartQuery.isLoading ||
-    getLatestBlocksQuery.isLoading;
+    getExplorerSummaryQuery.isLoading || getMarketChartQuery.isLoading;
   const isError =
     getExplorerSummaryQuery.isError ||
     getMarketChartQuery.isError ||
-    getLatestBlocksQuery.isError ||
     !explorerSummary?.blockchainInfo ||
     !explorerSummary?.miningInfo ||
     !explorerSummary?.blockchainTxStats;
@@ -247,7 +247,7 @@ export function Content({ blockchain }: { blockchain: string }) {
           </div>
         </>
       ) : undefined}
-      {isLoading ? (
+      {getBlocksQuery.isLoading ? (
         <>
           <div className="my-4">
             <Skeleton height={30} />
@@ -256,8 +256,16 @@ export function Content({ blockchain }: { blockchain: string }) {
         </>
       ) : blocks?.length ? (
         <>
-          <div className="flex items-center justify-between">
-            <div className="mt-4">Latest Blocks</div>
+          <div className="flex items-center justify-between mt-4 ">
+            <div className="flex items-center space-x-4">
+              <span>Latest Blocks</span>
+              <Link
+                className="text-sm outline-none hover:text-brand-500 focus:text-brand-500 active:text-brand-500"
+                href={`/explorers/${blockchain}/blocks`}
+              >
+                See All &raquo;
+              </Link>
+            </div>
             {getExplorerSummaryQuery?.dataUpdatedAt ? (
               <div className="text-sm">
                 Last Update:{" "}

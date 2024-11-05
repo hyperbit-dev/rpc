@@ -14,12 +14,5 @@ export async function ExplorerAssetsContainer({
     return redirect("/");
   }
 
-  const assets = await listAssets({
-    blockchain: blockchain,
-    count: 100000000,
-    start: 0,
-    verbose: true,
-  });
-
-  return <Content blockchain={blockchain} assets={assets} />;
+  return <Content blockchain={blockchain} />;
 }

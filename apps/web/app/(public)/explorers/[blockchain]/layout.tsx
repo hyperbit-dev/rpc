@@ -1,4 +1,3 @@
-import { Button } from "@hyperbit-private/react";
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import { Container } from "~/_components/Container";
@@ -6,6 +5,7 @@ import { search } from "./actions";
 
 import { config } from "~/_config";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 const { blockchains: blockchainsConfig } = config;
 
@@ -29,73 +29,72 @@ function Content({
 }) {
   const chain = blockchainsConfig.chains[blockchain];
   const placeholder = chain?.features?.assetsEnabled
-    ? "Search for blocks, transactions, and addresses..."
-    : "Search for blocks, transactions, addresses, and assets...";
+    ? "Search blocks, transactions, and addresses..."
+    : "Search blocks, transactions, addresses, and assets...";
 
   return (
     <>
-      <div className="mb-4 bg-gray-900 border-b border-gray-200">
-        <Container>
+      <div className="border-b border-gray-200 bg-brand-500 text-white">
+        <Container className="md:flex items-center justify-between gap-16">
+          <ul className="flex text-sm font-medium">
+            <li>
+              <Link
+                href={`/explorers/${blockchain}`}
+                className="block p-3 hover:text-brand-800 focus:text-brand-800 active:text-brand-800"
+              >
+                Overview
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/explorers/${blockchain}/blocks`}
+                className="block p-3 hover:text-brand-800 focus:text-brand-800 active:text-brand-800"
+              >
+                Blocks
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/explorers/${blockchain}/assets`}
+                className="block p-3 hover:text-brand-800 focus:text-brand-800 active:text-brand-800"
+              >
+                Assets
+              </Link>
+            </li>
+          </ul>
           <form
             action={search}
-            className="grid md:grid-cols-[175px_175px_auto_150px] my-3 text-white rounded-md"
+            className="flex-1 grid md:grid-cols-[200px_auto_100px] my-3 text-white rounded-md max-w-3xl"
           >
+            <input type="hidden" name="blockchain" value={blockchain} />
             <select
-              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900 md:rounded-l-md rounded-t-md md:rounded-tr-none"
+              className="p-2 text-sm text-black duration-300 md:rounded-l-md rounded-t-md md:rounded-tr-none"
               name="type"
             >
-              <option className="bg-gray-900" value="address">
-                Address
-              </option>
-              <option className="bg-gray-900" value="height">
-                Block Height
-              </option>
-              <option className="bg-gray-900" value="hash">
-                Block Hash
-              </option>
-              <option className="bg-gray-900" value="transaction">
-                Transaction Hash
-              </option>
+              <option value="address">Address</option>
+              <option value="height">Block Height</option>
+              <option value="hash">Block Hash</option>
+              <option value="transaction">Transaction Hash</option>
               {chain?.features?.assetsEnabled && (
-                <option className="bg-gray-900" value="asset">
-                  Asset Name
-                </option>
+                <option value="asset">Asset Name</option>
               )}
-            </select>
-            <select
-              className="p-3 text-sm text-white duration-300 bg-transparent bg-gray-900"
-              defaultValue={blockchain}
-              name="blockchain"
-            >
-              <option className="bg-gray-900" value="trvn">
-                Ravencoin (Testnet)
-              </option>
-              <option className="bg-gray-900" value="mewc">
-                Meowcoin
-              </option>
-              <option className="bg-gray-900" value="tmewc">
-                Meowcoin (Testnet)
-              </option>
-              <option className="bg-gray-900" value="tevr">
-                Evrmore (Testnet)
-              </option>
             </select>
             <input
               type="text"
-              className="w-full p-3 text-sm text-white bg-transparent border-gray-500 placeholder:text-white"
+              className="md:-ml-[1px] w-full p-2 text-sm text-black placeholder:text-gray-500"
               placeholder={placeholder}
               name="query"
             />
-            <Button
+            <button
               type="submit"
-              className="px-8 rounded-tl-none rounded-tr-none select-none md:rounded-tr-md rounded-b-md md:rounded-bl-none"
+              className="md:-ml-[1px] p-2 rounded-tl-none rounded-tr-none select-none md:rounded-tr-md rounded-b-md md:rounded-bl-none bg-brand-600 hover:bg-brand-800 active:bg-brand-800 focus:bg-brand-800 outline-none"
             >
               Search
-            </Button>
+            </button>
           </form>
         </Container>
       </div>
-      {children}
+      <div className="py-4">{children}</div>
       {/* @ts-ignore */}
       <ToastContainer style={{ maxWidth: "200px", textAlign: "center" }} />
     </>

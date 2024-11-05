@@ -4,10 +4,10 @@ import { getBlockHeight } from "~/_api/client/blocks";
 import { config } from "~/_config";
 import { redirect } from "next/navigation";
 
-export async function search(data: FormData) {
-  const query = data.get("query");
-  const type = data.get("type");
-  const blockchain = data.get("blockchain") as string;
+export async function search(formData: FormData) {
+  const query = formData.get("query");
+  const type = formData.get("type");
+  const blockchain = formData.get("blockchain") as string;
   const chain = config.blockchains.chains[blockchain];
 
   if (!query) {
@@ -26,8 +26,8 @@ export async function search(data: FormData) {
           },
         ],
       });
-      return redirect(`/explorers/${blockchain}/blocks/${hash}`);
-    case "height":
+      return redirect(`/explorers/${blockchain}/blocks/${hash.hash}`);
+    case "hash":
       return redirect(`/explorers/${blockchain}/blocks/${query}`);
     case "transaction":
       return redirect(`/explorers/${blockchain}/transactions/${query}`);

@@ -1,6 +1,6 @@
-import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { ApiBlock } from "@/app/api/v1/explorer/blocks";
+import { fetchServer } from "../fetchServer";
 
 type GetBlockHeightParams = {
   queryKey: [
@@ -15,9 +15,9 @@ type GetBlockHeightParams = {
 
 export function getBlockHeight({
   queryKey,
-}: GetBlockHeightParams): Promise<string> {
+}: GetBlockHeightParams): Promise<any> {
   const [, , { height, blockchain }] = queryKey;
-  return fetchClient<string>(
+  return fetchServer<any>(
     `/api/v1/explorer/blocks/height/${height}?blockchain=${blockchain}`,
     {
       cache: "no-store",
@@ -34,7 +34,7 @@ export function useGetBlockHeightQuery(
   { height, blockchain }: GetBlockHeightQueryProps,
   options?: UseQueryOptions<ApiBlock, Error>,
 ) {
-  return useQuery<string, Error, string>({
+  return useQuery<any, Error, any>({
     queryKey: ["blocks", "height", { height, blockchain }],
     // @ts-ignore
     queryFn: getBlockHeight,
