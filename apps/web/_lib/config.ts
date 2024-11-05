@@ -130,7 +130,7 @@ export const config: Record<string, any> = {
     //   },
     // },
     mewc: {
-      // name: chains.neox.mainnet.name,
+      name: chains.mewc.mainnet.name,
       enabled: true,
       network: chains.mewc.mainnet!.network,
       rpcUrl: process.env.MEWC_RPC_URL,
