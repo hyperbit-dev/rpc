@@ -1,46 +1,44 @@
-import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
+import { fetchClient } from "../fetchClient";
 
-type ListAssetAddressParams = {
+type ListAssetsParams = {
   queryKey: [
     string,
-    string,
-    {
-      asset: string;
-      blockchain: string;
-      count?: number;
-      start?: number;
-      verbose?: string;
-    },
+    { blockchain: string; name?: string; start: string; count: string },
   ];
 };
 
-export function geAssetsQuery(params: ListAssetAddressParams) {
-  const [, , { asset, blockchain, count, start, verbose }] = params.queryKey;
+export function getAssetsQuery(params: ListAssetsParams) {
+  const [, { blockchain, name = "*", start, count }] = params.queryKey;
   const searchParams = new URLSearchParams();
   searchParams.set("blockchain", blockchain);
-  searchParams.set("count", count?.toString() ?? "25");
-  searchParams.set("start", start?.toString() ?? "0");
-  searchParams.set("verbose", verbose?.toString() ?? "true");
+  searchParams.set("start", start.toString());
+  searchParams.set("count", count.toString());
+  searchParams.set("name", name);
   const url = `/api/v1/explorer/assets?${searchParams.toString()}`;
 
   return fetchClient<any>(url);
 }
 
 type ListAssetsQueryProps = Omit<UseQueryOptions, "queryKey"> & {
-  asset: string;
   blockchain: string;
-  count?: number;
-  start?: number;
-  verbose?: string;
+  name?: string;
+  start: string;
+  count: string;
 };
 
 export function useListAssetsQuery(params: ListAssetsQueryProps) {
-  const { asset, blockchain, ...options } = params;
+  const {
+    blockchain,
+    name = "*",
+    start = "0",
+    count = "10",
+    ...options
+  } = params;
   return useQuery<any, Error, any>({
-    queryKey: ["assets", "list", { blockchain, asset }],
+    queryKey: ["assets", { blockchain, start, count, name }],
     // @ts-ignore
-    queryFn: geAssetsQuery,
+    queryFn: getAssetsQuery,
     staleTime: 5 * 60 * 1000,
     ...options,
   });

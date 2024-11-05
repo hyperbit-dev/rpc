@@ -11,7 +11,6 @@ class ExplorerService {
       const blockchainTxStats = await this.getChainTxStats(blockchain);
       const info = await this.getInfo(blockchain);
       const mempoolInfo = await this.getMempoolInfo(blockchain);
-      console.log("blockchainInfo", blockchainInfo);
       return {
         blockchainInfo,
         miningInfo,
@@ -52,7 +51,6 @@ class ExplorerService {
       let miningInfo = await redisClient.json.get(redisRef);
       if (!miningInfo || miningInfo?.status === 500) {
         const response = await rpcClients[blockchain].request("getmininginfo");
-        console.log("response", response);
         if (!response.error && response?.status !== 500) {
           miningInfo = response;
           redisClient.json.set(redisRef, "$", miningInfo);

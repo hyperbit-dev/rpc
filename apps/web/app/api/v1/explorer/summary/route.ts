@@ -11,7 +11,6 @@ export async function GET(request: NextRequest): Promise<any> {
 
   try {
     const summary = await ExplorerService.getSummary(blockchain);
-    console.log('summary', summary)
     return Response.json(summary);
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });

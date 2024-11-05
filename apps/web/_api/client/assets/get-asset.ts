@@ -1,5 +1,5 @@
-import { fetchClient } from "../fetchClient";
 import { UseQueryOptions, useQuery } from "@tanstack/react-query";
+import { fetchClient } from "../fetchClient";
 
 type GetAssetParams = {
   queryKey: [string, { asset: string; blockchain: string }];

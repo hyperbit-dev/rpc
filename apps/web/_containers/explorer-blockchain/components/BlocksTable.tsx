@@ -11,27 +11,27 @@ type BlocksTableProps = {
 };
 
 export function BlocksTable({ blockchain, blocks }: BlocksTableProps) {
-  function getMovement(blockStats: any): number {
+  function getMovement(block: any): number {
     switch (blockchain) {
       case "tpgn":
       case "pgn":
-        return blockStats.subsidy + blockStats.total_out;
+        return block.subsidy + block.total_out;
       default:
-        return blockStats?.tx?.reduce?.((a: any, c: any) => {
+        return block?.tx?.reduce?.((a: any, c: any) => {
           return (a += c.vout?.reduce?.((a: any, c: any) => (a += c.value), 0));
         }, 0);
     }
   }
 
-  function getSize(blockStats: any) {
+  function getSize(block: any) {
     let size;
     switch (blockchain) {
       case "tpgn":
       case "pgn":
-        size = blockStats.total_size;
+        size = block.total_size;
         break;
       default:
-        size = blockStats.size;
+        size = block.size;
         break;
     }
     return Math.trunc(size * Math.pow(10, 3)) / Math.pow(10, 3);
@@ -54,46 +54,46 @@ export function BlocksTable({ blockchain, blocks }: BlocksTableProps) {
             ]}
           />
           <Table.Body>
-            {blocks.map(({ blockHeader, blockStats }) => {
-              const movement = getMovement(blockStats);
-              const size = getSize(blockStats);
-              const hash = `${blockHeader.hash.slice(
+            {blocks.map((block: any) => {
+              const movement = getMovement(block);
+              const size = getSize(block);
+              const hash = `${block.hash.slice(
                 0,
                 8,
-              )}...${blockHeader.hash.slice(
-                blockHeader.hash.length - 8,
-                blockHeader.hash.length,
+              )}...${block.hash.slice(
+                block.hash.length - 8,
+                block.hash.length,
               )}`;
 
               return (
-                <Table.Row key={blockHeader.hash}>
+                <Table.Row key={block.hash}>
                   <Table.Cell>
-                    <ClipboardButton value={blockHeader.hash} />
+                    <ClipboardButton value={block.hash} />
                   </Table.Cell>
                   <Table.Cell>
                     <NextLink
-                      href={`/explorers/${blockchain}/blocks/${blockHeader.hash}`}
+                      href={`/explorers/${blockchain}/blocks/${block.hash}`}
                     >
-                      {blockHeader.height}
+                      {block.height}
                     </NextLink>
                   </Table.Cell>
                   <Table.Cell>
                     <NextLink
-                      href={`/explorers/${blockchain}/blocks/${blockHeader.hash}`}
+                      href={`/explorers/${blockchain}/blocks/${block.hash}`}
                     >
                       {hash}
                     </NextLink>
                   </Table.Cell>
                   <Table.Cell>
-                    {new Date(blockHeader.time * 1000).toLocaleString()}
+                    {new Date(block.time * 1000).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
-                    {Array.isArray(blockStats.tx)
-                      ? blockStats.tx.length
-                      : blockStats.txs}
+                    {Array.isArray(block.tx)
+                      ? block.tx.length
+                      : block.txs}
                   </Table.Cell>
                   <Table.Cell>{size}</Table.Cell>
-                  <Table.Cell>{blockHeader.confirmations}</Table.Cell>
+                  <Table.Cell>{block.confirmations}</Table.Cell>
                   <Table.Cell>{movement}</Table.Cell>
                 </Table.Row>
               );
