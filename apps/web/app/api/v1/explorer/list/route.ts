@@ -40,7 +40,7 @@ export async function GET(): Promise<any> {
       });
       const redisRef = `rpc:${key}:getblockchaininfo`;
       redisClient.json.set(redisRef, "$", blockchainInfo);
-      redisClient.EXPIRE(redisRef, 60);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
     });
 
     return Response.json(results);

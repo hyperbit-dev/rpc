@@ -35,7 +35,7 @@ class BlockService {
       }
 
       redisClient.json.set(redisRef, "$", data);
-      redisClient.EXPIRE(redisRef, 60 * 5);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
 
       return data;
     } catch (err) {
@@ -65,7 +65,7 @@ class BlockService {
         throw new Error(data.message);
       }
       redisClient.json.set(redisRef, "$", data);
-      redisClient.EXPIRE(redisRef, 60 * 5);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
       return data;
     } catch (err) {
       throw new Error((err as Error).message);
@@ -84,7 +84,7 @@ class BlockService {
         throw new Error(data.message);
       }
       redisClient.json.set(redisRef, "$", data);
-      redisClient.EXPIRE(redisRef, 60 * 5);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
       return data;
     } catch (err) {
       throw new Error((err as Error).message);
@@ -134,7 +134,7 @@ class BlockService {
 
       const blocks = await Promise.all(promises);
       redisClient.json.set(redisRef, "$", blocks);
-      redisClient.EXPIRE(redisRef, 60 * 5);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
 
       return blocks;
     } catch (err) {

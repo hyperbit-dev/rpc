@@ -33,7 +33,7 @@ class ExplorerService {
         if (!response.error && response?.status !== 500) {
           blockchainInfo = response;
           redisClient.json.set(redisRef, "$", blockchainInfo);
-          redisClient.EXPIRE(redisRef, 60);
+          redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
           return response;
         } else {
           throw new Error(response.error);
@@ -54,7 +54,7 @@ class ExplorerService {
         if (!response.error && response?.status !== 500) {
           miningInfo = response;
           redisClient.json.set(redisRef, "$", miningInfo);
-          redisClient.EXPIRE(redisRef, 60 * 5);
+          redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
           return response;
         } else {
           throw new Error(response.error);
@@ -76,7 +76,7 @@ class ExplorerService {
         if (!response.error && response?.status !== 500) {
           chaintxstats = response;
           redisClient.json.set(redisRef, "$", chaintxstats);
-          redisClient.EXPIRE(redisRef, 60 * 5);
+          redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
           return {
             time: 0,
             txcount: 0,
@@ -104,7 +104,7 @@ class ExplorerService {
         if (!response.error && response?.status !== 500) {
           info = response;
           redisClient.json.set(redisRef, "$", info);
-          redisClient.EXPIRE(redisRef, 60 * 5);
+          redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
           return response;
         } else {
           throw new Error(response.error);
@@ -125,7 +125,7 @@ class ExplorerService {
         if (!response.error && response?.status !== 500) {
           mempoolinfo = response;
           redisClient.json.set(redisRef, "$", mempoolinfo);
-          redisClient.EXPIRE(redisRef, 60 * 5);
+          redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
           return response;
         } else {
           throw new Error(response.error);

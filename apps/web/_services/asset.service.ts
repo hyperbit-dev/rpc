@@ -38,7 +38,7 @@ class AssetService {
       }
 
       redisClient.json.set(redisRef, "$", data);
-      redisClient.EXPIRE(redisRef, 60 * 5);
+      redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
 
       return data;
     } catch (err) {
