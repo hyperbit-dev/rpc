@@ -8,8 +8,6 @@ import { NextLink } from "@/_components/NextLink";
 import { ClipboardButton } from "@/_components/ClipboardButton";
 import { useState } from "react";
 
-const COUNT = 25;
-
 export default function ExplorerBlocksClient({
   offset: initialOffset = "0",
   limit = "20",

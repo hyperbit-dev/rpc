@@ -17,7 +17,7 @@ export function TabsHeader({
   className?: string;
 }) {
   return (
-    <div className={clsx("flex items-center justify-between", className)}>
+    <div className={clsx("flex items-center justify-between text-sm", className)}>
       <Tabs.List aria-label="Block Details">
         {tabs
           .filter((x) => x !== undefined)

@@ -1,40 +1,31 @@
-import rpcClients from "@/_api/rpcClient";
 import { config } from "@/_lib/config";
-import { connect, disconnect, redisClient } from "@/_lib/redis";
+import AssetService from "@/_services/asset.service";
 import { NextRequest } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ asset: string }> },
-): Promise<any> {
-  const asset = (await params).asset;
-  const searchParams = req.nextUrl.searchParams;
-  const blockchain = searchParams.get("blockchain") as string;
-  const chain = config.chains[blockchain];
-  if (!chain.features.assetsEnabled) {
-    return Response.json({ message: "Not Implemented" }, { status: 501 });
-  }
-
-  // const body = [asset_name, onlytotal ?? false, count ?? 50000, start ?? 0];
-  const body = [asset.toUpperCase(), false, 50000, 0];
+export async function GET(request: NextRequest): Promise<any> {
   try {
-    await connect();
-    const redisRef = `rpc:${blockchain}:listaddressesbyasset:${asset.toUpperCase()}`;
-    const res = await redisClient.json.get(redisRef);
+    const searchParams = request.nextUrl.searchParams;
+    const blockchain = searchParams.get("blockchain") as string;
+    const asset_name = searchParams.get("asset") ?? "";
+    const start = Number(searchParams.get("start") ?? "0");
+    const count = Number(searchParams.get("count") ?? "25");
 
-    if (res && res?.status !== 500) {
-      return Response.json(res, { status: 200 });
+    if (!blockchain || !asset_name) {
+      return Response.json({ message: "Missing required params" }, { status: 400 });
     }
 
-    const data = await rpcClients[blockchain].request(
-      "listaddressesbyasset",
-      body,
-    );
-    if (data.status === 500) {
-      throw new Error(data?.message);
+    const chain = config.chains[blockchain];
+    if (!chain.features.assetsEnabled) {
+      return Response.json({ message: "Not Implemented" }, { status: 501 });
     }
-    redisClient.json.set(redisRef, "$", data);
-    redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
+
+    const data = await AssetService.listAddressesByAsset({
+      blockchain,
+      asset_name,
+      start,
+      count,
+    });
+
     return Response.json(data, { status: 200 });
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });
