@@ -77,6 +77,7 @@ class ExplorerService {
           chaintxstats = response;
           redisClient.json.set(redisRef, "$", chaintxstats);
           redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
+        } else {
           return {
             time: 0,
             txcount: 0,
@@ -85,8 +86,6 @@ class ExplorerService {
             window_interval: 0,
             txrate: 0,
           };
-        } else {
-          throw new Error(response.error);
         }
       }
       return chaintxstats;
