@@ -14,18 +14,26 @@ export async function GET(request: NextRequest): Promise<any> {
   try {
     await connect();
     const redisRef = `market:${blockchain}:charts`;
+    const redisRef1 = `market:${blockchain}:charts_ohlc`;
     const res = await redisClient.json.get(redisRef);
+    const res1 = await redisClient.json.get(redisRef1);
 
-    if (res && res?.status !== 500) {
-      return Response.json(res, { status: 200 });
+    if (res && res?.status !== 500 && res1 && res1?.status !== 500) {
+      return Response.json({ ...res, ohlc: res1 }, { status: 200 });
     }
 
     const data = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=30`,
+      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/market_chart?vs_currency=usd&days=30`
     ).then((res) => res.json());
     redisClient.json.set(redisRef, "$", data);
-    redisClient.EXPIRE(redisRef, 60 * 5 * 1000);
-    return Response.json(data, { status: 200 });
+    redisClient.EXPIRE(redisRef, 60 * 60 * 1000);
+
+    const dataOhlc = await fetch(
+      `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/ohlc?vs_currency=usd&days=30`
+    ).then((res) => res.json());
+    redisClient.json.set(redisRef1, "$", dataOhlc);
+    redisClient.EXPIRE(redisRef1, 60 * 60 * 1000);
+    return Response.json({ ...data, ohlc: dataOhlc }, { status: 200 });
   } catch (err) {
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }

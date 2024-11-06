@@ -1,6 +1,6 @@
 import rpcClients from "@/_api/rpcClient";
 import { config } from "@/_lib/config";
-import { connect, disconnect, redisClient } from "@/_lib/redis";
+import { connect, redisClient } from "@/_lib/redis";
 import { NextRequest } from "next/server";
 
 export async function GET(
