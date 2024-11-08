@@ -28,6 +28,7 @@
     "bignumber.js": "^9.1.2",
     "clsx": "^2.0.0",
     "cryptocurrency-icons": "^0.18.1",
+    "lightweight-charts": "^4.2.1",
     "next": "^15.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
