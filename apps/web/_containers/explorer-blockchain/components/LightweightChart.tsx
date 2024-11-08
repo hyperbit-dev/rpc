@@ -44,17 +44,20 @@ export function LightweightChart({
   }, [ohlc]);
 
   useEffect(() => {
+    // @ts-ignore
     const chart = createChart(chartContainerRef.current, {
       layout: {
         background: { type: ColorType.Solid, color: backgroundColor },
         textColor,
       },
+      // @ts-ignore
       width: chartContainerRef.current.clientWidth,
       height: 300,
     });
     chart.timeScale().fitContent();
 
     const handleResize = () => {
+      // @ts-ignore
       chart.applyOptions({ width: chartContainerRef.current.clientWidth });
     };
 
@@ -88,6 +91,6 @@ export function LightweightChart({
     areaTopColor,
     areaBottomColor,
   ]);
-
+  // @ts-ignore
   return <div ref={chartContainerRef} />;
 }
