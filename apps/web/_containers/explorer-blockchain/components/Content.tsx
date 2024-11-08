@@ -9,9 +9,9 @@ import {
   useGetMarketChartQuery,
 } from "~/_api/client";
 import clsx from "clsx";
-import { Chart } from "./Chart";
 import { BlocksTable } from "./BlocksTable";
 import Link from "next/link";
+import { LightweightChart } from "./LightweightChart";
 
 function humanReadableDifficulty(difficulty: number) {
   const units = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
@@ -241,8 +241,8 @@ export function Content({ blockchain }: { blockchain: string }) {
             ) : undefined}
           </div>
           <div>
-            {marketChart?.prices ? (
-              <Chart prices={marketChart.prices} avgPrice={avgPrice} />
+            {marketChart?.ohlc ? (
+              <LightweightChart marketChart={marketChart} />
             ) : undefined}
           </div>
         </>

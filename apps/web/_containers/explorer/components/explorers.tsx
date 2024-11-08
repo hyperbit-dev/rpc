@@ -57,7 +57,7 @@ export function Explorers() {
 
       <div className="pt-3">
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
             <Skeleton count={1} height={200} />
             <Skeleton count={1} height={200} />
             <Skeleton count={1} height={200} />
@@ -70,7 +70,7 @@ export function Explorers() {
         ) : (
           <>
             <TabsContent value="mainnet">
-              <div className="grid grid-cols-2 lg:grid-cols-4 ml-[1px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ml-[1px]">
                 {data.mainnet.map((explorer: any) => (
                   <Link
                     href={`/explorers/${explorer.network === "testnet" ? `t${explorer.unit.toLowerCase()}` : explorer.unit.toLowerCase()}`}
@@ -128,7 +128,7 @@ export function Explorers() {
             </TabsContent>
 
             <TabsContent value="testnet">
-              <div className="grid grid-cols-2 lg:grid-cols-4 ml-[1px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ml-[1px]">
                 {data.testnet.map((explorer: any) => (
                   <Link
                     href={`/explorers/${explorer.network === "testnet" ? `t${explorer.unit.toLowerCase()}` : explorer.unit.toLowerCase()}`}
