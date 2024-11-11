@@ -230,7 +230,7 @@ export function Content({ blockchain }: { blockchain: string }) {
       ) : !marketChart?.error ? (
         <>
           <div className="flex items-center justify-between">
-            <div>Price (30 days)</div>
+            <div>Market Chart</div>
             {getMarketChartQuery?.dataUpdatedAt ? (
               <div className="text-sm">
                 Last Update:{" "}

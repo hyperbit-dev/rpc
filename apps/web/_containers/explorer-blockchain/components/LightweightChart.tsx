@@ -28,9 +28,8 @@ export function LightweightChart({
       };
     });
     const data_ohlc = ohlc.map(([time, open, high, low, close]) => {
-      const date = new Date(time);
       return {
-        time: date.toISOString().split("T")[0],
+        time,
         open,
         high,
         low,
@@ -41,7 +40,7 @@ export function LightweightChart({
       prices: data_prices,
       ohlc: data_ohlc,
     };
-  }, [ohlc]);
+  }, [prices, ohlc]);
 
   useEffect(() => {
     // @ts-ignore
@@ -74,6 +73,7 @@ export function LightweightChart({
       },
     });
 
+    // @ts-ignore
     candlestickSeries.setData(data.ohlc);
 
     window.addEventListener("resize", handleResize);
