@@ -15,6 +15,17 @@ function getLastEntryPerDay(data: any[]) {
   return Object.values(dailyData);
 }
 
+/**
+ * convert to unix timestamp
+ */
+function getLastEntryPerTime(data: any[]) {
+  return data.map((entry: any) => {
+    const date = new Date(entry[0]);
+    const unixTimestamp = Math.floor(date.getTime() / 1000);
+    return [unixTimestamp, entry[1], entry[2], entry[3], entry[4]];
+  });
+}
+
 export async function GET(request: NextRequest): Promise<any> {
   const searchParams = request.nextUrl.searchParams;
   const blockchain = searchParams.get("blockchain");
@@ -48,12 +59,12 @@ export async function GET(request: NextRequest): Promise<any> {
 
     if (!res1 || res1?.status === 500) {
       res1 = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/ohlc?vs_currency=usd&days=30`
+        `https://api.coingecko.com/api/v3/coins/${chain.coinGeckoCoin}/ohlc?vs_currency=usd&days=1`
       ).then((res) => res.json());
       if (!res1.status && !res1.error) {
-        res1 = getLastEntryPerDay(res1);
+        res1 = getLastEntryPerTime(res1);
         redisClient.json.set(redisRef1, "$", res1);
-        redisClient.EXPIRE(redisRef1, 86400);
+        redisClient.EXPIRE(redisRef1, 3600);
       } else {
         res1 = [];
       }
