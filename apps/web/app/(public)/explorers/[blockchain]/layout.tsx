@@ -95,8 +95,7 @@ function Content({
         </Container>
       </div>
       <div className="py-4">{children}</div>
-      {/* @ts-ignore */}
-      <ToastContainer style={{ maxWidth: "200px", textAlign: "center" }} />
+      <ToastContainer position="top-right" closeOnClick theme="colored"/>
     </>
   );
 }

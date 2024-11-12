@@ -16,13 +16,13 @@ export function ClipboardButton({
 }: ClipboardButtonProps) {
   return (
     <button
+      {...props}
       type="button"
       className={clsx(
         "w-full text-center outline-none opacity-50 hover:opacity-100 active:opacity-100 focus:opacity-100",
-        className,
+        className
       )}
       onClick={() => copy(value)}
-      {...props}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
