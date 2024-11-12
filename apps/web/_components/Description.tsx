@@ -17,16 +17,17 @@ export function Description({
 }: DescriptionProps) {
   const canCopy =
     copy && (typeof value === "string" || typeof value === "number");
+  const clipboardValue = copyValue ? copyValue : canCopy ? value : "";
   return (
     <div
       className={clsx(
         "p-2.5 action:bg-brand-50 grid items-center",
-        copyValue || canCopy ? "grid-cols-[20px_auto]" : "grid-cols-[auto]",
+        copyValue || canCopy ? "grid-cols-[20px_auto]" : "grid-cols-[auto]"
       )}
     >
       {copyValue || canCopy ? (
         <ClipboardButton
-          value={copyValue ? copyValue : canCopy ? value : ""}
+          value={clipboardValue}
           className="-mt-1 -ml-1"
         />
       ) : undefined}

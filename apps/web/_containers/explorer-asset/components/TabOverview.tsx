@@ -23,10 +23,14 @@ export function TabOverview({ name, blockchain }: TabOverviewProps) {
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-3/5">
         <DescriptionList>
-          <Description name="Name" value={asset?.name ?? "-"} />
-          <Description name="Amount" value={asset?.amount ?? "-"} />
+          <Description
+            name="Name"
+            value={asset?.name ?? "-"}
+            copyValue={asset?.name}
+          />
+          <Description name="Total Supply" value={asset?.amount ?? "-"} />
           <Description name="Units" value={asset?.units ?? "-"} />
           <Description
             name="Reissuable"
@@ -34,10 +38,11 @@ export function TabOverview({ name, blockchain }: TabOverviewProps) {
           />
           <Description
             name="IPFS"
+            copyValue={asset.ipfs_hash}
             value={
-              asset.has_ipfs ? (
+              asset.ipfs_hash ? (
                 <a
-                  href={`https://ipfs.io/ipfs/${asset.ipfs_hash}`}
+                  href={`https://ipfs.chaintek.net/ipfs/${asset.ipfs_hash}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center group text-cerulean-500 hover:text-cerulean-700 md:justify-end"
@@ -60,7 +65,7 @@ export function TabOverview({ name, blockchain }: TabOverviewProps) {
           />
         </DescriptionList>
       </div>
-      <pre className="bg-gray-100 p-4 rounded-md w-full md:w-1/2 border border-gray-200">
+      <pre className="bg-gray-100 p-4 rounded-md w-full md:w-2/5 border border-gray-200 text-wrap">
         {JSON.stringify(asset, null, 2)}
       </pre>
     </div>
