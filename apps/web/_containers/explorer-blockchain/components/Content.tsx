@@ -97,12 +97,6 @@ export function Content({ blockchain }: { blockchain: string }) {
 
   const isLoading =
     getExplorerSummaryQuery.isLoading || getMarketChartQuery.isLoading;
-  const isError =
-    getExplorerSummaryQuery.isError ||
-    getMarketChartQuery.isError ||
-    !explorerSummary?.blockchainInfo ||
-    !explorerSummary?.miningInfo ||
-    !explorerSummary?.blockchainTxStats;
 
   return (
     <Container>
@@ -111,8 +105,6 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Network</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
               {network}{" "}
@@ -128,11 +120,9 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Last Block</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
-              {explorerSummary?.miningInfo.blocks}
+              {explorerSummary?.miningInfo?.blocks ?? "Unavailable"}
             </span>
           )}
         </div>
@@ -140,11 +130,13 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Difficulty</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
-              {humanReadableDifficulty(explorerSummary?.miningInfo.difficulty)}
+              {explorerSummary?.miningInfo?.difficulty
+                ? humanReadableDifficulty(
+                    explorerSummary?.miningInfo.difficulty
+                  )
+                : "Unavailable"}
             </span>
           )}
         </div>
@@ -152,14 +144,14 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Hashrate</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
           ) : (
             <span className="text-lg">
-              {humanReadableHashrate(
-                explorerSummary?.miningInfo.hashrate ??
-                  explorerSummary?.miningInfo.networkhashps
-              )}
+              {explorerSummary?.miningInfo
+                ? humanReadableHashrate(
+                    explorerSummary?.miningInfo.hashrate ??
+                      explorerSummary?.miningInfo.networkhashps
+                  )
+                : "Unavailable"}
             </span>
           )}
         </div>
@@ -167,8 +159,8 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Transaction Count</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
+          ) : !explorerSummary?.blockchainTxStats ? (
+            "Unavaiable"
           ) : (
             <span className="text-lg">
               {explorerSummary?.blockchainTxStats.txcount.toLocaleString()}
@@ -179,8 +171,8 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Transactions (30 days)</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
+          ) : !explorerSummary?.blockchainTxStats ? (
+            "Unavailable"
           ) : (
             <span className="text-lg">
               {explorerSummary?.blockchainTxStats.window_tx_count ?? "N/A"}
@@ -191,8 +183,8 @@ export function Content({ blockchain }: { blockchain: string }) {
           <div className="pb-1 text-sm">Transactions Per Day (30 days)</div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
+          ) : !explorerSummary?.blockchainTxStats ? (
+            "Unavailable"
           ) : (
             <span className="text-lg">
               {(
@@ -207,12 +199,12 @@ export function Content({ blockchain }: { blockchain: string }) {
         <div className="p-2">
           <div className="pb-1 text-sm">
             Price{" "}
-            {explorerSummary?.blockchainInfo.chain === "test" && "(Mainnet)"}
+            {explorerSummary?.blockchainInfo?.chain === "test" && "(Mainnet)"}
           </div>
           {isLoading ? (
             <Skeleton />
-          ) : isError ? (
-            <span className="text-lg">Unavailable</span>
+          ) : !latestPrice ? (
+            "Unavailable"
           ) : (
             <span
               className={clsx(

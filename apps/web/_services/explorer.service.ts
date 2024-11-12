@@ -6,11 +6,22 @@ class ExplorerService {
     try {
       await connect();
 
-      const blockchainInfo = await this.getBlockchainInfo(blockchain);
-      const miningInfo = await this.getMiningInfo(blockchain);
-      const blockchainTxStats = await this.getChainTxStats(blockchain);
-      const info = await this.getInfo(blockchain);
-      const mempoolInfo = await this.getMempoolInfo(blockchain);
+      let blockchainInfo, miningInfo, blockchainTxStats, info, mempoolInfo;
+      try {
+        blockchainInfo = await this.getBlockchainInfo(blockchain);
+      } catch {}
+      try {
+        miningInfo = await this.getMiningInfo(blockchain);
+      } catch {}
+      try {
+        blockchainTxStats = await this.getChainTxStats(blockchain);
+      } catch {}
+      try {
+        info = await this.getInfo(blockchain);
+      } catch {}
+      try {
+        mempoolInfo = await this.getMempoolInfo(blockchain);
+      } catch {}
       return {
         blockchainInfo,
         miningInfo,
