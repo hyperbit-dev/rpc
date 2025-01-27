@@ -7,7 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').index().primary()
       table.string('name').notNullable()
+      table.enu('network', ['mainnet', 'testnet', 'regtest']).notNullable()
       table.string('symbol').notNullable()
+      table.string('external_chain_id').notNullable()
       table.boolean('active').defaultTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')

@@ -2,7 +2,7 @@
 
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
-import { Alert, FormFeedback } from "@hyperbit-private/react";
+import { FormFeedback } from "@hyperbit-private/react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -56,7 +56,7 @@ export function LoginForm() {
         </FormGroup>
         {apiError?.message ? (
           <FormGroup>
-            <Alert variant="danger">{apiError.message}</Alert>
+            <div className="bg-red-500/10 text-sm p-2 rounded border border-red-200">{apiError.message}</div>
           </FormGroup>
         ) : undefined}
         <FormGroup>

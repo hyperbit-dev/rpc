@@ -8,13 +8,9 @@ export default class extends BaseSchema {
       table.uuid('id').index().primary()
       table.uuid('wallet_id').notNullable().references('id').inTable('wallets')
       table.uuid('user_id').notNullable().references('id').inTable('users')
-      table.uuid('role_id').notNullable().references('id').inTable('roles')
+      table.uuid('wallet_role_id').notNullable().references('id').inTable('wallet_roles')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-    })
-
-    this.schema.alterTable('wallet_user_roles', (table) => {
-      table.unique(['wallet_id', 'user_id', 'role_id'])
     })
   }
 

@@ -5,7 +5,7 @@ import mail from '@adonisjs/mail/services/main'
 import User from '#models/user'
 
 class EmailService {
-  public async sendEmail(user: User) {
+  public async sendVerificationEmail(user: User) {
     const token = uuidv4()
 
     await EmailVerification.create({
@@ -17,9 +17,9 @@ class EmailService {
     await mail.use('resend').send((message) => {
       message
         .to(user.email)
-        .from('no-reply@hyperbit.app')
+        .from('no-reply@mail.hyperbit.app')
         .subject('Verify your email address')
-        .htmlView('emails/verify', { user, verificationUrl })
+        .htmlView('emails/verify_email', { user, verificationUrl })
     })
   }
 
@@ -39,7 +39,7 @@ class EmailService {
     }
     const verifications = await EmailVerification.query().where('userId', user.id)
     if (!verifications) {
-      await this.sendEmail(user)
+      await this.sendVerificationEmail(user)
     }
   }
 }

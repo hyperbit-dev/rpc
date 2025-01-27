@@ -4,7 +4,7 @@ import { BaseModel, beforeCreate, belongsTo, column, hasMany } from '@adonisjs/l
 import Blockchain from './blockchain.js'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import WalletAddress from './wallet_address.js'
-import BlockchainNetwork from './blockchain_network.js'
+import WalletUser from './wallet_user.js'
 
 export default class Wallet extends BaseModel {
   static selfAssignPrimaryKey = true
@@ -22,10 +22,10 @@ export default class Wallet extends BaseModel {
   declare blockchainId: string
 
   @column()
-  declare networkId: string
+  declare userId: string
 
   @column()
-  declare userId: string
+  declare encryptionKey: string
 
   @column()
   declare favorite: boolean
@@ -55,11 +55,9 @@ export default class Wallet extends BaseModel {
   })
   declare blockchain: BelongsTo<typeof Blockchain>
 
-  @belongsTo(() => BlockchainNetwork, {
-    foreignKey: 'networkId',
-  })
-  declare network: BelongsTo<typeof BlockchainNetwork>
-
   @hasMany(() => WalletAddress)
   declare addresses: HasMany<typeof WalletAddress>
+
+  @hasMany(() => WalletUser)
+  declare users: HasMany<typeof WalletUser>
 }

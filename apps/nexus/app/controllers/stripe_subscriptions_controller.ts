@@ -6,6 +6,10 @@ import Stripe from 'stripe'
 export default class StripeSubscriptionsController {
   private stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
+  /**
+   * @swagger
+   *  x-hidden: true
+   */
   public async create({ request, auth }: HttpContext) {
     const user = await auth.authenticate()
     const organization = await Organization.query()

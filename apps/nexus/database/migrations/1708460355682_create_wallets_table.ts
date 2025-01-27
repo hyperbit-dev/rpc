@@ -9,9 +9,10 @@ export default class extends BaseSchema {
       table.string('external_id').unique()
       table.string('label')
       table.uuid('blockchain_id').notNullable().references('id').inTable('blockchains')
-      table.uuid('network_id').notNullable().references('id').inTable('blockchain_networks')
       table.uuid('user_id').notNullable().references('id').inTable('users')
       table.enu('type', ['hot', 'cold', 'custodial']).defaultTo('hot')
+      // server generated for browser encryption/decryption packages
+      table.string('encryption_key')
       table.boolean('favorite').defaultTo(false)
       table.timestamp('locked_at').nullable()
       table.timestamp('archived_at').nullable()

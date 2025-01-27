@@ -3,7 +3,7 @@ import { fetchNexus } from "@/utils/fetch-client";
 import { VerifyEmailRequest } from "../types";
 
 export function verifyEmailMutation({ token }: VerifyEmailRequest) {
-  return fetchNexus<void>(`/api/auth/verify/${token}`, {
+  return fetchNexus<void>(`/api/v1/auth/verify/${token}`, {
     method: "POST",
   });
 }

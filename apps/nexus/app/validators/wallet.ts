@@ -5,11 +5,15 @@ export const walletValidator = vine.compile(
     externalId: vine.string(),
     label: vine.string(),
     blockchainId: vine.string(),
-    networkId: vine.string(),
     favorite: vine.boolean().optional(),
     type: vine.enum(['hot', 'cold', 'custodial']).optional(),
     lockedAt: vine.date().optional(),
     archivedAt: vine.date().optional(),
+    addresses: vine.array(vine.object({
+      address: vine.string(),
+      label: vine.string().optional(),
+      path: vine.string().optional(),
+    })).optional(),
     // accounts: vine
     //   .record(
     //     vine.object({

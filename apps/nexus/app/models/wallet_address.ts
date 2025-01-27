@@ -1,8 +1,9 @@
-import { BaseModel, beforeCreate, belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, beforeCreate, belongsTo, column, hasMany, hasManyThrough } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, HasManyThrough } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
 import Wallet from './wallet.js'
+import WalletUser from './wallet_user.js'
 
 export default class WalletAddress extends BaseModel {
   static selfAssignPrimaryKey = true
@@ -12,7 +13,7 @@ export default class WalletAddress extends BaseModel {
 
   @column()
   declare address: string
-
+  
   @column()
   declare label?: string
 
@@ -37,4 +38,7 @@ export default class WalletAddress extends BaseModel {
     foreignKey: 'walletId',
   })
   declare wallet: BelongsTo<typeof Wallet>
+
+  @hasManyThrough([() => WalletUser, () => Wallet])
+  declare users: HasManyThrough<typeof WalletUser>
 }

@@ -1,15 +1,15 @@
-import { MainNet, TestNet, RegTest, SimNet } from "@hyperbitjs/chains";
+import { Network } from "@hyperbitjs/chains";
 import { Address, Language } from "@hyperbitjs/mnemonic";
 
 export type Options = {
   id?: string; // uuidv4
   externalId?: string; // database id
-  label: string;
   mnemonic?: string;
   passphrase?: string;
-  network?: MainNet | TestNet | RegTest | SimNet;
+  network: Network;
   language?: Language;
   database: string;
+  encryptionKey: string;
 };
 
 export type Account = {
@@ -31,3 +31,11 @@ export type AccountsJSON = Record<
     change: Record<string, AddressJSON>;
   }
 >;
+
+export type PouchDBWallet = {
+  _id: string;
+  rev: string;
+  externalId: string;
+  mnemonic: string;
+  accounts: AccountsJSON;
+}

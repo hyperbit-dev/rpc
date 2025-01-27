@@ -11,7 +11,6 @@ export default class WalletPolicy extends BasePolicy {
       .from('wallets')
       .where('user_id', '=', user.id)
       .where('blockchain_id', '=', blockchainId)
-    console.log('wallets', wallets)
     if (wallets.length >= WALLET_LIMIT) {
       return false
     }
