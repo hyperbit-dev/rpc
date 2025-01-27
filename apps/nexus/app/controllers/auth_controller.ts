@@ -7,6 +7,7 @@ import { registerValidator } from '#validators/auth'
 import { MessageBuilder } from '@adonisjs/core/helpers'
 import stringHelpers from '@adonisjs/core/helpers/string'
 import { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class AuthController {
   async login({ request, response }: HttpContext) {
@@ -46,28 +47,36 @@ export default class AuthController {
     try {
       await registerValidator.validate(credentials)
 
-      const user = await User.create({
-        email: credentials.email,
-        password: credentials.password,
-      })
-      const organization = await Organization.create({
-        name: credentials.organization,
-        ownerId: user.id,
-      })
-      await OrganizationUser.create({
-        userId: user.id,
-        organizationId: organization.id,
-      })
+      let user
+      await db.transaction(async (trx) => {
+        user = new User()
+        user.email = credentials.email
+        user.password = credentials.password
+        user.useTransaction(trx)
+        await user.save()
 
-      const token = await User.accessTokens.create(user, undefined, {
+        const organization = new Organization()
+        organization.name = credentials.organization
+        organization.ownerId = user.id
+        organization.useTransaction(trx)
+        await organization.save()
+
+        const organizationUser = new OrganizationUser()
+        organizationUser.userId = user.id
+        organizationUser.organizationId = organization.id
+        organizationUser.useTransaction(trx)
+        await organizationUser.save()
+      })
+      const token = await User.accessTokens.create(user!, undefined, {
         name: request.input('session_token'),
         expiresIn: '24 hours',
       })
 
-      await emailService.sendEmail(user)
+      await emailService.sendVerificationEmail(user!)
 
       return token
     } catch (error) {
+      console.log('error', error)
       return response.status(400).send({ message: 'Something went wrong' })
     }
   }
@@ -102,6 +111,21 @@ export default class AuthController {
     // remove from database
   }
 
+  public async sendVerificationEmail({ auth, response }: HttpContext) {
+    if (!auth.user) {
+      return response.unauthorized()
+    }
+    try {
+      const user = await User.findBy('id', auth.user.id)
+      if (!user?.emailVerified) {
+        await emailService.sendVerificationEmail(auth.user)
+        return response.send({ message: 'Verification email sent' })
+      }
+    } catch (error) {
+      return response.status(400).send({ message: 'Something went wrong' })
+    }
+  }
+
   public async verifyEmail({ request, response }: HttpContext) {
     try {
       const { token } = request.params()
@@ -126,7 +150,9 @@ export default class AuthController {
               password: user.token.token,
             })
           }
-          // TODO Send email verification and password setup
+          
+          await emailService.checkVerificationStatus(dbUser)
+
           const token = await User.accessTokens.create(dbUser, undefined, {
             name: request.input('session_token'),
             expiresIn: '24 hours',

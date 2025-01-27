@@ -19,59 +19,33 @@ const dbConfig = defineConfig({
         disableRollbacksInProduction: true,
       },
     },
-    ravencoin: {
+    idx_rvn: {
       client: 'mysql2',
       connection: {
-        host: env.get('INDEXER_RVN_DB_HOST'),
-        user: env.get('INDEXER_RVN_DB_USER'),
-        password: env.get('INDEXER_RVN_DB_PASSWORD'),
-        database: env.get('INDEXER_RVN_DB_NAME'),
+        host: env.get('DB_HOST'),
+        port: env.get('DB_PORT'),
+        user: env.get('DB_USER'),
+        password: env.get('DB_PASSWORD'),
+        database: env.get('IDX_RVN_DB_DATABASE'),
       },
       migrations: {
         naturalSort: true,
-        paths: ['database/migrations/ravencoin'],
+        paths: ['database/indexer'],
         disableRollbacksInProduction: true,
       },
     },
-    evrmore: {
+    idx_evr: {
       client: 'mysql2',
       connection: {
-        host: env.get('INDEXER_EVR_DB_HOST'),
-        user: env.get('INDEXER_EVR_DB_USER'),
-        password: env.get('INDEXER_EVR_DB_PASSWORD'),
-        database: env.get('INDEXER_EVR_DB_NAME'),
+        host: env.get('DB_HOST'),
+        port: env.get('DB_PORT'),
+        user: env.get('DB_USER'),
+        password: env.get('DB_PASSWORD'),
+        database: env.get('IDX_RVN_DB_DATABASE'),
       },
       migrations: {
         naturalSort: true,
-        paths: ['database/migrations/evrmore'],
-        disableRollbacksInProduction: true,
-      },
-    },
-    meowcoin: {
-      client: 'mysql2',
-      connection: {
-        host: env.get('INDEXER_MEWC_DB_HOST'),
-        user: env.get('INDEXER_MEWC_DB_USER'),
-        password: env.get('INDEXER_MEWC_DB_PASSWORD'),
-        database: env.get('INDEXER_MEWC_DB_NAME'),
-      },
-      migrations: {
-        naturalSort: true,
-        paths: ['database/migrations/meowcoin'],
-        disableRollbacksInProduction: true,
-      },
-    },
-    neoxa: {
-      client: 'mysql2',
-      connection: {
-        host: env.get('INDEXER_NEOX_DB_HOST'),
-        user: env.get('INDEXER_NEOX_DB_USER'),
-        password: env.get('INDEXER_NEOX_DB_PASSWORD'),
-        database: env.get('INDEXER_NEOX_DB_NAME'),
-      },
-      migrations: {
-        naturalSort: true,
-        paths: ['database/migrations/neoxa'],
+        paths: ['database/indexer'],
         disableRollbacksInProduction: true,
       },
     },

@@ -1,5 +1,6 @@
 import Wallet from '#models/wallet'
 import WalletAddress from '#models/wallet_address'
+import TransactionService from '#services/transaction.service'
 import type { HttpContext } from '@adonisjs/core/http'
 
 type Address = {
@@ -100,5 +101,59 @@ export default class AddressesController {
     )
 
     return addresses
+  }
+
+  async transactions({ auth, request, response }: HttpContext) {
+    if (!auth.user) {
+      return response.unauthorized()
+    }
+
+    const userId = auth.user.id
+    const walletId = request.qs().walletId
+
+    const wallet = await Wallet.query()
+      .preload('blockchain')
+      .preload('addresses')
+      .where('id', walletId)
+      .where('user_id', userId)
+      .first()
+
+    if (!wallet) {
+      return response.notFound()
+    }
+
+    const addrs = wallet.addresses.map((address) => address.address)
+    const transactions = await TransactionService.getAddressTransactions({
+      externalChainId: wallet.blockchain.externalChainId,
+      addresses: addrs,
+      count: 10,
+    })
+    return {
+      transactions,
+      addresses: addrs,
+    }
+  }
+
+  async getReceiveAddress({ auth, request, response }: HttpContext) {
+    if (!auth.user) {
+      return response.unauthorized()
+    }
+
+    const userId = auth.user.id
+    const walletId = request.qs().walletId
+
+    const address = await WalletAddress.query()
+      .whereHas('wallet', (walletQuery) => {
+        walletQuery.where('user_id', userId)
+      })
+      .where('wallet_id', walletId)
+      .orderBy('path', 'desc')
+      .first()
+
+    if (!address) {
+      return response.notFound()
+    }
+
+    return address
   }
 }

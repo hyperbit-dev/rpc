@@ -5,7 +5,6 @@ import Wallet from './wallet.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import WalletAddress from './wallet_address.js'
 import BlockchainNode from './blockchain_node.js'
-import BlockchainNetwork from './blockchain_network.js'
 
 export default class Blockchain extends BaseModel {
   static selfAssignPrimaryKey = true
@@ -17,9 +16,15 @@ export default class Blockchain extends BaseModel {
   declare name: string
 
   @column()
+  declare network: 'mainnet' | 'testnet' | 'regtest'
+
+  @column()
   declare symbol: string
 
   @column()
+  declare externalChainId: string
+
+  @column({ serialize: Boolean })
   declare active: boolean
 
   @column.dateTime({ autoCreate: true })
@@ -38,9 +43,6 @@ export default class Blockchain extends BaseModel {
 
   @hasMany(() => BlockchainNode)
   declare nodes: HasMany<typeof BlockchainNode>
-
-  @hasMany(() => BlockchainNetwork)
-  declare networks: HasMany<typeof BlockchainNetwork>
 
   @hasMany(() => WalletAddress)
   declare addresses: HasMany<typeof WalletAddress>

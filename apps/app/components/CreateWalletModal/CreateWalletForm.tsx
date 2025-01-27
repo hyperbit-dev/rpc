@@ -1,4 +1,4 @@
-import { chains, MainNet, TestNet } from "@hyperbitjs/chains";
+import { chains } from "@hyperbitjs/chains";
 import { Wallet } from "@hyperbit-private/wallet";
 import { useFormContext } from "react-hook-form";
 import {
@@ -47,11 +47,7 @@ export function CreateWalletForm() {
   }: CreateWalletSchema) {
     try {
       const blockchain = blockchains.find((x: any) => x.id === blockchainId);
-      const network = blockchain.networks.find(
-        (x: any) => x.name === networkName,
-      );
-
-      const walletNetwork = chains[blockchain.symbol][network.name];
+      const walletNetwork = chains[blockchain.symbol][blockchain.network];
       const wallet = new Wallet({
         database: "hyperbit",
       });
@@ -59,21 +55,36 @@ export function CreateWalletForm() {
         await wallet.init({
           label,
           passphrase,
-          // @ts-ignore
           network: walletNetwork,
         });
       } catch (error) {
         console.log("error", error);
       }
 
-      const res = await createWalletMutation.mutateAsync({
+      const newAddresses = await wallet.generateAddress({
+        index: 0,
+        count: 10,
+      });
+      const addresses = newAddresses?.reduce((acc: any, address: any) => {
+        acc.push({
+          address: address.external.address,
+          label: address.external.label,
+          path: address.external.path,
+        });
+        acc.push({
+          address: address.change.address,
+          label: address.change.label,
+          path: address.change.path,
+        });
+        return acc;
+      }, []);
+      await createWalletMutation.mutateAsync({
         externalId: wallet.id,
         label: wallet.label,
         blockchainId: blockchainId,
-        networkId: network.id,
+        addresses,
       });
 
-      console.log("res", res);
       form.reset();
       handleClose();
     } catch (error) {

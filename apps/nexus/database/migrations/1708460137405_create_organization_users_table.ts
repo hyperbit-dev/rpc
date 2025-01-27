@@ -6,11 +6,14 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').index().primary()
-      table.string('name').notNullable()
-      table.uuid('owner_id').notNullable().references('id').inTable('users')
-      table.string('stripe_customer_id')
+      table.uuid('organization_id').notNullable().references('id').inTable('organizations')
+      table.uuid('user_id').notNullable().references('id').inTable('users')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+    })
+
+    this.schema.alterTable('organization_users', (table) => {
+      table.unique(['organization_id', 'user_id'])
     })
   }
 

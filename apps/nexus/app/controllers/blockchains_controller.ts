@@ -6,31 +6,25 @@ import { blockchainSymbolValidator } from '#validators/blockchain'
 import { rpcCommandValidator } from '#validators/rpc'
 
 export default class BlockchainsController {
-  async getAll({ auth, response }: HttpContext) {
+  async index({ auth, request, response }: HttpContext) {
     if (!auth.user) {
       return response.unauthorized()
     }
 
+    const active = request.input('active', true)
     return Blockchain.query()
-      .where('active', true)
-      .preload('networks', (query) => {
-        query.where('active', true).select('id', 'name', 'chain_id')
-      })
-      .select('id', 'name', 'symbol')
+      .where('active', active)
+      .select('id', 'name', 'externalChainId', 'network', 'active', 'symbol')
   }
 
-  async getSingle({ auth, request, response }: HttpContext) {
+  async show({ auth, request, response }: HttpContext) {
     if (!auth.user) {
       return response.unauthorized()
     }
 
     return Blockchain.query()
       .where('id', request.param('id'))
-      .where('active', true)
-      .preload('networks', (query) => {
-        query.where('active', true).select('id', 'name', 'chain_id')
-      })
-      .select('id', 'name', 'symbol')
+      .select('id', 'name', 'externalChainId', 'active', 'symbol')
       .first()
   }
 

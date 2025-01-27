@@ -29,7 +29,8 @@
     "#database/*": "./database/*.js",
     "#start/*": "./start/*.js",
     "#tests/*": "./tests/*.js",
-    "#config/*": "./config/*.js"
+    "#config/*": "./config/*.js",
+    "#jobs/*": "./app/jobs/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
@@ -62,7 +63,9 @@
     "@adonisjs/session": "^7.4.2",
     "@hyperbitjs/chains": "^1.6.1",
     "@vinejs/vine": "^1.8.0",
+    "adonis-autoswagger": "^3.63.0",
     "better-sqlite3": "^9.4.1",
+    "edge.js": "^6.2.0",
     "luxon": "^3.4.4",
     "mjml": "^4.15.3",
     "mysql2": "^3.9.1",

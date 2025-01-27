@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').index().primary()
-      table.string('address').unique()
+      table.string('address').notNullable()
       table.string('label')
       table.string('path')
       table.uuid('wallet_id').notNullable().references('id').inTable('wallets')

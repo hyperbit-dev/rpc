@@ -31,6 +31,6 @@ export default class OrganizationUser extends BaseModel {
   @belongsTo(() => Organization)
   declare organization: BelongsTo<typeof Organization>
 
-  @hasOne(() => User)
-  declare user: HasOne<typeof User>
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 }

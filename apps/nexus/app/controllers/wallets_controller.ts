@@ -4,84 +4,137 @@ import rpcService from '#services/rpc.service'
 import type { HttpContext } from '@adonisjs/core/http'
 import WalletUser from '#models/wallet_user'
 import { createWallet } from '#abilities/main'
-import Role from '#models/role'
+import WalletRole from '#models/wallet_role'
 import WalletUserRole from '#models/wallet_user_role'
-import BlockchainNetwork from '#models/blockchain_network'
 import WalletAddress from '#models/wallet_address'
+import Blockchain from '#models/blockchain'
+import RedisService from '#services/redis_service'
 
 export default class WalletsController {
-  async listWallets({ auth, request, response }: HttpContext) {
+  /**
+   * @index
+   * @paramQuery page
+   * @paramQuery limit
+   * @paramQuery id
+   * @paramQuery name
+   * @paramQuery symbol
+   * @paramQuery externalChainId
+   * @paramQuery active
+   * @paramQuery createdAt
+   * @paramQuery updatedAt
+   * @responseBody 200 - <Wallet[]>
+   */
+  async index({ auth, request, response }: HttpContext) {
     if (!auth.user) {
       return response.unauthorized()
     }
 
-    const payload = request.only(['page', 'limit', 'balances', 'addresses'])
-    const page = payload.page ?? 1
-    const limit = payload.limit ?? 10
-    // const balances = payload.balances === 'true' ? true : false
+    const query = Wallet.query().preload('blockchain')
+    const queryParams = request.qs()
+    let page = 1
+    let limit = 10
 
-    const walletsQuery = Wallet.query().preload('blockchain').preload('network')
-
-    if (request.input('id')) {
-      walletsQuery.where('id', request.input('id'))
-    }
-    if (request.input('externalId')) {
-      walletsQuery.where('externalId', request.input('externalId'))
-    }
-    if (request.input('blockchainId')) {
-      walletsQuery.where('blockchainId', request.input('blockchainId'))
-    }
-    if (request.input('networkId')) {
-      walletsQuery.where('networkId', request.input('networkId'))
-    }
-    if (request.input('favorite')) {
-      walletsQuery.where('favorite', request.input('favorite'))
-    }
-    if (request.input('label')) {
-      walletsQuery.where('label', 'LIKE', `%${request.input('label')}%`)
-    }
-    if (request.input('created_at')) {
-      walletsQuery.where('created_at', request.input('created_at'))
-    }
-    if (request.input('updated_at')) {
-      walletsQuery.where('updated_at', request.input('updated_at'))
+    for (const [key, value] of Object.entries(queryParams)) {
+      switch (key) {
+        case 'page':
+          page = Math.max(Number(value) || 1, 1)
+          break
+        case 'limit':
+          limit = Math.min(Number(value) || 25, 25)
+          break
+        case 'label':
+          query.where(key, 'LIKE', `%${value}%`)
+          break
+        case 'id':
+        case 'blockchainId':
+        case 'externalId':
+        case 'createdAt':
+        case 'updatedAt':
+          query.where(key, value)
+          break
+        default:
+          break
+      }
     }
 
-    const wallets = await walletsQuery
+    const wallets = await query
+      .preload('addresses')
       .withCount('addresses', (query) => {
         query.as('totalAddresses')
       })
       .where('user_id', auth.user.id)
       .paginate(page, limit)
 
-    // try {
-    //   if (balances) {
-    //     const walletsWithBalances = wallets.map((wallet) => {
-    //       wallet.addresses.map(async (address: AddressWithBalance) => {
-    //         console.log('address', address)
-    //         const balance = await rpcService.request(wallet.blockchain.chainId, 'getbalance', [
-    //           address.address,
-    //         ])
-    //         console.log('balance', balance)
-    //         address.balance = balance as unknown as number
-    //         return address
-    //       })
-    //       // const balances = await Promise.allSettled(balanceRequests)
-    //       // wallets.rows = wallets.rows.map((wallet, index) => {
-    //       //   wallet.balance = balances[index].value
-    //       //   return wallet
-    //       // })
-    //       return wallet
-    //     })
-    //     return walletsWithBalances
-    //   }
-    // } catch (error) {
-    //   console.log('error', error)
-    // }
-    return wallets
+    const paginationJSON = wallets.serialize()
+
+    paginationJSON.data = await Promise.all(
+      paginationJSON.data.map(async (wallet, index) => {
+        let totalBalance
+        let totalAssets
+        let marketData
+
+        try {
+          marketData = await RedisService.getMarketData(wallet.blockchain.name.toLowerCase())
+        } catch (error) {
+          console.error('Error fetching market data:', error)
+        }
+
+        const addresses = wallets[index]?.addresses ?? []
+        if (addresses.length) {
+          try {
+            const addr = addresses.map((address: WalletAddress) => address.address)
+            totalBalance = await rpcService.request(
+              wallet.blockchain.externalChainId,
+              'getaddressbalance',
+              [{ addresses: addr }]
+            )
+          } catch (error) {
+            console.error('Error fetching balance:', error)
+          }
+          try {
+            const addr = addresses.map((address: WalletAddress) => address.address)
+            // Fetch asset balances
+            totalAssets = await (
+              await Promise.all(
+                addr.map(async (address) => {
+                  try {
+                    const res = await rpcService.request(
+                      wallet.blockchain.externalChainId,
+                      'listassetbalancesbyaddress',
+                      [address, true] // Fetching per address
+                    )
+                    return res
+                  } catch (error) {
+                    console.error(`Error fetching asset balances for address ${address}:`, error)
+                    return { result: 0 }
+                  }
+                })
+              )
+            ).reduce((acc, cur) => (acc += cur.result), 0)
+          } catch (error) {
+            console.error('Error fetching asset balances:', error)
+          }
+        }
+
+        return {
+          ...wallet,
+          addresses: undefined,
+          totalAddresses: wallets[index].$extras.totalAddresses,
+          totalBalance: totalBalance ?? null,
+          totalAssets: totalAssets ?? null,
+          marketData: marketData ?? null,
+        }
+      })
+    )
+
+    return paginationJSON
   }
 
-  async getWallet({ auth, request, response }: HttpContext) {
+  /**
+   * @show
+   * @responseBody 200 - <Wallet>.append("totalAddresses": "number").with(blockchain)
+   */
+  async show({ auth, request, response }: HttpContext) {
     if (!auth.user) {
       return response.unauthorized()
     }
@@ -94,7 +147,7 @@ export default class WalletsController {
         query.as('totalAddresses')
       })
       .preload('blockchain')
-      .preload('network')
+      .preload('addresses')
       .where('id', id)
       .andWhere('user_id', userId)
       .first()
@@ -103,7 +156,32 @@ export default class WalletsController {
       return response.notFound()
     }
 
-    return wallet
+    const w = wallet.serialize()
+
+    try {
+      const marketData = await RedisService.getMarketData([wallet.blockchain.name.toLowerCase()])
+      const marketChart = await RedisService.getMarketChart(wallet.blockchain.name.toLowerCase())
+      w.marketData = marketData ?? null
+      w.marketChart = marketChart ?? null
+    } catch (error) {
+      console.error('Error fetching market data:', error)
+    }
+
+    try {
+      const addr = wallet.addresses.map((address: WalletAddress) => address.address)
+      const totalBalance = await rpcService.request(
+        wallet.blockchain.externalChainId,
+        'getaddressbalance',
+        [{ addresses: addr }]
+      )
+      w.totalBalance = totalBalance ?? null
+    } catch (error) {
+      console.error('Error fetching balance:', error)
+    }
+
+    w.addresses = undefined
+
+    return w
   }
 
   async createWallet({ auth, bouncer, request, response }: HttpContext) {
@@ -111,38 +189,33 @@ export default class WalletsController {
       return response.unauthorized()
     }
 
-    let network
+    let blockchain
     const userId = auth.user.id
-    const payload = request.only(['externalId', 'blockchainId', 'networkId', 'label'])
+    const payload = request.only(['externalId', 'blockchainId', 'label', 'addresses'])
 
     try {
       await walletValidator.validate(payload)
 
-      network = await BlockchainNetwork.query()
-        .where('id', payload.networkId)
-        .preload('blockchain')
-        .first()
+      blockchain = await Blockchain.find(payload.blockchainId)
 
-      if (!network) {
+      if (!blockchain) {
         return response.badRequest('invalid chain id')
       }
 
-      if (network.active === false) {
+      if (blockchain.active === false) {
         return response.badRequest('blockchain is not available')
       }
 
       const wallets = (await Wallet.findManyBy({
-        blockchainId: network.blockchain.id,
-        networkId: network.id,
+        blockchainId: blockchain.id,
         userId,
       })) as Wallet[]
 
-      if (await bouncer.denies(createWallet, network.blockchain.id, wallets)) {
-        return response.forbidden('Wallet limit reached')
+      if (await bouncer.denies(createWallet, blockchain.id, wallets)) {
+        return response.forbidden({ message: 'Wallet limit reached' })
       }
     } catch (error) {
-      console.log('error', error)
-      return response.internalServerError('Internal server error')
+      return response.internalServerError({ message: 'Internal server error' })
     }
 
     const { externalId, label } = payload
@@ -150,20 +223,29 @@ export default class WalletsController {
     try {
       const wallet = new Wallet()
       wallet.externalId = externalId
-      wallet.blockchainId = network.blockchain.id
-      wallet.networkId = network.id
+      wallet.blockchainId = blockchain!.id
       wallet.label = label
       wallet.userId = userId
       await wallet.save()
+
+      if (Array.isArray(payload.addresses)) {
+        const addresses = payload.addresses.map((address) => {
+          return {
+            walletId: wallet.id,
+            ...address,
+          }
+        })
+        await WalletAddress.createMany(addresses)
+      }
 
       const walletUser = new WalletUser()
       walletUser.userId = userId
       walletUser.walletId = wallet.id
       await walletUser.save()
 
-      let role = await Role.findBy('name', 'admin')
+      let role = await WalletRole.findBy('name', 'admin')
       if (!role) {
-        role = new Role()
+        role = new WalletRole()
         role.name = 'admin'
         await role.save()
       }
@@ -171,7 +253,7 @@ export default class WalletsController {
       const walletUserRole = new WalletUserRole()
       walletUserRole.walletId = wallet.id
       walletUserRole.userId = userId
-      walletUserRole.roleId = role.id
+      walletUserRole.walletRoleId = role.id
       await walletUserRole.save()
 
       // if (accounts) {
@@ -207,6 +289,7 @@ export default class WalletsController {
 
       return wallet
     } catch (error) {
+      console.log('error', error)
       if (error.code === 'ER_DUP_ENTRY') {
         return response.status(400).send('Cannot create wallet with the same external id')
       }
@@ -223,16 +306,24 @@ export default class WalletsController {
     const id = request.param('id')
 
     try {
-      const addresses = await WalletAddress.query()
-        .preload('wallet', (query) => query.preload('network').where('user_id', userId))
-        .where('wallet_id', id)
+      const wallet = await Wallet.query()
+        .preload('blockchain')
+        .preload('addresses')
+        .where('id', id)
+        .whereHas('users', (query) => {
+          query.where('user_id', userId)
+        })
+        .first()
 
-      const balanceRequests = addresses.map(async (address) => {
-        return rpcService.request(address.wallet.network.chainId, 'getbalance', [address.address])
-      })
+      if (!wallet) {
+        return response.notFound()
+      }
 
-      const res = await Promise.allSettled(balanceRequests)
-      console.log('res', res)
+      const addresses = wallet.addresses.map((address) => address.address)
+
+      const res = await rpcService.request(wallet.blockchain.externalChainId, 'getaddressbalance', [
+        { addresses },
+      ])
       return res
     } catch (error) {
       return response.internalServerError('Internal server error')

@@ -3,7 +3,7 @@ import { RpcCommand } from '#validators/rpc'
 import { Client } from '@hyperbitjs/rpc'
 
 type RpcClient = Client & {
-  chainId: string
+  externalChainId: string
 }
 
 type ChainConfig = {
@@ -27,27 +27,33 @@ class RpcService {
         username: config.chains[blockchain].rpcuser,
         password: config.chains[blockchain].rpcpassword,
       }) as RpcClient
-      client.chainId = config.chains[blockchain].id
+      client.externalChainId = config.chains[blockchain].id
       this.clients.push(client)
     }
   }
 
-  request(chainId: string, command: RpcCommand, params: any[], _id?: string) {
-    const client = this.client(chainId)
+  async request(externalChainId: string, command: RpcCommand, params: any[], _id?: string) {
+    const client = this.client(externalChainId.toLowerCase())
     if (client) {
       // TODO : id
-      return client.request(command, params, {})
+      const res = await client.request(command, params, {})
+      if (res.code === 500 || res.status === 500) {
+        throw new Error(res.message)
+      }
+      return res
     }
   }
 
-  client(chainId: string) {
-    return this.clients.find((x: RpcClient) => x.chainId === chainId)
+  client(externalChainId: string) {
+    return this.clients.find(
+      (x: RpcClient) => x.externalChainId.toLowerCase() === externalChainId.toLowerCase()
+    )
   }
 
-  batch(chainId: string, requests: { command: string; params: any[] }[]) {
-    const client = this.client(chainId)
+  batch(externalChainId: string, requests: { command: string; params: any[] }[]) {
+    const client = this.client(externalChainId.toLowerCase())
     if (client) {
-      return Promise.allSettled(requests.map((x) => client.request(x.command, x.params)))
+      return Promise.all(requests.map((x) => client.request(x.command, x.params)))
     } else {
       return Promise.reject('Client not found')
     }

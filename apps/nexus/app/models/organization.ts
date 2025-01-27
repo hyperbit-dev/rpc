@@ -3,12 +3,11 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   BaseModel,
   beforeCreate,
-  hasManyThrough,
   hasMany,
   hasOne,
   column,
 } from '@adonisjs/lucid/orm'
-import type { HasOne, HasMany, HasManyThrough } from '@adonisjs/lucid/types/relations'
+import type { HasOne, HasMany } from '@adonisjs/lucid/types/relations'
 import OrganizationUser from '#models/organization_user'
 import StripeSubscription from '#models/stripe_subscription'
 import User from '#models/user'
@@ -45,6 +44,6 @@ export default class Organization extends BaseModel {
   @hasMany(() => StripeSubscription)
   declare subscriptions: HasMany<typeof StripeSubscription>
 
-  @hasManyThrough([() => User, () => OrganizationUser])
-  declare users: HasManyThrough<typeof User>
+  @hasMany(() => OrganizationUser)
+  declare users: HasMany<typeof OrganizationUser>
 }

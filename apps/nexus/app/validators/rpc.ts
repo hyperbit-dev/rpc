@@ -34,6 +34,9 @@ export enum RpcCommands {
   GET_NETWORK_HASH_PS = 'getnetworkhashps',
   ESTIMATE_SMART_FEE = 'estimatesmartfee',
   SUBMIT_BLOCK = 'submitblock',
+  LIST_ASSET_BALANCES_BY_ADDRESS = 'listassetbalancesbyaddress',
+  LIST_TRANSACTIONS = 'listtransactions',
+  GET_TRANSACTION = 'gettransaction',
 }
 
 export type RpcCommand = `${RpcCommands}`

@@ -8,7 +8,7 @@ type ListSessionsQueryKey = ReturnType<typeof keys.listSessionsQuery>;
 function listSessionsQuery({ queryKey }: { queryKey: ListSessionsQueryKey }) {
   const params = keys.listSessionsQueryParams(queryKey);
   const queryParams = new URLSearchParams(params).toString();
-  const url = `/api/auth/sessions?${queryParams}`;
+  const url = `/api/v1/auth/sessions?${queryParams}`;
   return fetchNexus<AuthToken[]>(url, {
     method: "GET",
   });

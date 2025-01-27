@@ -3,7 +3,7 @@ import { fetchNexus } from "@/utils/fetch-client";
 import { AuthResponse, RegisterRequest } from "../types";
 
 function registerMutation(body: RegisterRequest) {
-  return fetchNexus<AuthResponse>("/api/auth/register", {
+  return fetchNexus<AuthResponse>("/api/v1/auth/register", {
     method: "POST",
     body: JSON.stringify(body),
   });

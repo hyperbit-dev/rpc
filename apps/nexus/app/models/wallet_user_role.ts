@@ -15,7 +15,7 @@ export default class WalletUserRole extends BaseModel {
   declare walletId: string
 
   @column()
-  declare roleId: string
+  declare walletRoleId: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

@@ -42,13 +42,13 @@ export function Explorers() {
     <Tabs defaultValue="mainnet">
       <TabsList color="green">
         <TabsTrigger
-          className="py-0.5 px-1.5 m-0.5 border-b-2 border-transparent hover:bg-gray-100 data-[state=active]:border-brand-500"
+          className="py-0.5 px-1.5 m-0.5 border-b-2 border-transparent hover:bg-secondary-400 data-[state=active]:border-brand-500"
           value="mainnet"
         >
           Mainnet
         </TabsTrigger>
         <TabsTrigger
-          className="py-0.5 px-1.5 m-0.5 border-b-2 border-transparent hover:bg-gray-100 data-[state=active]:border-brand-500"
+          className="py-0.5 px-1.5 m-0.5 border-b-2 border-transparent hover:bg-secondary-400 data-[state=active]:border-brand-500"
           value="testnet"
         >
           Testnet
@@ -58,29 +58,29 @@ export function Explorers() {
       <div className="pt-3">
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
-            <Skeleton count={1} height={200} />
+            <Skeleton count={1} height={200} baseColor="#171a26"highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
           </div>
         ) : (
           <>
             <TabsContent value="mainnet">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ml-[1px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ml-[1px] gap-4">
                 {data.mainnet.map((explorer: any) => (
                   <Link
                     href={`/explorers/${explorer.network === "testnet" ? `t${explorer.unit.toLowerCase()}` : explorer.unit.toLowerCase()}`}
                     className={clsx(
-                      "border border-gray-300 -mt-[1px] -ml-[1px]",
-                      "p-4 hover:bg-gray-100 focus:bg-gray-100 active:bg-gray-100"
+                      "bg-secondary-600 border border-secondary-400 -mt-[1px] -ml-[1px] rounded-md",
+                      "p-4 hover:bg-secondary-400 focus:bg-secondary-400 active:bg-secondary-400"
                     )}
                     key={explorer.name}
                   >
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                       <div>
                         {explorer.name === "Ravencoin" ? (
                           <RvnSvg />
@@ -134,7 +134,7 @@ export function Explorers() {
                     href={`/explorers/${explorer.network === "testnet" ? `t${explorer.unit.toLowerCase()}` : explorer.unit.toLowerCase()}`}
                     className={clsx(
                       "border border-gray-300 -mt-[1px] -ml-[1px]",
-                      "p-4 hover:bg-gray-100 focus:bg-gray-100 active:bg-gray-100"
+                      "p-4 hover:bg-secondary-400 focus:bg-secondary-400 active:bg-secondary-400"
                     )}
                     key={explorer.name}
                   >
