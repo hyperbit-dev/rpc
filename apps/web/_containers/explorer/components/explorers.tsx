@@ -58,14 +58,14 @@ export function Explorers() {
       <div className="pt-3">
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-            <Skeleton count={1} height={200} baseColor="#171a26"highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
-            <Skeleton count={1} height={200} baseColor="#171a26" highlightColor="#1F1F1F"/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
+            <Skeleton count={1} height={200}/>
           </div>
         ) : (
           <>
@@ -75,8 +75,9 @@ export function Explorers() {
                   <Link
                     href={`/explorers/${explorer.network === "testnet" ? `t${explorer.unit.toLowerCase()}` : explorer.unit.toLowerCase()}`}
                     className={clsx(
-                      "bg-secondary-600 border border-secondary-400 -mt-[1px] -ml-[1px] rounded-md",
-                      "p-4 hover:bg-secondary-400 focus:bg-secondary-400 active:bg-secondary-400"
+                      "bg-secondary-50/50 border border-secondary-100 -mt-[1px] -ml-[1px] rounded-md",
+                      "p-4 hover:bg-brand-400 focus:bg-brand-400 active:bg-brand-400",
+                      'hover:text-white focus:text-white active:text-white'
                     )}
                     key={explorer.name}
                   >
