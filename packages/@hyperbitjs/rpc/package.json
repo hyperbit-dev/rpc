@@ -1,0 +1,76 @@
+{
+  "name": "@hyperbitjs/rpc",
+  "version": "0.3.1",
+  "description": "JSON-RPC client for blockchain node communication with retry, batching, and error handling",
+  "keywords": [
+    "json-rpc",
+    "rpc",
+    "blockchain",
+    "bitcoin",
+    "axios",
+    "client",
+    "remote-procedure-call"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "vite build",
+    "prebuild": "npm run clean",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix && prettier --write .",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "validate": "npm run type-check && npm run lint && npm run test",
+    "prepublishOnly": "npm run build && npm run validate"
+  },
+  "bugs": {
+    "url": "https://github.com/hyperbit-dev/rpc/issues"
+  },
+  "homepage": "https://github.com/hyperbit-dev/rpc",
+  "author": "Hyperbit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperbit-dev/rpc",
+    "directory": "packages/rpc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "axios": "^1.7.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "typescript": "~5.5.4",
+    "vite": "^6.4.1",
+    "vite-plugin-dts": "^5.0.1",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "minimatch": "^10.2.1"
+  }
+}

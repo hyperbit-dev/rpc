@@ -1,0 +1,27 @@
+# @hyperbitjs/rpc
+
+A typed JSON-RPC client for blockchain node integrations.
+
+## Primary Entry Points
+- `Client`
+- `createClient(config)`
+- `createClientFromConfig(config)`
+- `createClientFromEnv(env?)`
+
+## Error Model
+`request()` returns either:
+- Result data, or
+- `RpcError` with `type` in: `ValidationError | RpcError | ServerUnreachable`
+
+Use `Client.isRpcError(value)` as a type guard.
+
+## Typical Usage
+1. Create client with URL/auth.
+2. Call `request()` for safe union handling or `requestOrThrow()` for fail-fast style.
+3. Handle typed errors centrally.
+
+## Project Conventions
+- TypeScript strict mode.
+- Build: Vite library mode.
+- Tests: Vitest.
+- Lint: ESLint.
