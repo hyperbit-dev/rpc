@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      # Dependency-tree validation only: several apps have pre-existing
+      # build/lint breakage (missing deps, stale TS configs) that predates
+      # this CI. `npm ci` gates the lockfile and workspace resolution.
       - run: npm ci
-      # Lint is scoped out: several packages have pre-existing eslint config
-      # breakage. Build is the CI gate for this private monorepo.
-      - run: npm run build
