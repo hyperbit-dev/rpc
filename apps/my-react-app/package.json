@@ -30,7 +30,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.1",
     "react-loading-skeleton": "^3.5.0",
-    "recharts": "^2.15.0",
+    "recharts": "^3.10.1",
     "tailwind-variants": "^0.3.0",
     "uuid": "^11.0.3",
     "zod": "^3.24.1"
