@@ -56,7 +56,7 @@
     "@adonisjs/auth": "^9.2.4",
     "@adonisjs/core": "^6.17.0",
     "@adonisjs/cors": "^2.2.1",
-    "@adonisjs/lucid": "^21.6.0",
+    "@adonisjs/lucid": "^22.4.2",
     "@adonisjs/redis": "^9.1.0",
     "@hyperbitjs/chains": "^1.7.0",
     "@hyperbitjs/rpc": "^0.3.0",
