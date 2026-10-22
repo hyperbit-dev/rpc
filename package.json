@@ -24,7 +24,13 @@
   "overrides": {
     "follow-redirects": "^1.15.6",
     "lodash": "^4.17.19",
-    "lodash-es": "^4.17.20"
+    "lodash-es": "^4.17.20",
+    "cipher-base": "^1.0.7",
+    "sha.js": "^2.4.12",
+    "node-forge": "^1.4.0",
+    "pbkdf2": "^3.1.7",
+    "handlebars": "^4.7.10",
+    "axios": "^1.20.0"
   },
   "workspaces": [
     "apps/*",
