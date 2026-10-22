@@ -60,7 +60,7 @@
     "@adonisjs/lucid": "^20.1.0",
     "@adonisjs/mail": "^9.2.2",
     "@adonisjs/redis": "^9.1.0",
-    "@adonisjs/session": "^7.4.2",
+    "@adonisjs/session": "^8.3.0",
     "@hyperbitjs/chains": "^1.6.1",
     "@vinejs/vine": "^1.8.0",
     "adonis-autoswagger": "^3.63.0",
