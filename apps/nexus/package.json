@@ -40,7 +40,7 @@
     "@japa/api-client": "^2.0.2",
     "@japa/assert": "^2.1.0",
     "@japa/plugin-adonisjs": "^3.0.0",
-    "@japa/runner": "^3.1.1",
+    "@japa/runner": "^5.4.0",
     "@swc/core": "^1.7.28",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20.11.10",
