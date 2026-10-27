@@ -51,7 +51,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.14",
-    "glob": "^10.3.3",
+    "glob": "^13.0.6",
     "lodash.merge": "^4.6.2",
     "postcss": "^8.4.30",
     "postcss-import": "^15.1.0",
