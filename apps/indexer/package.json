@@ -60,7 +60,7 @@
     "@adonisjs/redis": "^9.1.0",
     "@hyperbitjs/chains": "^1.7.0",
     "@hyperbitjs/rpc": "^0.3.0",
-    "@vinejs/vine": "^3.0.0",
+    "@vinejs/vine": "^4.4.0",
     "adonisjs-jobs": "^0.0.21",
     "cron": "^3.4.0",
     "luxon": "^3.5.0",

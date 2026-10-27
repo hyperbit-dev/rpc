@@ -62,7 +62,7 @@
     "@adonisjs/redis": "^9.1.0",
     "@adonisjs/session": "^7.4.2",
     "@hyperbitjs/chains": "^1.6.1",
-    "@vinejs/vine": "^1.8.0",
+    "@vinejs/vine": "^4.4.0",
     "adonis-autoswagger": "^3.63.0",
     "better-sqlite3": "^9.4.1",
     "edge.js": "^6.2.0",
